@@ -20,7 +20,7 @@ int main()
     int Win = 0;
     string response = " ";
     int numResponse = 0;
-
+        
         mainGame.infoDisplay();
         cout << endl << "wanna change name?\n";
         cin >> response;
@@ -30,18 +30,18 @@ int main()
             cin >> response;
             mainGame.player->setName(response);
             system("CLS");
-        //    mainGame.infoDisplay();
+            mainGame.infoDisplay();
         }
-        //system("CLS");
-        // // Testing
-        //while(mainGame.player->getLevel() != 10) {
-        //    mainGame.infoDisplay();
-        //    cout << "New level! Select your new level." << endl;
-        //    cin >> numResponse;
-        //    system("CLS");
-        //    mainGame.player->setLevel(numResponse);
-        //    cout << "Here is your new stats!" << endl;
-        //}
+        system("cls");
+         // testing
+        while(mainGame.player->getLevel() != 10) {
+            mainGame.infoDisplay();
+            cout << "new level! select your new level." << endl;
+            cin >> numResponse;
+            system("cls");
+            mainGame.player->setLevel(numResponse);
+            cout << "here is your new stats!" << endl;
+        }
 
         delete mainGame.mainMap;
         mainGame.mainMap = NULL;

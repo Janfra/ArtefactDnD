@@ -10,8 +10,8 @@
 // Constructor
 Game::Game()
 {
-    Map * mainMap = new Map();
-    Player * player = new Player();
+    mainMap = new Map();
+    player = new Player();
 }
 
 // Destructor

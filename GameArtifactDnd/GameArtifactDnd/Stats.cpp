@@ -1,7 +1,7 @@
 #include "Stats.h"
 
 Stats::Stats() {
-    name = "My Dear Vitamin C";
+    name = "Test";
     level = 0;
     STR = 3;
     DEX = 3;

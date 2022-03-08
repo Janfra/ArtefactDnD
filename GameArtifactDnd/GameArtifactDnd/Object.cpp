@@ -6,9 +6,9 @@ using namespace std;
 
 Object::Object() {
     name = "Unknown";
-    addDMG = 0;
-    addRange = 0;
-    durability = 0;
+    addDMG = 1;
+    addRange = 1;
+    durability = 1;
     typeOfAttack = "No Type";
     consumable = false;
 }
@@ -44,7 +44,6 @@ void Object::setDMG(int setDMG) {
 
 int Object::getDMG() {
     if (addDMG > 99) {
-        //cout << "This weapon is too strong!!" << endl;
         name = "Kirito Sword";
         addRange = 2;
     }
@@ -112,9 +111,9 @@ string Object::displayObjLine(short a)
 {
     string rv[5];
     rv[0] = "Name: " + getName();
-    rv[1] = "Damage: " + getDMG();
-    rv[2] = "Durability: " + getDurability();
-    rv[3] = "Range: " + getRange();
+    rv[1] = "Damage: " + to_string(getDMG());
+    rv[2] = "Durability: " + to_string(getDurability());
+    rv[3] = "Range: " + to_string(getRange());
     rv[4] = "Type: " + getTypeOfAttack();
 
     return rv[a];
