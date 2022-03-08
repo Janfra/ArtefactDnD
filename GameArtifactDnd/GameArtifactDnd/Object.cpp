@@ -32,11 +32,9 @@ string Object::getName() {
 void Object::setDMG(int setDMG) {
 
     if (setDMG < 1) {
-        /*cout << endl << "I think, in my humble opinion, that a mistake was made. There is no way a weapon is this useless. I'll make it usable, so '1'." << endl << endl;*/
         addDMG = 1;
     }
     else if (setDMG > 100){
-        //cout << endl << "You overdoing it now. I'll set it at '100'." << endl << endl;
         addDMG = 100;
     }
     else {

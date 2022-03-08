@@ -14,7 +14,7 @@ Player::Player()
     items[1].setDMG(10);
     items[1].setConsumable(true);
     
-    items[2].setName("Seanco");
+    items[2].setName("Stack");
 } 
 
 bool Player::questionYesOrNo(string response) {
@@ -97,39 +97,6 @@ short Player::getEXP()
 
 short Player::getLevel()
 {
-    // Temporal level getter
-    /*switch (EXP) {
-    case 10:
-        return 2;
-        break;
-    case 20:
-        return 3;
-        break;
-    case 30:
-        return 4;
-        break;
-    case 40:
-        return 5;
-        break;
-    case 50:
-        return 6;
-        break;
-    case 60:
-        return 7;
-        break;
-    case 70:
-        return 8;
-        break;
-    case 80:
-        return 9;
-        break;
-    case 90:
-        return 10;
-        break;
-    default: 
-        return 1;
-        break;
-    }*/
     return level;
 }
 
@@ -147,6 +114,17 @@ short Player::getNeededEXP()
     return neededEXP[arrayNumber];
 }
 
+// Used for testing purposes 
+// Update: Decided to use it inside the "level up" situation in setEXP. Decided to do this to avoid going over the max lvl once you get to the max amount of required EXP to lvl up.
+void Player::setLevel(short newLVL)
+{
+    if (newLVL > TOTAL_LEVELS) {
+        level = TOTAL_LEVELS;
+    }
+    else {
+        level = newLVL;
+    }
+}
 
 void Player::setEXP(short gainedEXP)
 {
@@ -154,6 +132,7 @@ void Player::setEXP(short gainedEXP)
 
     if (EXP >= getNeededEXP()) {
         level++;
+        setLevel(level);
         currentHP = getTotalHP();
     }
 
@@ -166,17 +145,4 @@ void Player::setEXP(short gainedEXP)
     //        currentHP = getTotalHP();
     //    }
     //}
-}
-
-// Used for testing purposes 
-void Player::setLevel(short newLVL)
-{
-    if (newLVL > TOTAL_LEVELS) {
-        level = TOTAL_LEVELS;
-        currentHP = getTotalHP();
-    }
-    else {
-        level = newLVL;
-        currentHP = getTotalHP();
-    }
 }
