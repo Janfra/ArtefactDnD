@@ -10,12 +10,19 @@ Player::Player()
     // Had to add this variable to the player constructor for it to display the right amount of HP at level 1. 
     currentHP = (totalHP + level + CON);
 
+    items = new Object[3];
+
     items[1].setName("Vitamins");
     items[1].setDMG(10);
     items[1].setConsumable(true);
     
     items[2].setName("Stack");
 } 
+
+Player::~Player() {
+    delete [] items;
+    items = NULL;
+}
 
 bool Player::questionYesOrNo(string response) {
     bool rv;

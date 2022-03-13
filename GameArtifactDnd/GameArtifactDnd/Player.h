@@ -8,6 +8,7 @@ class Player :
 {
 public:
     Player();
+    ~Player();
     // Will make functions used exclusively by the player part of its class for now
     
     // Used to reply to questions made to the player, only accepts Yes/y, any other response is false. May change it in the future.
@@ -25,7 +26,7 @@ public:
     void setLevel(short newLVL);
 
     // Player Has-A object
-    Object items[3];
+    Object * items;
 
 protected:
     //Added a couple of player specific stats

@@ -17,6 +17,8 @@ Game::Game()
 // Destructor
 Game::~Game()
 {
+    delete[] player->items;
+    player->items = NULL;
     delete mainMap;
     mainMap = NULL;
     delete player;
@@ -26,13 +28,37 @@ Game::~Game()
 // Trying to make a start screen with a timer to display the game title + a recommendation for full screen. 
 void Game::gameStart()
 {
-       bool timer = false;
-       while (timer == true) {
-           cout << endl << endl << endl << "Welcome to Goblin Adventure!";
-           // The sleep not working?
-           this_thread::sleep_for(chrono::seconds(10));
-           timer = true;
-       }
+       //bool timer = false;
+       //while (timer == true) {
+       //    cout << endl << endl << endl << "Welcome to Goblin Adventure!";
+       //    // The sleep not working?
+       //    this_thread::sleep_for(chrono::seconds(10));
+       //    timer = true;
+       //}
+    string response;
+    int numResponse;
+
+    infoDisplay();
+    cout << endl << "wanna change name?\n";
+    cin >> response;
+    if (player->questionYesOrNo(response) == true) {
+        system("CLS");
+        cout << "Write your new name..." << endl;
+        cin >> response;
+        player->setName(response);
+        system("CLS");
+        infoDisplay();
+    }
+    system("cls");
+    // testing
+    while (player->getLevel() != 10) {
+        infoDisplay();
+        cout << "new level! select your new level." << endl;
+        cin >> numResponse;
+        system("cls");
+        player->setLevel(numResponse);
+        cout << "here is your new stats!" << endl;
+    }
 }
 
 // Displays the top line of the game that gives the information needed by the player. This does not include future dialogues. It still needs items/inventory added on the right side

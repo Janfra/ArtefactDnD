@@ -17,7 +17,7 @@ class Game
 public:
     Game();
     ~Game();
-    // Test for the start screen
+    // Test for the start screen, update: Now to test
     void gameStart();
 
     void infoDisplay();

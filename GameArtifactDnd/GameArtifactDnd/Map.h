@@ -1,7 +1,7 @@
 // Minimun y_size of the map has to be 16 until I add a way to automatically force it. Otherwise the stats won't show.
 
 #define x_Size 16 
-#define y_Size 16
+#define y_Size 20
 #include <iostream>
 #include <string>
 using namespace std;
@@ -10,10 +10,8 @@ class Map {
 public:
     Map();
 
-
     // Created a getGrid function to be able to display the map grid on the displayInfo for the Game Class
     string getGrid(short x, short y);
-
 
     // Emptyspace is no longer needed and even in the case of going back, now I have been using setw and setfill instead of emtpySpace as it was needed to align objects properly in
     // displayInfo function
