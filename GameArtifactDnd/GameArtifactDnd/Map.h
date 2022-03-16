@@ -8,10 +8,20 @@ using namespace std;
 
 class Map {
 public:
+ #pragma region Constructor & Destructor
+
     Map();
+
+#pragma endregion
+
+ #pragma region Setters & Getters
 
     // Created a getGrid function to be able to display the map grid on the displayInfo for the Game Class
     string getGrid(short x, short y);
+
+#pragma endregion
+
+ #pragma region Outdated
 
     // Emptyspace is no longer needed and even in the case of going back, now I have been using setw and setfill instead of emtpySpace as it was needed to align objects properly in
     // displayInfo function
@@ -26,12 +36,15 @@ public:
     //void setXSize(int size);
     //int getXSize();
     //int getYSize();
-private:
-
-    string grid[x_Size][y_Size];
 
     // Unnecessary variables, outdated
     // int emptySpace;
     // int ySize;
     // int xSize;
+
+#pragma endregion
+
+private:
+
+    string grid[x_Size][y_Size];
 };

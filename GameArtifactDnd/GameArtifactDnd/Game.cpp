@@ -1,11 +1,6 @@
-        //if (player == nullptr) {
-        //    // handle null case
-        //    
-        //}
-        //else {
-        //    // handle case when there is another node
-        //}
 #include "Game.h"
+
+ #pragma region Constructor & Destructor
 
 // Constructor
 Game::Game()
@@ -25,29 +20,51 @@ Game::~Game()
     player = NULL;
 }
 
-// Trying to make a start screen with a timer to display the game title + a recommendation for full screen. 
+#pragma endregion
+
+ #pragma region Game Functions
+
+bool Game::questionYesOrNo(string question) {
+    bool rv = NULL;
+    string answer;
+
+    cout << endl << question << endl;
+
+    while (rv == NULL) {
+        cin >> answer;
+        if (answer == "Yes" || answer == "yes" || answer == "y" || answer == "Y") {
+            rv = true;
+            return rv;
+        }
+        else if (answer == "No" || answer == "no" || answer == "n" || answer == "N") {
+            rv = false;
+            return rv;
+        }
+        else {
+            system("CLS");
+            infoDisplay();
+            cout << endl << "Invalid response! It has to be 'Yes' or 'No'!" << endl << question << endl;
+        }
+    }
+    return rv;
+}
+
+// Trying to make a start screen with a timer to display the game title + a recommendation for full screen. // UPDATE: Now is the function running the game
 void Game::gameStart()
 {
-       //bool timer = false;
-       //while (timer == true) {
-       //    cout << endl << endl << endl << "Welcome to Goblin Adventure!";
-       //    // The sleep not working?
-       //    this_thread::sleep_for(chrono::seconds(10));
-       //    timer = true;
-       //}
-    string response;
     int numResponse;
 
+    /// <summary>
+    /// Changing this function to be updated with the new changes on the functions 
+    /// </summary>
     infoDisplay();
-    cout << endl << "wanna change name?\n";
-    cin >> response;
-    if (player->questionYesOrNo(response) == true) {
+    if (questionYesOrNo("do you wanna change name?") == true) {
         system("CLS");
         cout << "Write your new name..." << endl;
-        cin >> response;
-        player->setName(response);
-        system("CLS");
-        infoDisplay();
+        //player->setName();
+        //system("CLS");
+        //infoDisplay();
+        // cin >> numResponse;
     }
     system("cls");
     // testing
@@ -55,7 +72,7 @@ void Game::gameStart()
         infoDisplay();
         cout << "new level! select your new level." << endl;
         cin >> numResponse;
-        system("cls");
+        system("CLS");
         player->setLevel(numResponse);
         cout << "here is your new stats!" << endl;
     }
@@ -70,12 +87,12 @@ void Game::infoDisplay()
         switch (y) {
         case 0:
             cout << setfill('-') << "-";
-                break;
+            break;
         case 1:
             cout << setfill(' ') << "|";
-                break;
+            break;
         case 2:
-            cout << player[0].displayLine(0); 
+            cout << player[0].displayLine(0);
             break;
         case 3:
         case 6:
@@ -167,3 +184,28 @@ void Game::infoDisplay()
         cout << endl;
     }
 }
+
+#pragma endregion
+
+ #pragma region Outdated
+
+    /// In case of a nullptr value, to avoid crashing errors ///
+    //  if (player == nullptr) {
+    //     handle null case
+    //  }
+    //  else {
+    //     handle case when there is another node
+    //  }
+
+
+    /// Tried to do a starting screen that runs for a few seconds ///
+    //
+    //  bool timer = false;
+    //  while (timer == true) {
+    //    cout << endl << endl << endl << "Welcome to Goblin Adventure!";
+    //    // The sleep not working?
+    //    this_thread::sleep_for(chrono::seconds(10));
+    //    timer = true;
+    //}
+
+#pragma endregion

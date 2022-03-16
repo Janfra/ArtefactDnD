@@ -1,5 +1,7 @@
 #include "Stats.h"
 
+ #pragma region Constructor & Destructor
+
 Stats::Stats() {
     name = "Test";
     level = 0;
@@ -21,31 +23,55 @@ Stats::Stats() {
     DODGE = 1 + (DEX / 2) + 0.5;
 }
 
-// Changed old statSheet to a version that doesn't need to put inside the parameter the class but runs directly with the object.
-// Old parameter: string statSheet(Player textStats), it would run it instead with for example: "\nCHA: " + to_string(textStats.Stats.CHA)#
+#pragma endregion
 
-// Displays stats sheet
-string Stats::statSheet() {
-    // To make it returnable with the short variables I transformed them into strings
-    string rv;
-
-    rv = "--------------------------------------------------------------------\n\n" +
-        name + " Stats" +
-        "\n\nLevel: " + to_string(level) +
-        "\n\nHP: " + to_string(getTotalHP()) + " / " + to_string(getCurrentHP()) +
-        "\n\nSTR: " + to_string(getSTR()) +
-        "\nDEX: " + to_string(getDEX()) +
-        "\nCON: " + to_string(getCON()) +
-        "\nCHA: " + to_string(getCHA()) +
-        "\nINT: " + to_string(getINT()) +
-        "\nDDG: " + to_string(getDODGE()) +
-        "\n\n--------------------------------------------------------------------\n\n";
-
-    return rv;
-}
-
+ #pragma region Setters & Getters
 // Had to add new setters and getters for the new protected variables. Made them here so that this functions are accesible to all childs. Didnt do some of the setters because they are 
 // directly dependant to other components. 
+
+// SETTERS // 
+void Stats::setName(string newName)
+{
+    name = newName;
+}
+
+void Stats::setSTR(short newSTR)
+{
+    STR = newSTR;
+}
+
+void Stats::setDEX(short newDEX)
+{
+    DEX = newDEX;
+}
+
+void Stats::setCON(short newCON)
+{
+    CON = newCON;
+}
+
+void Stats::setCHA(short newCHA)
+{
+    CHA = newCHA;
+}
+
+void Stats::setINT(short newINT)
+{
+    INT = newINT;
+}
+
+void Stats::setTotalHP(short newTotalHP)
+{
+    totalHP = newTotalHP;
+}
+
+void Stats::setCurrentHP(short newCurrentHP)
+{
+    currentHP = newCurrentHP;
+}
+
+// GETTERS //
+
 string Stats::getName()
 {
     return name;
@@ -99,42 +125,31 @@ short Stats::getDODGE()
     return (DODGE + level);
 }
 
-void Stats::setName(string newName)
-{
-    name = newName;
+#pragma endregion
+
+ #pragma region Outdated
+
+// Changed old statSheet to a version that doesn't need to put inside the parameter the class but runs directly with the object.
+// Old parameter: string statSheet(Player textStats), it would run it instead with for example: "\nCHA: " + to_string(textStats.Stats.CHA)#
+
+// Displays stats sheet
+string Stats::statSheet() {
+    // To make it returnable with the short variables I transformed them into strings
+    string rv;
+
+    rv = "--------------------------------------------------------------------\n\n" +
+        name + " Stats" +
+        "\n\nLevel: " + to_string(level) +
+        "\n\nHP: " + to_string(getTotalHP()) + " / " + to_string(getCurrentHP()) +
+        "\n\nSTR: " + to_string(getSTR()) +
+        "\nDEX: " + to_string(getDEX()) +
+        "\nCON: " + to_string(getCON()) +
+        "\nCHA: " + to_string(getCHA()) +
+        "\nINT: " + to_string(getINT()) +
+        "\nDDG: " + to_string(getDODGE()) +
+        "\n\n--------------------------------------------------------------------\n\n";
+
+    return rv;
 }
 
-void Stats::setSTR(short newSTR)
-{
-    STR = newSTR;
-}
-
-void Stats::setDEX(short newDEX)
-{
-    DEX = newDEX;
-}
-
-void Stats::setCON(short newCON)
-{
-    CON = newCON;
-}
-
-void Stats::setCHA(short newCHA)
-{
-    CHA = newCHA;
-}
-
-void Stats::setINT(short newINT)
-{
-    INT = newINT;
-}
-
-void Stats::setTotalHP(short newTotalHP)
-{
-    totalHP = newTotalHP;
-}
-
-void Stats::setCurrentHP(short newCurrentHP)
-{
-    currentHP = newCurrentHP;
-}
+#pragma endregion

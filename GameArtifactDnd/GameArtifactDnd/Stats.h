@@ -9,8 +9,27 @@ class Stats
 {
     // Added them into separated types, before they were all public
 public:
+ #pragma region Constructor & Destructor
+
     Stats();
-    string statSheet();
+    // No destructor for this one?
+
+#pragma endregion
+
+ #pragma region Setters & Getters  
+    // SETTERS //
+
+    void setName(string newName);
+    void setSTR(short newSTR);
+    void setDEX(short newDEX);
+    void setCON(short newCON);
+    void setCHA(short newCHA);
+    void setINT(short newINT);
+    void setTotalHP(short newTotalHP);
+    void setCurrentHP(short newCurrentHP);
+
+    // GETTERS // 
+
     string getName();
     short getSTR();
     short getDEX();
@@ -22,14 +41,14 @@ public:
     short getPDMG();
     short getDODGE();
 
-    void setName(string newName);
-    void setSTR(short newSTR);
-    void setDEX(short newDEX);
-    void setCON(short newCON);
-    void setCHA(short newCHA);
-    void setINT(short newINT);
-    void setTotalHP(short newTotalHP);
-    void setCurrentHP(short newCurrentHP);
+#pragma endregion
+
+ #pragma region Outdated
+
+    string statSheet();
+
+#pragma endregion
+
 
     // Made it protected so that it can be accessed by the classes that will inherit it. 
 protected:
