@@ -4,6 +4,7 @@
 
 Map::Map()
 {
+    totalRooms = 3;
     for (int y = 0; y < y_Size; y++) {
         for (int x = 0; x < x_Size; x++) {
             // Top map border
@@ -15,16 +16,34 @@ Map::Map()
                 grid[x][y] = "~~~";
             }
             else {
-                grid[x][y] = " - ";
+                grid[x][y] = "   ";
             }
         }
     }
+}
 
+Map::~Map()
+{  
+    /*delete[] rooms;
+    rooms = NULL;*/
 }
 
 #pragma endregion
 
  #pragma region Getters & Setters
+
+void Map::setGrid(int x, int y)
+{
+    int old = x;
+    for (int h = 0; h < Height_SIZE; h++) {
+        for (int w = 0; w < Width_SIZE; w++) {
+            grid[x][y] = rooms[0].getRoom(w, h);
+            x++;
+        }
+        x = old;
+        y++;
+    }
+}
 
 // getGrid function was created to be able to output the grid map on displayFunction. It accepts two parameters required to return the correct array variable.
 // I haven't tested it, but it should also block the player from going under or over the limits. After writing that... Actually, probably not.
@@ -45,7 +64,30 @@ string Map::getGrid(short x, short y)
     return grid[x][y];
 }
 
+short Map::getTotalRooms()
+{
+    return totalRooms;
+}
+
 #pragma endregion
+
+ #pragma region Map Functions
+
+void Map::fillMap()
+{
+    int x = (x_Size / 2 - (Width_SIZE / 2));
+    int y = (y_Size - (Height_SIZE + 1));
+    for (int i = 4; i < y_Size; i + Height_SIZE) {
+        if (y >= y_Size || y <= (y_Size - y_Size)) {
+            break;
+        }
+        setGrid(x, y);
+        y -= i;
+    }
+}
+
+#pragma endregion
+
 
  #pragma region Outdated
 

@@ -13,8 +13,17 @@ using namespace std;
 int main()
 {
     Game mainGame;
-        
+    /*int x = (x_Size / 2 - (Width_SIZE / 2));
+    int y = (y_Size - (Height_SIZE + 1));*/
+
+    //mainGame.mainMap->setGrid((x_Size / 2 - (Width_SIZE / 2)), (y_Size - (Height_SIZE + 1))); 
+    //mainGame.mainMap->setGrid((x), (y - 5));
+    //mainGame.mainMap->setGrid((x), (y - 10));
+    
+    mainGame.mainMap->fillMap();
     mainGame.gameStart();
+
+    /*mainGame.gameStart();*/
 
         delete mainGame.mainMap;
         mainGame.mainMap = NULL;

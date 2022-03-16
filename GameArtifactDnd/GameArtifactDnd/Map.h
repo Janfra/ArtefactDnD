@@ -1,9 +1,10 @@
 // Minimun y_size of the map has to be 16 until I add a way to automatically force it. Otherwise the stats won't show.
 
-#define x_Size 16 
-#define y_Size 20
+#define x_Size 12 
+#define y_Size 18
 #include <iostream>
 #include <string>
+#include "Room.h"
 using namespace std;
 
 class Map {
@@ -11,13 +12,34 @@ public:
  #pragma region Constructor & Destructor
 
     Map();
+    ~Map();
 
 #pragma endregion
 
  #pragma region Setters & Getters
+    // SETTERS //
+
+    void setGrid(int x, int y);
+
+    // GETTERS //
 
     // Created a getGrid function to be able to display the map grid on the displayInfo for the Game Class
     string getGrid(short x, short y);
+
+    short getTotalRooms();
+
+#pragma endregion
+
+#pragma region Map Function
+
+    void fillMap();
+
+#pragma endregion
+
+
+ #pragma region Has-A Classes/Pointers
+
+    Room rooms[3];
 
 #pragma endregion
 
@@ -47,4 +69,5 @@ public:
 private:
 
     string grid[x_Size][y_Size];
+    short totalRooms;
 };

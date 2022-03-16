@@ -49,41 +49,12 @@ bool Game::questionYesOrNo(string question) {
     return rv;
 }
 
-// Trying to make a start screen with a timer to display the game title + a recommendation for full screen. // UPDATE: Now is the function running the game
-void Game::gameStart()
-{
-    int numResponse;
-
-    /// <summary>
-    /// Changing this function to be updated with the new changes on the functions 
-    /// </summary>
-    infoDisplay();
-    if (questionYesOrNo("do you wanna change name?") == true) {
-        system("CLS");
-        cout << "Write your new name..." << endl;
-        //player->setName();
-        //system("CLS");
-        //infoDisplay();
-        // cin >> numResponse;
-    }
-    system("cls");
-    // testing
-    while (player->getLevel() != 10) {
-        infoDisplay();
-        cout << "new level! select your new level." << endl;
-        cin >> numResponse;
-        system("CLS");
-        player->setLevel(numResponse);
-        cout << "here is your new stats!" << endl;
-    }
-}
-
 // Displays the top line of the game that gives the information needed by the player. This does not include future dialogues. It still needs items/inventory added on the right side
 void Game::infoDisplay()
 {
     // Update: Moved all cases that shared the line to a single one. Update 2: Change it to be all pointers to their respective classes.
     for (int y = 0; y < y_Size; y++) {
-        cout << left << setw(35);
+        cout << left << setw(40);
         switch (y) {
         case 0:
             cout << setfill('-') << "-";
@@ -184,6 +155,25 @@ void Game::infoDisplay()
         cout << endl;
     }
 }
+
+// Trying to make a start screen with a timer to display the game title + a recommendation for full screen. // UPDATE: Now is the function running the game
+void Game::gameStart()
+{
+    int numResponse;
+
+    /// <summary>
+    /// Changing this function to be updated with the new changes on the functions 
+    /// </summary>
+    // testing
+    while (player->getLevel() != 10) {
+        infoDisplay();
+        cout << "new level! select your new level." << endl;
+        cin >> numResponse;
+        system("CLS");
+        player->setLevel(numResponse);
+        cout << "here is your new stats!" << endl;
+    }
+} 
 
 #pragma endregion
 
