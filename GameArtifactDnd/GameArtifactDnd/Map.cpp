@@ -73,16 +73,47 @@ short Map::getTotalRooms()
 
  #pragma region Map Functions
 
-void Map::fillMap()
+void Map::fillMap(int direction)
 {
+    // I will use an integer so that I can use a random number generator to decide in which direction the rooms are generated. Up = 1
     int x = (x_Size / 2 - (Width_SIZE / 2));
     int y = (y_Size - (Height_SIZE + 1));
-    for (int i = 4; i < y_Size; i + Height_SIZE) {
-        if (y >= y_Size || y <= (y_Size - y_Size)) {
-            break;
+    
+    switch (direction)
+    {
+    case 1:
+        // Fill till the wall up so, total and it goes 'up' by taking away
+        for (int i = y; i > (y_Size - y_Size); i -= Height_SIZE + 1) {
+            // I added a condition to check if it was going over or under the grid size to avoid errors.
+            if (y >= y_Size || y <= (y_Size - y_Size)) {
+                i += Height_SIZE + 1;
+                break;
+            }
+            setGrid(x, i);
         }
-        setGrid(x, y);
-        y -= i;
+        break;
+    case 2:
+        // Fill till the wall left, total and to go left it takes away 
+        for (int i = x; i > (x_Size - x_Size); i -= Width_SIZE + 1) {
+            if (x >= x_Size || x <= (x_Size - x_Size)) {
+                i += Width_SIZE + 1;
+                break;
+            }
+            setGrid(i, y);
+        }
+        break;
+        // Fill till the wall right, total and to go right it adds up
+    case 3:
+        for (int i = x; i < x_Size; i += Width_SIZE + 1) {
+            if (x >= x_Size || x <= (x_Size - x_Size) || i == 15) {
+                i -= Width_SIZE + 1;
+                break;
+            }
+            setGrid(i, y);
+        }
+        break;
+    default:
+        break;
     }
 }
 

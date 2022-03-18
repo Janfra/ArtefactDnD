@@ -167,11 +167,9 @@ void Game::gameStart()
     // testing
     while (player->getLevel() != 10) {
         infoDisplay();
-        cout << "new level! select your new level." << endl;
         cin >> numResponse;
+        mainMap->fillMap(numResponse);
         system("CLS");
-        player->setLevel(numResponse);
-        cout << "here is your new stats!" << endl;
     }
 } 
 
@@ -197,5 +195,14 @@ void Game::gameStart()
     //    this_thread::sleep_for(chrono::seconds(10));
     //    timer = true;
     //}
+
+    //while (player->getLevel() != 10) {
+    //infoDisplay();
+    //cout << "new level! select your new level." << endl;
+    //cin >> numResponse;
+    //system("CLS");
+    //player->setLevel(numResponse);
+    //cout << "here is your new stats!" << endl;
+    // }
 
 #pragma endregion

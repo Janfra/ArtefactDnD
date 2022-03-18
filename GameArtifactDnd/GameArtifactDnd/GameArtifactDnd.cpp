@@ -5,6 +5,8 @@
 #include <time.h>
 #include <conio.h>
 #include "Game.h"
+#include <Windows.h>
+
 
 using namespace std;
 
@@ -12,16 +14,25 @@ using namespace std;
 
 int main()
 {
+    // Taken from https://www.daniweb.com/, wanted to force a bigger screen to make it possible to have a bigger map.
+    HWND console = GetConsoleWindow();
+    RECT ConsoleRect;
+    GetWindowRect(console, &ConsoleRect);
+
+    MoveWindow(console, ConsoleRect.left, ConsoleRect.top, 1600, 600, TRUE);
+    //
+
     Game mainGame;
-    /*int x = (x_Size / 2 - (Width_SIZE / 2));
-    int y = (y_Size - (Height_SIZE + 1));*/
+    //int x = (x_Size / 2 - (Width_SIZE / 2));
+    //int y = (y_Size - (Height_SIZE + 1));
 
     //mainGame.mainMap->setGrid((x_Size / 2 - (Width_SIZE / 2)), (y_Size - (Height_SIZE + 1))); 
-    //mainGame.mainMap->setGrid((x), (y - 5));
-    //mainGame.mainMap->setGrid((x), (y - 10));
+    //mainGame.mainMap->setGrid((x + 5), (y));
+    //mainGame.mainMap->setGrid((x + 10), (y));
+    //mainGame.mainMap->setGrid((x + 15), (y));
     
-    mainGame.mainMap->fillMap();
     mainGame.gameStart();
+
 
     /*mainGame.gameStart();*/
 

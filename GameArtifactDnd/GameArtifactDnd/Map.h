@@ -1,7 +1,6 @@
-// Minimun y_size of the map has to be 16 until I add a way to automatically force it. Otherwise the stats won't show.
-
-#define x_Size 12 
-#define y_Size 18
+// Minimun y_size of the map has to be 16 until I add a way to automatically force it. Otherwise the stats won't show., it has to be divisible by 2
+#define x_Size 38
+#define y_Size 28
 #include <iostream>
 #include <string>
 #include "Room.h"
@@ -30,12 +29,11 @@ public:
 
 #pragma endregion
 
-#pragma region Map Function
+ #pragma region Map Function
 
-    void fillMap();
+    void fillMap(int direction);
 
 #pragma endregion
-
 
  #pragma region Has-A Classes/Pointers
 

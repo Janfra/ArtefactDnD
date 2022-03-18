@@ -1,43 +1,23 @@
 #include "Room.h"
 
-#pragma region Constructor & Destructor
+ #pragma region Constructor & Destructor
 
 Room::Room()
 {
 	for (int y = 0; y < Height_SIZE; y++) {
 		for (int x = 0; x < Width_SIZE; x++) {
-			//switch (y)
-			//{
-			//case (Height_SIZE - Height_SIZE):
-			//case (Height_SIZE - 1):
-			//	room[y][x] = " ";
-			//	break;
-			//default:
-			//	room[y][x] = "#";
-			//	break;
-			//}
-			//switch (x)
-			//{
-			//case (Width_SIZE - Width_SIZE):
-			//case (Width_SIZE - 1):
-			//	room[y][x] = " ";
-			//	break;
-			//default:
-			//	break;
-			//}
-			room[x][y] = " ~ ";
-			room[1][1] = "   ";
-			room[1][2] = "   ";
-			room[2][1] = "   ";
-			room[2][2] = "   ";
+			if (x == (Width_SIZE - Width_SIZE) || y == (Height_SIZE - Height_SIZE) || x == (Width_SIZE - 1) || y == (Height_SIZE - 1)) {
+				room[x][y] = " ~ ";
+			}
+			else {
+				room[x][y] = "   ";
+			}
 		}
 	}
 }
-
 #pragma endregion
 
-
-#pragma region Setters & Getters
+ #pragma region Setters & Getters
 	// SETTERS //
 
 	void Room::setType()
@@ -62,4 +42,26 @@ Room::Room()
 
 #pragma endregion
 
+ #pragma region Outdated
 
+	//switch (y)
+//{
+//case (Height_SIZE - Height_SIZE):
+//case (Height_SIZE - 1):
+//	room[y][x] = " ";
+//	break;
+//default:
+//	room[y][x] = "#";
+//	break;
+//}
+//switch (x)
+//{
+//case (Width_SIZE - Width_SIZE):
+//case (Width_SIZE - 1):
+//	room[y][x] = " ";
+//	break;
+//default:
+//	break;
+//}
+
+#pragma endregion
