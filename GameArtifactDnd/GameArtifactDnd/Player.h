@@ -1,31 +1,57 @@
 #pragma once
 #include "Stats.h"
 #include "Object.h"
+#include <iostream>
 #define TOTAL_LEVELS 10
 
 class Player :
     public Stats
 {
 public:
-    Player();
-    // Will make functions used exclusively by the player part of its class for now
-    
-    // Used to reply to questions made to the player, only accepts Yes/y, any other response is false. May change it in the future.
-    bool questionYesOrNo(string response);
+ #pragma region Constructor & Destructor
 
-    // StatSheet will look different when the player is displaying his own statSheet so I am overwritten it here. If inspecting other beings, it will have less information
-    string statSheet();
+    Player();
+    ~Player();
+
+#pragma endregion
+    
+ #pragma region Setters & Getters
+    // SETTERS //
 
     short getEXP();
     short getLevel();
     short getNeededEXP();
-    string displayLine(short a);
+
+    // GETTERS //
 
     void setEXP(short gainedEXP);
     void setLevel(short newLVL);
+#pragma endregion
 
+ #pragma region Player-Functions
+
+    string displayLine(short a);
+
+#pragma endregion
+
+ #pragma region Attack Functions
+
+    short attackEnemy(short &enemyHP);
+
+#pragma endregion
+
+ #pragma region Has-A Classes/Pointers
     // Player Has-A object
-    Object items[3];
+    Object* items;
+
+#pragma endregion
+
+ #pragma region Outdated
+    // Used to reply to questions made to the player, only accepts Yes/y, any other response is false. May change it in the future. Update: Took it to the Game functions
+
+    // StatSheet will look different when the player is displaying his own statSheet so I am overwritten it here. If inspecting other beings, it will have less information
+    string statSheet();
+#pragma endregion
 
 protected:
     //Added a couple of player specific stats

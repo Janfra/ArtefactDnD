@@ -1,11 +1,6 @@
-        //if (player == nullptr) {
-        //    // handle null case
-        //    
-        //}
-        //else {
-        //    // handle case when there is another node
-        //}
 #include "Game.h"
+
+ #pragma region Constructor & Destructor
 
 // Constructor
 Game::Game()
@@ -17,22 +12,41 @@ Game::Game()
 // Destructor
 Game::~Game()
 {
+    delete[] player->items;
+    player->items = NULL;
     delete mainMap;
     mainMap = NULL;
     delete player;
     player = NULL;
 }
 
-// Trying to make a start screen with a timer to display the game title + a recommendation for full screen. 
-void Game::gameStart()
-{
-       bool timer = false;
-       while (timer == true) {
-           cout << endl << endl << endl << "Welcome to Goblin Adventure!";
-           // The sleep not working?
-           this_thread::sleep_for(chrono::seconds(10));
-           timer = true;
-       }
+#pragma endregion
+
+ #pragma region Game Functions
+
+bool Game::questionYesOrNo(string question) {
+    bool rv = NULL;
+    string answer;
+
+    cout << endl << question << endl;
+
+    while (rv == NULL) {
+        cin >> answer;
+        if (answer == "Yes" || answer == "yes" || answer == "y" || answer == "Y") {
+            rv = true;
+            return rv;
+        }
+        else if (answer == "No" || answer == "no" || answer == "n" || answer == "N") {
+            rv = false;
+            return rv;
+        }
+        else {
+            system("CLS");
+            infoDisplay();
+            cout << endl << "Invalid response! It has to be 'Yes' or 'No'!" << endl << question << endl;
+        }
+    }
+    return rv;
 }
 
 // Displays the top line of the game that gives the information needed by the player. This does not include future dialogues. It still needs items/inventory added on the right side
@@ -40,16 +54,16 @@ void Game::infoDisplay()
 {
     // Update: Moved all cases that shared the line to a single one. Update 2: Change it to be all pointers to their respective classes.
     for (int y = 0; y < y_Size; y++) {
-        cout << left << setw(35);
+        cout << left << setw(40);
         switch (y) {
         case 0:
             cout << setfill('-') << "-";
-                break;
+            break;
         case 1:
             cout << setfill(' ') << "|";
-                break;
+            break;
         case 2:
-            cout << player[0].displayLine(0); 
+            cout << player[0].displayLine(0);
             break;
         case 3:
         case 6:
@@ -141,3 +155,54 @@ void Game::infoDisplay()
         cout << endl;
     }
 }
+
+// Trying to make a start screen with a timer to display the game title + a recommendation for full screen. // UPDATE: Now is the function running the game
+void Game::gameStart()
+{
+    int numResponse;
+
+    /// <summary>
+    /// Changing this function to be updated with the new changes on the functions 
+    /// </summary>
+    // testing
+    while (player->getLevel() != 10) {
+        infoDisplay();
+        cin >> numResponse;
+        mainMap->fillMap(numResponse);
+        system("CLS");
+    }
+} 
+
+#pragma endregion
+
+ #pragma region Outdated
+
+    /// In case of a nullptr value, to avoid crashing errors ///
+    //  if (player == nullptr) {
+    //     handle null case
+    //  }
+    //  else {
+    //     handle case when there is another node
+    //  }
+
+
+    /// Tried to do a starting screen that runs for a few seconds ///
+    //
+    //  bool timer = false;
+    //  while (timer == true) {
+    //    cout << endl << endl << endl << "Welcome to Goblin Adventure!";
+    //    // The sleep not working?
+    //    this_thread::sleep_for(chrono::seconds(10));
+    //    timer = true;
+    //}
+
+    //while (player->getLevel() != 10) {
+    //infoDisplay();
+    //cout << "new level! select your new level." << endl;
+    //cin >> numResponse;
+    //system("CLS");
+    //player->setLevel(numResponse);
+    //cout << "here is your new stats!" << endl;
+    // }
+
+#pragma endregion

@@ -1,11 +1,12 @@
 // GameArtifactDnd.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
 
 #include <iostream>
 #include <string>
 #include <time.h>
 #include <conio.h>
 #include "Game.h"
+#include <Windows.h>
+
 
 using namespace std;
 
@@ -13,35 +14,27 @@ using namespace std;
 
 int main()
 {
-    Game mainGame;
+    // Taken from https://www.daniweb.com/, wanted to force a bigger screen to make it possible to have a bigger map.
+    HWND console = GetConsoleWindow();
+    RECT ConsoleRect;
+    GetWindowRect(console, &ConsoleRect);
 
-    // Map map;
-    // Player Prota;
-    int Win = 0;
-    string response = " ";
-    int numResponse = 0;
-        
-        mainGame.infoDisplay();
-        cout << endl << "wanna change name?\n";
-        cin >> response;
-        if (mainGame.player->questionYesOrNo(response) == true) {
-            system("CLS");
-            cout << "Write your new name..." << endl;
-            cin >> response;
-            mainGame.player->setName(response);
-            system("CLS");
-            mainGame.infoDisplay();
-        }
-        system("cls");
-         // testing
-        while(mainGame.player->getLevel() != 10) {
-            mainGame.infoDisplay();
-            cout << "new level! select your new level." << endl;
-            cin >> numResponse;
-            system("cls");
-            mainGame.player->setLevel(numResponse);
-            cout << "here is your new stats!" << endl;
-        }
+    MoveWindow(console, ConsoleRect.left, ConsoleRect.top, 1600, 600, TRUE);
+    //
+
+    Game mainGame;
+    //int x = (x_Size / 2 - (Width_SIZE / 2));
+    //int y = (y_Size - (Height_SIZE + 1));
+
+    //mainGame.mainMap->setGrid((x_Size / 2 - (Width_SIZE / 2)), (y_Size - (Height_SIZE + 1))); 
+    //mainGame.mainMap->setGrid((x + 5), (y));
+    //mainGame.mainMap->setGrid((x + 10), (y));
+    //mainGame.mainMap->setGrid((x + 15), (y));
+    
+    mainGame.gameStart();
+
+
+    /*mainGame.gameStart();*/
 
         delete mainGame.mainMap;
         mainGame.mainMap = NULL;

@@ -1,0 +1,13 @@
+
+               for (int w = 0; w < Width_SIZE; w++) {
+                   int h = w;
+                   cout << mainMap->rooms->getGrid(w, h);
+               }
+
+        for (int x = 0; x < Width_SIZE; x++) {
+            for (int h = 0; h < Height_SIZE; h++) {
+                if (y == (y_Size / mainMap->getTotalRooms() + h)) {
+                    cout << mainMap->rooms->getGrid(x, h);
+                }
+            }
+        }

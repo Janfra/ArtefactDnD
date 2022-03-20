@@ -5,21 +5,43 @@ using namespace std;
 class Object {
     // Will further divide this in the future
 public:
+ #pragma region Constructor & Destructor
+
     Object();
 
+#pragma endregion
+
+ #pragma region Setters & Getters
+    // SETTERS //
+
     void setTypeOfAttack(string dmgtype);
-    string getTypeOfAttack();
     void setName(string newName);
-    string getName();
     void setDMG(int setDMG);
-    int getDMG();
     void setRange(int setRange);
-    int getRange();
     void setDurability(int setDurability);
-    int getDurability();
     void setConsumable(bool setConsumable);
-    void displayInfo(void);
+
+    // GETTERS // 
+
+    string getTypeOfAttack();
+    string getName();
+    int getDMG();
+    int getRange();
+    int getDurability();
+
+#pragma endregion
+
+ #pragma region Objects Functions
+
     string displayObjLine(short a);
+
+#pragma endregion
+
+ #pragma region Outdated
+
+    void displayInfo(void);
+
+#pragma endregion
 
 private:
     string name;
