@@ -4,7 +4,8 @@
 
 Map::Map()
 {
-    totalRooms = 3;
+    totalRooms = 0;
+    rooms = new Room();
     for (int y = 0; y < y_Size; y++) {
         for (int x = 0; x < x_Size; x++) {
             // Top map border
@@ -20,12 +21,14 @@ Map::Map()
             }
         }
     }
+    startX = (x_Size / 2 - (Width_SIZE / 2));
+    startY = (y_Size - (Height_SIZE + 1));
 }
 
 Map::~Map()
 {  
-    /*delete[] rooms;
-    rooms = NULL;*/
+    delete rooms;
+    rooms = NULL;
 }
 
 #pragma endregion
@@ -35,10 +38,16 @@ Map::~Map()
 void Map::setGrid(int x, int y)
 {
     int old = x;
+
     for (int h = 0; h < Height_SIZE; h++) {
         for (int w = 0; w < Width_SIZE; w++) {
+            if (y >= y_Size || y <= (y_Size - y_Size) || x >= x_Size || x <= (x_Size - x_Size)) {
+                cout << "You going over";
+                system("PAUSE");
+                break;
+            }
             grid[x][y] = rooms[0].getRoom(w, h);
-            x++;
+            x++;        
         }
         x = old;
         y++;
@@ -76,40 +85,42 @@ short Map::getTotalRooms()
 void Map::fillMap(int direction)
 {
     // I will use an integer so that I can use a random number generator to decide in which direction the rooms are generated. Up = 1
-    int x = (x_Size / 2 - (Width_SIZE / 2));
-    int y = (y_Size - (Height_SIZE + 1));
-    
+    int randomNumber = 0;
     switch (direction)
     {
     case 1:
         // Fill till the wall up so, total and it goes 'up' by taking away
-        for (int i = y; i > (y_Size - y_Size); i -= Height_SIZE + 1) {
-            // I added a condition to check if it was going over or under the grid size to avoid errors.
-            if (y >= y_Size || y <= (y_Size - y_Size)) {
-                i += Height_SIZE + 1;
-                break;
-            }
-            setGrid(x, i);
+        for (int i = startY; i > (y_Size - y_Size); i -= Height_SIZE + 1) {
+            rooms->setType(randomNumber);
+            setGrid(startX, i);
+            randomNumber = (rand() % 4) + 1;
+            startY = i;
         }
         break;
     case 2:
         // Fill till the wall left, total and to go left it takes away 
-        for (int i = x; i > (x_Size - x_Size); i -= Width_SIZE + 1) {
-            if (x >= x_Size || x <= (x_Size - x_Size)) {
-                i += Width_SIZE + 1;
-                break;
-            }
-            setGrid(i, y);
+        for (int i = startX; i > (x_Size - x_Size); i -= Width_SIZE + 1) {
+            rooms->setType(randomNumber);
+            setGrid(i, startY);
+            randomNumber = (rand() % 4) + 1;
+            startX = i;
         }
         break;
         // Fill till the wall right, total and to go right it adds up
     case 3:
-        for (int i = x; i < x_Size; i += Width_SIZE + 1) {
-            if (x >= x_Size || x <= (x_Size - x_Size) || i == 15) {
-                i -= Width_SIZE + 1;
-                break;
-            }
-            setGrid(i, y);
+        for (int i = startX; i < (x_Size - Width_SIZE) ; i += Width_SIZE + 1) {
+            rooms->setType(randomNumber);
+            setGrid(i, startY);
+            randomNumber = (rand() % 4) + 1;
+            startX = i;
+        }
+        break;
+    case 4:
+        for (int i = startY; i < (y_Size - Height_SIZE); i += Height_SIZE + 1) {
+            rooms->setType(randomNumber);
+            setGrid(startX, i);
+            randomNumber = (rand() % 4) + 1;
+            startY = i;
         }
         break;
     default:

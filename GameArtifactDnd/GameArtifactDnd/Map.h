@@ -37,7 +37,7 @@ public:
 
  #pragma region Has-A Classes/Pointers
 
-    Room rooms[3];
+    Room * rooms;
 
 #pragma endregion
 
@@ -68,4 +68,6 @@ private:
 
     string grid[x_Size][y_Size];
     short totalRooms;
+    short startX;
+    short startY;
 };
