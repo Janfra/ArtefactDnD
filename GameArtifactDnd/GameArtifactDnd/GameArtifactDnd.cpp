@@ -31,7 +31,11 @@ int main()
     //mainGame.mainMap->setGrid((x + 10), (y));
     //mainGame.mainMap->setGrid((x + 15), (y));
     
+    int xPos, yPos;
+
     mainGame.gameStart();
+    cin >> xPos >> yPos;
+    cout << mainGame.mainMap->checkWall(xPos, yPos);
 
 
     /*mainGame.gameStart();*/
