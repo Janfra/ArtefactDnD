@@ -12,7 +12,8 @@ Room::Room()
 	type[2] = "Trap";
 	type[3] = "Item";
 	type[4] = "Empty";
-	
+	roomWallsCheck(roomWalls);
+
 	setType(0);
 }
 
@@ -24,6 +25,7 @@ Room::Room(int numberType)
 	type[2] = "Trap";
 	type[3] = "Item";
 	type[4] = "Empty";
+	roomWallsCheck(roomWalls);
 
 	setType(numberType);
 }
@@ -34,8 +36,8 @@ Room::Room(int numberType)
 
 	void Room::setType(int typeNumber)
 	{
-		if (typeNumber > 5) {
-			roomType = 5;
+		if (typeNumber > (TOTAL_TYPES * 3)) {
+			roomType = (TOTAL_TYPES * 3);
 		}
 		else if (typeNumber < 0) {
 			roomType = 0;
@@ -43,9 +45,15 @@ Room::Room(int numberType)
 		else {
 			roomType = typeNumber;
 		}
-		switch (typeNumber)
+		switch (roomType)
 		{
 		case 1:
+		case 2:
+		case 3:
+		case 4:
+		case 5:
+		case 6:
+		case 7:
 			for (int y = 0; y < Height_SIZE; y++) {
 				for (int x = 0; x < Width_SIZE; x++) {
 					if (x == (Width_SIZE - Width_SIZE)) {
@@ -63,7 +71,9 @@ Room::Room(int numberType)
 				}
 			}
 			break;
-		case 2:
+		case 8:
+		case 9:
+		case 10:
 			for (int y = 0; y < Height_SIZE; y++) {
 				for (int x = 0; x < Width_SIZE; x++) {
 					if (x == (Width_SIZE - Width_SIZE)) {
@@ -81,7 +91,8 @@ Room::Room(int numberType)
 				}
 			}
 			break;
-		case 3:
+		case 11:
+		case 12:
 			for (int y = 0; y < Height_SIZE; y++) {
 				for (int x = 0; x < Width_SIZE; x++) {
 					if (x == (Width_SIZE - Width_SIZE)) {
@@ -99,7 +110,9 @@ Room::Room(int numberType)
 				}
 			}
 			break;
-		case 4:
+		case 13:
+		case 14:
+		case 15:
 			for (int y = 0; y < Height_SIZE; y++) {
 				for (int x = 0; x < Width_SIZE; x++) {
 					if (x == (Width_SIZE - Width_SIZE)) {
@@ -148,6 +161,29 @@ Room::Room(int numberType)
 	string Room::getRoom(int x, int y)
 	{
 		return room[x][y];
+	}
+
+#pragma endregion
+
+ #pragma region Room Functions
+
+	// Sets the roomWalls array to the strings given to the walls to check them later to avoid the fillMap function reassigning a room.
+	void Room::roomWallsCheck(string *giveWall)
+	{
+		for (int i = 0; i < TOTAL_TYPES; i++) {
+			setType(i);
+			for (int w = 0; w < 3; w++) {
+				if (w == 0) {
+					giveWall[((i * 3) + (w + 1)) - 1] = room[0][0];
+				}
+				else if (w == 1){
+					giveWall[((i * 3) + (w + 1)) - 1] = room[(Width_SIZE - 1)][0];
+				}
+				else {
+					giveWall[((i * 3) + (w + 1)) - 1] = room[1][0];
+				}
+			}
+		}
 	}
 
 #pragma endregion

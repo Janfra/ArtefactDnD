@@ -18,7 +18,11 @@ public:
  #pragma region Setters & Getters
     // SETTERS //
 
-    void setGrid(int x, int y);
+    void setGrid(int x, int y, short &location);
+
+    void setPosX(short x);
+    
+    void setPosY(short y);
 
     // GETTERS //
 
@@ -31,7 +35,21 @@ public:
 
  #pragma region Map Function
 
+    void roundMap();
+
     void fillMap(int direction);
+
+    void playerMovement(char direction, short& x, short& y);
+
+    void roomCleared(int x, int y);
+
+    bool checkWall(short x, short y);
+
+    bool checkWallsAround(short x, short y, int direction);
+
+    void clamping(short& x, short& y);
+
+    void clamping(int& x, int& y);
 
 #pragma endregion
 
@@ -64,10 +82,14 @@ public:
 
 #pragma endregion
 
+    // Testing
+    int pathX[x_Size / 2], pathY[y_Size / 2];
+    short posX, posY;
 private:
 
     string grid[x_Size][y_Size];
+
+
+
     short totalRooms;
-    short startX;
-    short startY;
 };

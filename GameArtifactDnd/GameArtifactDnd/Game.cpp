@@ -12,8 +12,6 @@ Game::Game()
 // Destructor
 Game::~Game()
 {
-    delete[] player->items;
-    player->items = NULL;
     delete mainMap;
     mainMap = NULL;
     delete player;
@@ -159,16 +157,21 @@ void Game::infoDisplay()
 // Trying to make a start screen with a timer to display the game title + a recommendation for full screen. // UPDATE: Now is the function running the game
 void Game::gameStart()
 {
-    int numResponse;
+    short x = 0;
+    short y = 0;
 
+    short numResponse1 = 0;
+    char response;
+    mainMap->roundMap();
     /// <summary>
     /// Changing this function to be updated with the new changes on the functions 
     /// </summary>
     // testing
-    while (player->getLevel() != 10) {
+    while (numResponse1 != 5) {
         infoDisplay();
-        cin >> numResponse;
-        mainMap->fillMap(numResponse);
+        cout << mainMap->pathX[x] << " " << mainMap->pathY[y] << endl;
+        cin >> response;
+        mainMap->playerMovement(response, x, y);
         system("CLS");
     }
 } 
