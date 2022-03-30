@@ -30,6 +30,17 @@ public:
 
 #pragma endregion
 
+#pragma region Testing
+
+    void MapTesting();
+
+    void MapGenerationTest();
+
+    void Color(char typeColor);
+
+#pragma endregion
+
+
  #pragma region Has-A Classes/Pointers
     // Has-a Player/Map
     Map* mainMap;

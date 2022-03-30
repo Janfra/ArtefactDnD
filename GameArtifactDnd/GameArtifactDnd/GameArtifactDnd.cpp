@@ -33,7 +33,7 @@ int main()
     
     int xPos, yPos;
 
-    mainGame.gameStart();
+    mainGame.MapGenerationTest();
     cin >> xPos >> yPos;
     cout << mainGame.mainMap->checkWall(xPos, yPos);
 

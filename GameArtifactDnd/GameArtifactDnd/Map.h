@@ -85,6 +85,7 @@ public:
     // Testing
     int pathX[x_Size / 2], pathY[y_Size / 2];
     short posX, posY;
+    int charValue;
 private:
 
     string grid[x_Size][y_Size];
