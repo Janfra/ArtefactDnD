@@ -40,6 +40,7 @@ public:
  #pragma region Outdated
 
 #pragma endregion
+
 	// Testing
 	string roomWalls[TOTAL_WALLS];
 protected:

@@ -171,10 +171,51 @@ void Game::gameStart()
         infoDisplay();
         cout << mainMap->pathX[x] << " " << mainMap->pathY[y] << endl;
         cin >> response;
-        mainMap->playerMovement(response, x, y);
+        mainMap->playerMovement();
         system("CLS");
     }
 } 
+
+void Game::Color(char typeColor)
+{
+    HANDLE color = GetStdHandle(STD_OUTPUT_HANDLE); //Prints color to the console. This functions makes it easier to use
+    SetConsoleTextAttribute(color, typeColor);
+}
+
+#pragma endregion
+
+#pragma region Testing
+
+void Game::MapTesting() {
+    short numResponse1 = 0;
+    char response;
+    mainMap->roundMap();
+    while (numResponse1 != 5) {
+        infoDisplay();
+        cout << mainMap->pathX[mainMap->playerLocationNumber] << " " << mainMap->pathY[mainMap->playerLocationNumber] << endl;
+        cout << mainMap->playerX << " " << mainMap->playerY << endl;
+        cin >> numResponse1;
+        mainMap->playerMovement();
+        system("CLS");
+    }
+}
+
+void Game::MapGenerationTest()
+{
+    short num1 = 0;
+    char response = 'n';
+
+    while (response != 'y') {
+        infoDisplay();
+        cin >> num1;
+        mainMap->fillMap(num1);
+        cout << "Type 'y' to finish." << endl;
+        cin >> response;
+        system("CLS");
+    }
+}
+
+
 
 #pragma endregion
 

@@ -1,4 +1,4 @@
-#include "Player.h"
+#include "Player.h" 
 #include "Map.h"
 #include <iostream>
 #include <Windows.h>
@@ -27,6 +27,14 @@ public:
     void gameStart();
     bool questionYesOrNo(string question);
     void infoDisplay();
+    void Color(char typeColor);
+
+#pragma endregion
+
+ #pragma region Testing
+
+    void MapTesting();
+    void MapGenerationTest();
 
 #pragma endregion
 
