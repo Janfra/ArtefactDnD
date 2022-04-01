@@ -31,6 +31,7 @@ int main()
     //mainGame.mainMap->setGrid((x + 15), (y));
 
     mainGame.MapTesting();
+    //mainGame.ColourTesting();
 
 
     /*mainGame.gameStart();*/

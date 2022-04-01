@@ -7,9 +7,9 @@ Map::Map()
     rooms = new Room();
     totalRooms = 0;
     posX = (x_Size / 2 - (Width_SIZE / 2));
-    playerX = (x_Size / 2 - (Width_SIZE / 2));
-    playerY = (y_Size - (Height_SIZE + 1));
     posY = (y_Size - (Height_SIZE + 1));
+    playerX = posX;
+    playerY = posY;
     for (int y = 0; y < y_Size; y++) {
         for (int x = 0; x < x_Size; x++) {
             // Top map border
@@ -46,10 +46,10 @@ void Map::setGrid(int x, int y, short direction)
     {
     case 1:
         pathX[arrayLocation] = 0;
-        pathY[arrayLocation] = -5;
+        pathY[arrayLocation] = -(Height_SIZE + 1);
         break;
     case 2:
-        pathX[arrayLocation] = -5;
+        pathX[arrayLocation] = -(Width_SIZE + 1);
         pathY[arrayLocation] = 0;
         break;
     case 3:
@@ -240,53 +240,7 @@ void Map::playerMovement()
     roomCleared(playerX, playerY);
     }
 
-    /* x += 1;
-    y += 1;
-    switch (direction)
-    {
-    case 78:
-    case 110:
-        if (pathY[y] != pathY[y + 1]) {
-            y++;
-            roomCleared(pathX[x], pathX[y]);
-        }
-        else {
-            cout << "Choose another direction!";
-        };
-        break;
-    case 'W':
-    case 'w':
-        if (pathX[x] != pathX[x + 1]) {
-            x++;
-            roomCleared(pathX[x], pathX[y]);
-        }
-        else {
-            cout << "Choose another direction!";
-        };
-        break;
-    case 'e':
-    case 'E':
-        if (pathX[x] != pathX[x + 1]) {
-           x++;
-           roomCleared(pathX[x], pathX[y]);
-        }
-        else {
-           cout << "Choose another direction!";
-        };
-        break;
-    case 'S':
-    case 's':
-        if (pathY[y] != pathY[y + 1]) {
-            x++;
-            roomCleared(pathX[x], pathX[y]);
-        }
-        else {
-            cout << "Choose another direction!";
-        };
-        break;
-    default:
-        break;
-    }*/
+   
 }
 
 //bool Map::checkWall(short x, short y)
@@ -562,6 +516,54 @@ void Map::playerClamping(short& x, short& y) {
 //        y++;
 //    }
 //}
+
+ /* x += 1;
+    y += 1;
+    switch (direction)
+    {
+    case 78:
+    case 110:
+        if (pathY[y] != pathY[y + 1]) {
+            y++;
+            roomCleared(pathX[x], pathX[y]);
+        }
+        else {
+            cout << "Choose another direction!";
+        };
+        break;
+    case 'W':
+    case 'w':
+        if (pathX[x] != pathX[x + 1]) {
+            x++;
+            roomCleared(pathX[x], pathX[y]);
+        }
+        else {
+            cout << "Choose another direction!";
+        };
+        break;
+    case 'e':
+    case 'E':
+        if (pathX[x] != pathX[x + 1]) {
+           x++;
+           roomCleared(pathX[x], pathX[y]);
+        }
+        else {
+           cout << "Choose another direction!";
+        };
+        break;
+    case 'S':
+    case 's':
+        if (pathY[y] != pathY[y + 1]) {
+            x++;
+            roomCleared(pathX[x], pathX[y]);
+        }
+        else {
+            cout << "Choose another direction!";
+        };
+        break;
+    default:
+        break;
+    }*/
 
 
 #pragma endregion

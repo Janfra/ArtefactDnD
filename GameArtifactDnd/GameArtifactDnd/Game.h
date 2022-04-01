@@ -35,6 +35,7 @@ public:
 
     void MapTesting();
     void MapGenerationTest();
+    void ColourTesting();
 
 #pragma endregion
 

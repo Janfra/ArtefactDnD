@@ -52,6 +52,7 @@ void Game::infoDisplay()
 {
     // Update: Moved all cases that shared the line to a single one. Update 2: Change it to be all pointers to their respective classes.
     for (int y = 0; y < y_Size; y++) {
+        Color(15);
         cout << left << setw(40);
         switch (y) {
         case 0:
@@ -61,7 +62,9 @@ void Game::infoDisplay()
             cout << setfill(' ') << "|";
             break;
         case 2:
+            Color(10);
             cout << player[0].displayLine(0);
+            Color(15);
             break;
         case 3:
         case 6:
@@ -75,9 +78,12 @@ void Game::infoDisplay()
             cout << player->displayLine(2);
             break;
         case 7:
+            Color(6);
             cout << player->displayLine(3);
+            Color(15);
             break;
         case 9:
+
             cout << player->displayLine(4);
             break;
         case 10:
@@ -151,6 +157,7 @@ void Game::infoDisplay()
             break;
         }
         cout << endl;
+        Color(7);
     }
 }
 
@@ -215,7 +222,13 @@ void Game::MapGenerationTest()
     }
 }
 
+void Game::ColourTesting() {
 
+    for (int i = 0; i < 300; i++) {
+        Color(i);
+        cout << "Colour: " << i << endl;
+    }
+}
 
 #pragma endregion
 
