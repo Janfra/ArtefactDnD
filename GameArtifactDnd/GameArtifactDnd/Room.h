@@ -1,18 +1,21 @@
+// Includes for randomizing with srand
 #include <iostream>
-#include <string>
 #include <time.h>
+// Defines set the size of the rooms
 #define Height_SIZE 4
 #define Width_SIZE 4
+// Define set the total amount of types for rooms.
 #define TOTAL_TYPES 5
-// Total types: 5 multiplied by top left and right 3
+// Total types: 5 multiplied by top, left and right 3
 #define TOTAL_WALLS (TOTAL_TYPES * 3) 
-
+// Not having to use std::
 using namespace std;
 
 #pragma once
 class Room
 {
 public:
+	// Functions explained in cpp file.
  #pragma region Constructor & Destructor
 
 	Room();
@@ -23,7 +26,7 @@ public:
 
  #pragma region Setters & Getters
 	// SETTERS //
-	void setType(int typeNumber);
+	string setType(int typeNumber);
 
 	// GETTERS //
 	string getType(int typeNumber);
@@ -48,7 +51,6 @@ protected:
 	string type[TOTAL_TYPES];
 	short roomType;
 
-	
 	// Creates the room visually, they will be squares. It is 5x4 to leave room for the room connectors (halls?)
 	string room[Width_SIZE][Height_SIZE];
 };

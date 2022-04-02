@@ -192,7 +192,6 @@ void Game::MapTesting() {
     mainMap->roundMap();
     while (numResponse1 != 5) {
         infoDisplay();
-        cout << mainMap->getPathX(1) << " " << mainMap->getPathY(1) << endl;
         cout << mainMap->getPlayerX() << " " << mainMap->getPlayerY() << endl;
         cin >> numResponse1;
         mainMap->playerMovement();

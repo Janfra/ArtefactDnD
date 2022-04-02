@@ -1,2 +1,5 @@
-﻿  Map.cpp
+﻿  Game.cpp
+E:\Non-game\GitHub\ArtefactDnD\GameArtifactDnd\GameArtifactDnd\Game.cpp(191,10): warning C4101: 'response': unreferenced local variable
+  Map.cpp
+  Generating Code...
   GameArtifactDnd.vcxproj -> E:\Non-game\GitHub\ArtefactDnD\GameArtifactDnd\Debug\GameArtifactDnd.exe

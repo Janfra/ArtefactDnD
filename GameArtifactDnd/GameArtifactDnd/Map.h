@@ -1,13 +1,17 @@
-// Minimun y_size of the map has to be 16 until I add a way to automatically force it. Otherwise the stats won't show., it has to be divisible by 2
+/* This defines set the size of the grid map. 
+Minimun 'y_Size' of the map has to be 16 until I add a way to automatically force it. Otherwise the stats won't show. It has to be divisible by 2. */
 #define x_Size 38
 #define y_Size 28
+// Makes it possible to use the console functions. In this case is used for using cout.
 #include <iostream>
-#include <string>
+// Include the room class
 #include "Room.h"
+// Save using std:: 
 using namespace std;
 
 class Map {
 public:
+    // All functions explained in the cpp file.
  #pragma region Constructor & Destructor
 
     Map();
@@ -38,6 +42,8 @@ public:
     short getPlayerX();
 
     short getPlayerY();
+
+    //string getRoomType(int n);
 
 #pragma endregion
 
@@ -70,6 +76,7 @@ public:
 
  #pragma region Has-A Classes/Pointers
 
+    // Pointer to the Room class to save space working by reference instead of by value (creating an extra copy).
     Room * rooms;
 
 #pragma endregion
@@ -100,8 +107,10 @@ public:
 #pragma endregion
 
 private:
+    // Declaring the variables
     short posX, posY, playerX, playerY, playerLocationNumber, arrayLocation;
     int pathX[20], pathY[20];
     string grid[x_Size][y_Size];
     short totalRooms;
+    //string* roomTypes;
 };

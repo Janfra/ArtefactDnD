@@ -25,11 +25,14 @@ Map::Map()
             else if (y == (y_Size - 1)) {
                 grid[x][y] = "~~~";
             }
+            // The inside of the map
             else {
                 grid[x][y] = "   ";
             }
         }
     }
+    // Create the new dynamic variable with the total amount of rooms. Possibly change this.
+    // roomTypes = new string[totalRooms];
 }
 
 Map::~Map()
@@ -38,6 +41,9 @@ Map::~Map()
     delete rooms;
         // Set the rooms as NULL so that rooms is not storing anything. 
     rooms = NULL;
+    
+    //delete [] roomTypes;
+    //roomTypes = NULL;
 }
 #pragma endregion
 
@@ -182,6 +188,11 @@ short Map::getPlayerY()
     return playerY;
 }
 
+//string Map::getRoomType(int n)
+//{
+//    return string(roomTypes[n]);
+//}
+
 #pragma endregion
 
  #pragma region Map Functions
@@ -216,7 +227,8 @@ void Map::fillMap(int direction)
         for (int i = posY; i > 0; i -= Height_SIZE + 1) {
             // Set 'posY' as 'i' so that the next time fillMap() is called it does it from the last place this function was called and not from the initial value. 
             setPosY(i);
-                /* During the first iteration set the type of room as the "spawn" room(0).It is not the first iteration, set is as a randomly generated number.
+                /* During the first iteration set the type of room as the "spawn" room(0), it also stores the type of the room in the 'roomType[0]' because the totalRooms haven't gone up. 
+                If it is not the first iteration, set is as a randomly generated number.
                 Each room has a different probability. *For clarity check setType() in the Room class. */
             rooms->setType(randomNumber);
                     // Assign a new random value to the local variable 'randomNumber' to set the room type during the next iteration of the for loop. 
@@ -285,7 +297,7 @@ void Map::fillMap(int direction)
 // Function to display the rooms as "cleared" as the player goes through them.
 void Map::roomCleared(int x, int y)
 {
-    // Clamp the parameters to avoid going over the limit. Probably should modify this one as it would add 5 to it, so it should be 5 further than the usual clamp.
+    // Clamp the parameters to avoid going over the limit. Probably should modify this one as it would add 5 to it, so it should be 5 (Width or Height + 1) further than the usual clamp.
     clamping(x, y);
     // Store the 'x' parameter value to reset it in the nested for loop to simulate the restart of the parameter inside the second for loop. 
     int old = x;

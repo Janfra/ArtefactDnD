@@ -6,7 +6,9 @@
 
 Room::Room()
 {
+	// Set a random seed for the randomizer
 	srand(time(NULL));
+	// Initialize the variables
 	type[0] = "Spawn";
 	type[1] = "Enemy";
 	type[2] = "Trap";
@@ -19,6 +21,7 @@ Room::Room()
 
 Room::Room(int numberType)
 {
+	// Set a random seed for the randomizer
 	srand(time(NULL));
 	type[0] = "Spawn";
 	type[1] = "Enemy";
@@ -34,7 +37,7 @@ Room::Room(int numberType)
  #pragma region Setters & Getters
 	// SETTERS //
 
-	void Room::setType(int typeNumber)
+	string Room::setType(int typeNumber)
 	{
 		if (typeNumber > (TOTAL_TYPES * 3)) {
 			roomType = (TOTAL_TYPES * 3);
@@ -70,6 +73,7 @@ Room::Room(int numberType)
 					}
 				}
 			}
+			return type[1];
 			break;
 		case 8:
 		case 9:
@@ -90,6 +94,7 @@ Room::Room(int numberType)
 					}
 				}
 			}
+			return type[2];
 			break;
 		case 11:
 		case 12:
@@ -109,6 +114,7 @@ Room::Room(int numberType)
 					}
 				}
 			}
+			return type[3];
 			break;
 		case 13:
 		case 14:
@@ -129,6 +135,7 @@ Room::Room(int numberType)
 					}
 				}
 			}
+			return type[4];
 			break;
 		default:
 			for (int y = 0; y < Height_SIZE; y++) {
@@ -147,6 +154,7 @@ Room::Room(int numberType)
 					}
 				}
 			}
+			return type[0];
 			break;
 		}
 	}
