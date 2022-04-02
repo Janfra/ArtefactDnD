@@ -4,7 +4,7 @@
 
 Map::Map()
 {
-    // Assigning the default values for every global variable.
+    // Initializing the values for every global variable.
     rooms = new Room();
     totalRooms = 0;
     posX = (x_Size / 2 - (Width_SIZE / 2));
@@ -87,8 +87,10 @@ void Map::setGrid(int x, int y, short direction)
     }
 }
 
+// Set both the value for 'posX' and 'posY' while clamping them to avoid errors.
 void Map::setPosX(short x)
 {
+    // Clamp the 'x' parameter in between a minimun value of 0 and a maximum value of 'x_Size' (total x value of the map).
     if (x > x_Size) {
         posX = x_Size - 1;
     }
@@ -102,7 +104,7 @@ void Map::setPosX(short x)
 
 void Map::setPosY(short y)
 {
-    // Clamp the 'y' parameter in between a minimun value of 0 and a maximum value of y_Size (total y value of the map).
+    // Clamp the 'y' parameter in between a minimun value of 0 and a maximum value of 'y_Size' (total y value of the map).
     if (y > y_Size) {
         posY = y_Size - 1;
     }
@@ -140,9 +142,44 @@ string Map::getGrid(short x, short y)
     return grid[x][y];
 }
 
+// Making possible to display the total amount of rooms
 short Map::getTotalRooms()
 {
     return totalRooms;
+}
+
+// Clamping both PathX and PathY when getting their value to avoid errors.
+int Map::getPathX(int arrayPosition)
+{
+    if (arrayPosition >= 19) {
+        arrayPosition = 19;
+    }
+    else if (arrayPosition < 0) {
+        arrayPosition = 0;
+    }
+    return pathX[arrayPosition];
+}
+
+int Map::getPathY(int arrayPosition)
+{
+    if (arrayPosition >= 19) {
+        arrayPosition = 19;
+    }
+    else if (arrayPosition < 0) {
+        arrayPosition = 0;
+    }
+    return pathY[arrayPosition];
+}
+
+// Making it possible to get playerX and Player Y value
+short Map::getPlayerX()
+{
+    return playerX;
+}
+
+short Map::getPlayerY()
+{
+    return playerY;
 }
 
 #pragma endregion

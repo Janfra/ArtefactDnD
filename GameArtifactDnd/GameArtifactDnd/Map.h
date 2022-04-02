@@ -31,6 +31,14 @@ public:
 
     short getTotalRooms();
 
+    int getPathX(int arrayPosition);
+
+    int getPathY(int arrayPosition);
+
+    short getPlayerX();
+
+    short getPlayerY();
+
 #pragma endregion
 
  #pragma region Map Function
@@ -91,11 +99,9 @@ public:
 
 #pragma endregion
 
-    // Testing, will move to private
-    int pathX[20], pathY[20];
-    short posX, posY, playerX, playerY, playerLocationNumber, arrayLocation;
 private:
-
+    short posX, posY, playerX, playerY, playerLocationNumber, arrayLocation;
+    int pathX[20], pathY[20];
     string grid[x_Size][y_Size];
     short totalRooms;
 };

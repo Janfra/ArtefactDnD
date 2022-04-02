@@ -169,7 +169,7 @@ void Game::gameStart()
     // testing
     while (numResponse1 != 5) {
         infoDisplay();
-        cout << mainMap->pathX[x] << " " << mainMap->pathY[y] << endl;
+        cout << mainMap->getPathX(x) << " " << mainMap->getPathY(y) << endl;
         cin >> response;
         mainMap->playerMovement();
         system("CLS");
@@ -192,8 +192,8 @@ void Game::MapTesting() {
     mainMap->roundMap();
     while (numResponse1 != 5) {
         infoDisplay();
-        cout << mainMap->pathX[mainMap->playerLocationNumber] << " " << mainMap->pathY[mainMap->playerLocationNumber] << endl;
-        cout << mainMap->playerX << " " << mainMap->playerY << endl;
+        cout << mainMap->getPathX(1) << " " << mainMap->getPathY(1) << endl;
+        cout << mainMap->getPlayerX() << " " << mainMap->getPlayerY() << endl;
         cin >> numResponse1;
         mainMap->playerMovement();
         system("CLS");
