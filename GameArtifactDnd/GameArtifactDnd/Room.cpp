@@ -15,6 +15,7 @@ Room::Room()
 	type[3] = "Item";
 	type[4] = "Empty";
 	roomWallsCheck(roomWalls);
+	encounters = new Encounter();
 
 	setType(0);
 }
@@ -29,9 +30,18 @@ Room::Room(int numberType)
 	type[3] = "Item";
 	type[4] = "Empty";
 	roomWallsCheck(roomWalls);
+	encounters = new Encounter();
 
 	setType(numberType);
 }
+
+Room::~Room()
+{
+	delete encounters;
+	encounters = NULL;
+}
+
+
 #pragma endregion
 
  #pragma region Setters & Getters
@@ -101,13 +111,13 @@ Room::Room(int numberType)
 			for (int y = 0; y < Height_SIZE; y++) {
 				for (int x = 0; x < Width_SIZE; x++) {
 					if (x == (Width_SIZE - Width_SIZE)) {
-						room[x][y] = "  `";
+						room[x][y] = "  '";
 					}
 					else if (x == (Width_SIZE - 1)) {
-						room[x][y] = "`  ";
+						room[x][y] = "'  ";
 					}
 					else if (y == (Height_SIZE - 1) || y == (Height_SIZE - Height_SIZE)) {
-						room[x][y] = "```";
+						room[x][y] = "'''";
 					}
 					else {
 						room[x][y] = "   ";
@@ -179,7 +189,7 @@ Room::Room(int numberType)
 	void Room::roomWallsCheck(string *giveWall)
 	{
 		for (int i = 0; i < TOTAL_TYPES; i++) {
-			setType(i);
+			wallsStoring(i);
 			for (int w = 0; w < 3; w++) {
 				if (w == 0) {
 					giveWall[((i * 3) + (w + 1)) - 1] = room[0][0];
@@ -191,6 +201,102 @@ Room::Room(int numberType)
 					giveWall[((i * 3) + (w + 1)) - 1] = room[1][0];
 				}
 			}
+		}
+	}
+
+	void Room::wallsStoring(int roomType) {
+		switch (roomType)
+		{
+		case 1:
+			for (int y = 0; y < Height_SIZE; y++) {
+				for (int x = 0; x < Width_SIZE; x++) {
+					if (x == (Width_SIZE - Width_SIZE)) {
+						room[x][y] = "  -";
+					}
+					else if (x == (Width_SIZE - 1)) {
+						room[x][y] = "-  ";
+					}
+					else if (y == (Height_SIZE - 1) || y == (Height_SIZE - Height_SIZE)) {
+						room[x][y] = "---";
+					}
+					else {
+						room[x][y] = "   ";
+					}
+				}
+			}
+			break;
+		case 2:
+			for (int y = 0; y < Height_SIZE; y++) {
+				for (int x = 0; x < Width_SIZE; x++) {
+					if (x == (Width_SIZE - Width_SIZE)) {
+						room[x][y] = "  *";
+					}
+					else if (x == (Width_SIZE - 1)) {
+						room[x][y] = "*  ";
+					}
+					else if (y == (Height_SIZE - 1) || y == (Height_SIZE - Height_SIZE)) {
+						room[x][y] = "***";
+					}
+					else {
+						room[x][y] = "   ";
+					}
+				}
+			}
+			break;
+		case 3:
+			for (int y = 0; y < Height_SIZE; y++) {
+				for (int x = 0; x < Width_SIZE; x++) {
+					if (x == (Width_SIZE - Width_SIZE)) {
+						room[x][y] = "  '";
+					}
+					else if (x == (Width_SIZE - 1)) {
+						room[x][y] = "'  ";
+					}
+					else if (y == (Height_SIZE - 1) || y == (Height_SIZE - Height_SIZE)) {
+						room[x][y] = "'''";
+					}
+					else {
+						room[x][y] = "   ";
+					}
+				}
+			}
+			break;
+		case 4:
+			for (int y = 0; y < Height_SIZE; y++) {
+				for (int x = 0; x < Width_SIZE; x++) {
+					if (x == (Width_SIZE - Width_SIZE)) {
+						room[x][y] = "  ~";
+					}
+					else if (x == (Width_SIZE - 1)) {
+						room[x][y] = "~  ";
+					}
+					else if (y == (Height_SIZE - 1) || y == (Height_SIZE - Height_SIZE)) {
+						room[x][y] = "~~~";
+					}
+					else {
+						room[x][y] = "   ";
+					}
+				}
+			}
+			break;
+		default:
+			for (int y = 0; y < Height_SIZE; y++) {
+				for (int x = 0; x < Width_SIZE; x++) {
+					if (x == (Width_SIZE - Width_SIZE)) {
+						room[x][y] = "  #";
+					}
+					else if (x == (Width_SIZE - 1)) {
+						room[x][y] = "#  ";
+					}
+					else if (y == (Height_SIZE - 1) || y == (Height_SIZE - Height_SIZE)) {
+						room[x][y] = "###";
+					}
+					else {
+						room[x][y] = "   ";
+					}
+				}
+			}
+			break;
 		}
 	}
 

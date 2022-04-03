@@ -332,8 +332,11 @@ void Map::roomCleared(int x, int y)
 // Function that displays the player movement on the map
 void Map::playerMovement()
 {
+    if (checkWall(playerX, playerY) == rooms->getType(0)) {
+        rooms->encounters->enemyEncounter();
+    }
     // First check if the player will be moving more than the amount of rooms generated.
-    if (playerLocationNumber + 2 < totalRooms) {
+    if (playerLocationNumber + 2 < totalRooms && rooms->encounters->encounterInProcess == false) {
         // Then check if the player position is exceding the map size (trying to imitate the room generation function parameters).
     if (playerY > 0 || playerX > 0 || playerY < (y_Size - 2) || playerX < (x_Size - 2)) {
             // Add to the player starting position the direction the rooms was generated to update to the next room coordinates in the map.
@@ -398,6 +401,49 @@ void Map::playerClamping(short& x, short& y) {
         y = (y_Size - (Height_SIZE + 1));
     };
 }
+
+string Map::checkWall(short x, short y) {
+    short typeNumber = 0;
+        for (int n = 0; n < TOTAL_WALLS; n++) {
+            if (getGrid(x, y) == rooms->roomWalls[n]) {
+                switch (n)
+                {
+                case 0:
+                case 1:
+                case 2:
+                    return rooms->getType(typeNumber);
+                    break;
+                case 3:
+                case 4:
+                case 5:
+                    return rooms->getType(typeNumber);
+                    break;
+                case 6:
+                case 7:
+                case 8:
+                    return rooms->getType(typeNumber);
+                    break;
+                case 9:
+                case 10:
+                case 11:
+                    return rooms->getType(typeNumber);
+                    break;
+                case 12:
+                case 13:
+                case 14:
+                    return rooms->getType(typeNumber);
+                    break;
+                default:
+                    break;
+                }
+            }
+            // 3 in this case because there is a total of 3 walls, so if it already check 3 walls of a type, go to the next type.
+            if (n % 3 == 2) {
+                typeNumber++;
+            }
+        }
+        return "Error";
+    }
 
 #pragma endregion
 
@@ -547,16 +593,6 @@ void Map::playerClamping(short& x, short& y) {
         break;
     }*/
 
-    //bool Map::checkWall(short x, short y)
-    //{
-    //    for (int n = 0; n < TOTAL_WALLS; n++) {
-    //        if (getGrid(x, y) == rooms->roomWalls[n]) {
-    //            return true;
-    //        }
-    //    }
-    //    
-    //    return false;
-    //}
     //
     //bool Map::checkWallsAround(short x, short y, int generationDirection)
     //{

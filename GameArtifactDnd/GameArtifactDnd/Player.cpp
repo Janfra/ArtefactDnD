@@ -12,17 +12,12 @@ Player::Player()
     // Had to add this variable to the player constructor for it to display the right amount of HP at level 1. 
     currentHP = (totalHP + level + CON);
 
-    items = new Object[3];
-
-    items[1].setName("Vitamins");
-    items[1].setDMG(10);
-    items[1].setConsumable(true);
-
-    items[2].setName("Stack");
+    items = new Object();
+    items[0].setRange(1);
 }
 
 Player::~Player() {
-    delete[] items;
+    delete items;
     items = NULL;
 }
 
@@ -109,11 +104,6 @@ string Player::displayLine(short a)
 #pragma endregion
 
  #pragma region Attack Functions
-
-short Player::attackEnemy(short &enemyHP)
-{
-    return 0;
-}
 
 #pragma endregion
 

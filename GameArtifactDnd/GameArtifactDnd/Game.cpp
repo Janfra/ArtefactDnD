@@ -7,6 +7,7 @@ Game::Game()
 {
     mainMap = new Map();
     player = new Player();
+    mainMap->rooms->encounters->setPlayer(player);
 }
 
 // Destructor
@@ -22,30 +23,7 @@ Game::~Game()
 
  #pragma region Game Functions
 
-bool Game::questionYesOrNo(string question) {
-    bool rv = NULL;
-    string answer;
 
-    cout << endl << question << endl;
-
-    while (rv == NULL) {
-        cin >> answer;
-        if (answer == "Yes" || answer == "yes" || answer == "y" || answer == "Y") {
-            rv = true;
-            return rv;
-        }
-        else if (answer == "No" || answer == "no" || answer == "n" || answer == "N") {
-            rv = false;
-            return rv;
-        }
-        else {
-            system("CLS");
-            infoDisplay();
-            cout << endl << "Invalid response! It has to be 'Yes' or 'No'!" << endl << question << endl;
-        }
-    }
-    return rv;
-}
 
 // Displays the top line of the game that gives the information needed by the player. This does not include future dialogues. It still needs items/inventory added on the right side
 void Game::infoDisplay()
@@ -58,10 +36,13 @@ void Game::infoDisplay()
             cout << setfill('-') << "-";
             break;
         case 1:
+        case 17:
             cout << setfill(' ') << "|";
             break;
         case 2:
+            Color(6);
             cout << player[0].displayLine(0);
+            Color(15);
             break;
         case 3:
         case 6:
@@ -69,13 +50,19 @@ void Game::infoDisplay()
             cout << "|";
             break;
         case 4:
+            Color(3);
             cout << player->displayLine(1);
+            Color(15);
             break;
         case 5:
+            Color(3);
             cout << player->displayLine(2);
+            Color(15);
             break;
         case 7:
+            Color(2);
             cout << player->displayLine(3);
+            Color(15);
             break;
         case 9:
             cout << player->displayLine(4);
@@ -96,7 +83,33 @@ void Game::infoDisplay()
             cout << player->displayLine(9);
             break;
         case 15:
+        case 22:
             cout << setfill('-') << "-";
+            break;
+        case 16:
+            Color(6);
+            cout << setfill(' ') << "+ Object +";
+            Color(15);
+            break;
+        case 18:
+            Color(9);
+            cout << player->items[0].displayObjLine(0);
+            Color(15);
+            break;
+        case 19:
+            Color(9);
+            cout << player->items[0].displayObjLine(1);
+            Color(15);
+            break;
+        case 20:
+            Color(9);
+            cout << player->items[0].displayObjLine(2);
+            Color(15);
+            break;
+        case 21:
+            Color(9);
+            cout << player->items[0].displayObjLine(3);
+            Color(15);
             break;
         default:
             cout << setfill(' ') << " ";
@@ -112,42 +125,11 @@ void Game::infoDisplay()
         // Could add objects on right side of the map here
         switch (y) {
         case 0:
-        case 6:
-        case 12:
+        case 15:
             cout << "-----------------------------------";
             break;
-        case 1:
-            cout << player->items[0].displayObjLine(0);
-            break;
-        case 2:
-            cout << player->items[0].displayObjLine(1);
-            break;
-        case 3:
-            cout << player->items[0].displayObjLine(2);
-            break;
-        case 4:
-            cout << player->items[0].displayObjLine(3);
-            break;
-        case 5:
-            cout << player->items[0].displayObjLine(4);
-            break;
-        case 7:
-            cout << player->items[1].displayObjLine(0);
-            break;
-        case 8:
-            cout << player->items[1].displayObjLine(1);
-            break;
-        case 9:
-            cout << player->items[1].displayObjLine(2);
-            break;
-        case 10:
-            cout << player->items[1].displayObjLine(3);
-            break;
-        case 11:
-            cout << player->items[1].displayObjLine(4);
-            break;
-        case 13:
-            cout << player->items[2].displayObjLine(0);
+        default:
+            cout << setfill(' ') << " ";
             break;
         }
         cout << endl;
@@ -188,14 +170,19 @@ void Game::Color(char typeColor)
 
 void Game::MapTesting() {
     short numResponse1 = 0;
-    char response;
     mainMap->roundMap();
     while (numResponse1 != 5) {
         infoDisplay();
         cout << mainMap->getPlayerX() << " " << mainMap->getPlayerY() << endl;
-        cin >> numResponse1;
         mainMap->playerMovement();
+        cin >> numResponse1;
         system("CLS");
+    }
+}
+
+void Game::testWallsCheck() {
+    for (int i = 0; i < TOTAL_WALLS; i++) {
+        cout << mainMap->rooms->roomWalls[i] << " " << i << endl;
     }
 }
 
@@ -248,4 +235,37 @@ void Game::MapGenerationTest()
     //cout << "here is your new stats!" << endl;
     // }
 
+        //case 1:
+        //    cout << player->items[0].displayObjLine(0);
+        //    break;
+        //case 2:
+        //    cout << player->items[0].displayObjLine(1);
+        //    break;
+        //case 3:
+        //    cout << player->items[0].displayObjLine(2);
+        //    break;
+        //case 4:
+        //    cout << player->items[0].displayObjLine(3);
+        //    break;
+        //case 5:
+        //    cout << player->items[0].displayObjLine(4);
+        //    break;
+        //case 7:
+        //    cout << player->items[1].displayObjLine(0);
+        //    break;
+        //case 8:
+        //    cout << player->items[1].displayObjLine(1);
+        //    break;
+        //case 9:
+        //    cout << player->items[1].displayObjLine(2);
+        //    break;
+        //case 10:
+        //    cout << player->items[1].displayObjLine(3);
+        //    break;
+        //case 11:
+        //    cout << player->items[1].displayObjLine(4);
+        //    break;
+        //case 13:
+        //    cout << player->items[2].displayObjLine(0);
+        //    break;
 #pragma endregion

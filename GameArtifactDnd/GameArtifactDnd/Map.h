@@ -1,5 +1,5 @@
 /* This defines set the size of the grid map. 
-Minimun 'y_Size' of the map has to be 16 until I add a way to automatically force it. Otherwise the stats won't show. It has to be divisible by 2. */
+Minimun 'y_Size' of the map has to be 22 until I add a way to automatically force it. Otherwise the stats won't show. It has to be divisible by 2. */
 #define x_Size 38
 #define y_Size 28
 // Makes it possible to use the console functions. In this case is used for using cout.
@@ -63,9 +63,8 @@ public:
 
     void playerClamping(short& x, short& y);
 
-    //bool checkWall(short x, short y);
+    string checkWall(short x, short y);
 
-    //bool checkWallsAround(short x, short y, int direction);
 #pragma endregion
 
  #pragma region Testing
@@ -104,6 +103,9 @@ public:
 
     //void setGrid(int x, int y);
 
+    //bool checkWall(short x, short y);
+
+    //bool checkWallsAround(short x, short y, int direction);
 #pragma endregion
 
 private:

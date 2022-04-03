@@ -23,23 +23,15 @@ int main()
     //
 
     Game mainGame;
+
+    mainGame.MapTesting();
+}
     //int x = (x_Size / 2 - (Width_SIZE / 2));
     //int y = (y_Size - (Height_SIZE + 1));
     //mainGame.mainMap->setGrid((x_Size / 2 - (Width_SIZE / 2)), (y_Size - (Height_SIZE + 1))); 
     //mainGame.mainMap->setGrid((x + 5), (y));
     //mainGame.mainMap->setGrid((x + 10), (y));
     //mainGame.mainMap->setGrid((x + 15), (y));
-
-    mainGame.MapTesting();
-
-
-    /*mainGame.gameStart();*/
-
-        delete mainGame.mainMap;
-        mainGame.mainMap = NULL;
-        delete mainGame.player;
-        mainGame.player = NULL;
-}
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
 // Debug program: F5 or Debug > Start Debugging menu

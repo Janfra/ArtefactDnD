@@ -36,8 +36,6 @@ public:
 
  #pragma region Attack Functions
 
-    short attackEnemy(short &enemyHP);
-
 #pragma endregion
 
  #pragma region Has-A Classes/Pointers

@@ -16,7 +16,7 @@ Stats::Stats() {
     currentHP = totalHP;
 
     // I need to test DMG output and see if I should make it into a stat the hitting %
-    PDMG = 0 + STR;
+    PDMG = 0;
 
     // Added 0.5 to try and make it so that it always rounds up. 
     // Will be shown in stats as 'DDG' to keep them all 3 letters long. Looks neat.
@@ -112,17 +112,17 @@ short Stats::getCurrentHP()
 
 short Stats::getTotalHP()
 {
-    return (totalHP + level + CON);
+    return (totalHP + getCON());
 }
 
 short Stats::getPDMG()
 {
-    return PDMG;
+    return (PDMG + getSTR());
 }
 
 short Stats::getDODGE()
 {
-    return (DODGE + level);
+    return (DODGE + 1 + (DEX / 2) + 0.5);
 }
 
 #pragma endregion

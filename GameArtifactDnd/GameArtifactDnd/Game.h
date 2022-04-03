@@ -25,7 +25,6 @@ public:
 
     // Test for the start screen, update: Now to test/Run the game
     void gameStart();
-    bool questionYesOrNo(string question);
     void infoDisplay();
     void Color(char typeColor);
 
@@ -35,6 +34,7 @@ public:
 
     void MapTesting();
     void MapGenerationTest();
+    void testWallsCheck();
 
 #pragma endregion
 
