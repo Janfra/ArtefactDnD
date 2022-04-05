@@ -24,7 +24,7 @@ int main()
 
     Game mainGame;
 
-    mainGame.MapTesting();
+    mainGame.displayRewritingTest();
 }
     //int x = (x_Size / 2 - (Width_SIZE / 2));
     //int y = (y_Size - (Height_SIZE + 1));

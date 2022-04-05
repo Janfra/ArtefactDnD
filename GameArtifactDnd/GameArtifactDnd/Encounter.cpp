@@ -38,7 +38,7 @@ void Encounter::setTrapDmg(short setTrapDmg)
 
 void Encounter::setPlayer(Player* playerSet)
 {
-	playerPtn = &playerSet;
+	playerPtn = playerSet;
 }
 
 	// GETTERS //
@@ -63,18 +63,35 @@ short Encounter::getTrapDmg()
 // This function will be called when in a room with an enemy to start a battle.
 void Encounter::enemyEncounter()
 {
-	Enemy* enemy1 = new Enemy();
+	if (enemyPtn == NULL) {
+	enemyPtn = new Enemy();
+	}
 	cout << "Enemy encountered!" << endl;
+	display.plusY();
 	encounterInProcess = true;
+	display.encounterDisplay(to_string(enemyPtn->getCurrentHP()), 3);
 
-	system("PAUSE");
+	display.setCursorPosition(0, display.getYCoordinate());
+	display.plusY();
+	while (encounterInProcess == true) {
+	if (questionYesOrNo("Attack Enemy?") == true) {
+		attackEnemy(enemyPtn);
+		display.encounterDisplay(to_string(enemyPtn->getCurrentHP()), 3);
+		cout << "Enemy Hit!";
+	}
+	
+
+	if (enemyPtn->getCurrentHP() <= 0) {
+		encounterInProcess = false;
+		display.setCursorPosition(157, 4);
+		cout << "Enemy dead";
+		display.setCursorPosition(0, display.getYCoordinate());
+	}
+	}
 
 	// When the encounter finish, get rid of the enemy in the heap and clear the pointer to not have a hanging pointer.
-	delete enemy1;
-	enemy1 = NULL;
-	if (questionYesOrNo("Finish Encounter?") == true) {
-	encounterInProcess = false;
-	}
+	delete enemyPtn;
+	enemyPtn = NULL;
 }
 // This function will be called when in a room a healing fountain is found.
 void Encounter::healingFountain()
@@ -122,7 +139,7 @@ bool Encounter::questionYesOrNo(string question) {
 
 void Encounter::attackEnemy(Enemy* enemyHP)
 {
-	enemyHP->setCurrentHP((enemyHP->getCurrentHP()) - (playerPtn[0]->getSTR()));
+	enemyHP->setCurrentHP((enemyHP->getCurrentHP()) - (playerPtn[0].getSTR()));
 }
 
 #pragma endregion

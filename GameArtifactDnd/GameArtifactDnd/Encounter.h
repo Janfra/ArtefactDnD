@@ -1,8 +1,10 @@
 #include <iostream>
 #include <time.h>
+#include <iomanip>
 #include "Enemy.h"
 #include "Player.h"
 #include "Object.h"
+#include "Display.h"
 using namespace std;
 
 #pragma once
@@ -51,10 +53,11 @@ public:
 
 
 	bool encounterInProcess;
+	Display display;
 private:
 #pragma region Has-A/Pointers
 
-	Player** playerPtn;
+	Player* playerPtn;
 	Enemy* enemyPtn;
 
 #pragma endregion

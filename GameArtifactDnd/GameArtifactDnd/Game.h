@@ -35,6 +35,7 @@ public:
     void MapTesting();
     void MapGenerationTest();
     void testWallsCheck();
+    void displayRewritingTest();
 
 #pragma endregion
 
@@ -47,6 +48,5 @@ public:
 
 private:
     // Private "Global Variables", bad for the stack, long life-span
-
 };
 

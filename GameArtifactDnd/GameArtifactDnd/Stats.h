@@ -43,6 +43,13 @@ public:
 
 #pragma endregion
 
+#pragma region Stats Functions
+
+    string displayLine(short a);
+
+#pragma endregion
+
+
  #pragma region Outdated
 
     string statSheet();

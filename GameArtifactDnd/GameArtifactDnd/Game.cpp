@@ -7,7 +7,6 @@ Game::Game()
 {
     mainMap = new Map();
     player = new Player();
-    mainMap->rooms->encounters->setPlayer(player);
 }
 
 // Destructor
@@ -30,7 +29,7 @@ void Game::infoDisplay()
 {
     // Update: Moved all cases that shared the line to a single one. Update 2: Change it to be all pointers to their respective classes.
     for (int y = 0; y < y_Size; y++) {
-        cout << left << setw(40);
+        cout << left << setw(SET_WIDTH);
         switch (y) {
         case 0:
             cout << setfill('-') << "-";
@@ -41,7 +40,8 @@ void Game::infoDisplay()
             break;
         case 2:
             Color(6);
-            cout << player[0].displayLine(0);
+            cout << player[0].displayLine(0); 
+            mainMap->rooms->encounters->display.plusX(player->displayLine(0).length());
             Color(15);
             break;
         case 3:
@@ -52,35 +52,44 @@ void Game::infoDisplay()
         case 4:
             Color(3);
             cout << player->displayLine(1);
+            mainMap->rooms->encounters->display.plusX(player->displayLine(1).length());
             Color(15);
             break;
         case 5:
             Color(3);
             cout << player->displayLine(2);
+            mainMap->rooms->encounters->display.plusX(player->displayLine(2).length());
             Color(15);
             break;
         case 7:
             Color(2);
             cout << player->displayLine(3);
+            mainMap->rooms->encounters->display.plusX(player->displayLine(3).length());
             Color(15);
             break;
         case 9:
             cout << player->displayLine(4);
+            mainMap->rooms->encounters->display.plusX(player->displayLine(4).length());
             break;
         case 10:
             cout << player->displayLine(5);
+            mainMap->rooms->encounters->display.plusX(player->displayLine(5).length());
             break;
         case 11:
             cout << player->displayLine(6);
+            mainMap->rooms->encounters->display.plusX(player->displayLine(6).length());
             break;
         case 12:
             cout << player->displayLine(7);
+            mainMap->rooms->encounters->display.plusX(player->displayLine(7).length());
             break;
         case 13:
             cout << player->displayLine(8);
+            mainMap->rooms->encounters->display.plusX(player->displayLine(8).length());
             break;
         case 14:
             cout << player->displayLine(9);
+            mainMap->rooms->encounters->display.plusX(player->displayLine(9).length());
             break;
         case 15:
         case 22:
@@ -94,21 +103,25 @@ void Game::infoDisplay()
         case 18:
             Color(9);
             cout << player->items[0].displayObjLine(0);
+            mainMap->rooms->encounters->display.plusX(player->items[0].displayObjLine(0).length());
             Color(15);
             break;
         case 19:
             Color(9);
             cout << player->items[0].displayObjLine(1);
+            mainMap->rooms->encounters->display.plusX(player->items[0].displayObjLine(1).length());
             Color(15);
             break;
         case 20:
             Color(9);
             cout << player->items[0].displayObjLine(2);
+            mainMap->rooms->encounters->display.plusX(player->items[0].displayObjLine(2).length());
             Color(15);
             break;
         case 21:
             Color(9);
             cout << player->items[0].displayObjLine(3);
+            mainMap->rooms->encounters->display.plusX(player->items[0].displayObjLine(3).length());
             Color(15);
             break;
         default:
@@ -119,20 +132,23 @@ void Game::infoDisplay()
         cout << "|";
         for (int x = 0; x < x_Size; x++) {
             cout << mainMap->getGrid(x, y);
+            mainMap->rooms->encounters->display.plusX(mainMap->getGrid(x, y).length());
         }
         // Right map border
         cout << "|";
-        // Could add objects on right side of the map here
+        // Enemies display or encounter display
         switch (y) {
         case 0:
         case 15:
             cout << "-----------------------------------";
             break;
+        case 1:
         default:
             cout << setfill(' ') << " ";
             break;
         }
         cout << endl;
+        mainMap->rooms->encounters->display.plusY();
     }
 }
 
@@ -169,14 +185,14 @@ void Game::Color(char typeColor)
 #pragma region Testing
 
 void Game::MapTesting() {
-    short numResponse1 = 0;
+    string Response1 = " ";
     mainMap->roundMap();
-    while (numResponse1 != 5) {
+    mainMap->rooms->encounters->setPlayer(player);
+    while (Response1 != "End") {
         infoDisplay();
         cout << mainMap->getPlayerX() << " " << mainMap->getPlayerY() << endl;
         mainMap->playerMovement();
-        cin >> numResponse1;
-        system("CLS");
+        cin >> Response1;
     }
 }
 
@@ -201,7 +217,18 @@ void Game::MapGenerationTest()
     }
 }
 
-
+void Game::displayRewritingTest() {
+    string response = " ";
+    mainMap->roundMap();
+    mainMap->rooms->encounters->setPlayer(player);
+    while (response != "END") {
+        mainMap->rooms->encounters->display.setCursorPosition(0, 0);
+        infoDisplay();
+        mainMap->playerMovement();
+        cin >> response;
+        mainMap->rooms->encounters->display.clearConsole();
+    }
+}
 
 #pragma endregion
 
@@ -268,4 +295,14 @@ void Game::MapGenerationTest()
         //case 13:
         //    cout << player->items[2].displayObjLine(0);
         //    break;
+
+//string response = " ";
+//mainMap->roundMap();
+//mainMap->rooms->encounters->setPlayer(player);
+//while (response != "END") {
+//    gameDisplay.setCursorPosition(0, 0);
+//    infoDisplay();
+//    mainMap->playerMovement();
+//    cin >> response;
+//}
 #pragma endregion
