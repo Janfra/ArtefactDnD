@@ -332,8 +332,25 @@ void Map::roomCleared(int x, int y)
 // Function that displays the player movement on the map
 void Map::playerMovement()
 {
-    if (checkWall(playerX, playerY) == rooms->getType(0)) {
+    switch (checkWall(playerX, playerY))
+    {
+    case 0:
+        rooms->encounters->healingFountain();
+        break;
+    case 1:
         rooms->encounters->enemyEncounter();
+        break;
+    case 2:
+        rooms->encounters->trapEncounter();
+        break;
+    case 3:
+        rooms->encounters->foundItem();
+        break;
+    case 4:
+        rooms->encounters->healingFountain();
+        break;
+    default:
+        break;
     }
     // First check if the player will be moving more than the amount of rooms generated.
     if (playerLocationNumber + 2 < totalRooms && rooms->encounters->encounterInProcess == false) {
@@ -402,48 +419,48 @@ void Map::playerClamping(short& x, short& y) {
     };
 }
 
-string Map::checkWall(short x, short y) {
+short Map::checkWall(short x, short y) {
     short typeNumber = 0;
-        for (int n = 0; n < TOTAL_WALLS; n++) {
-            if (getGrid(x, y) == rooms->roomWalls[n]) {
-                switch (n)
-                {
-                case 0:
-                case 1:
-                case 2:
-                    return rooms->getType(typeNumber);
-                    break;
-                case 3:
-                case 4:
-                case 5:
-                    return rooms->getType(typeNumber);
-                    break;
-                case 6:
-                case 7:
-                case 8:
-                    return rooms->getType(typeNumber);
-                    break;
-                case 9:
-                case 10:
-                case 11:
-                    return rooms->getType(typeNumber);
-                    break;
-                case 12:
-                case 13:
-                case 14:
-                    return rooms->getType(typeNumber);
-                    break;
-                default:
-                    break;
-                }
-            }
-            // 3 in this case because there is a total of 3 walls, so if it already check 3 walls of a type, go to the next type.
-            if (n % 3 == 2) {
-                typeNumber++;
+    for (int n = 0; n < TOTAL_WALLS; n++) {
+        if (getGrid(x, y) == rooms->roomWalls[n]) {
+            switch (n)
+            {
+            case 0:
+            case 1:
+            case 2:
+                return typeNumber;
+                break;
+            case 3:
+            case 4:
+            case 5:
+                return typeNumber;
+                break;
+            case 6:
+            case 7:
+            case 8:
+                return typeNumber;
+                break;
+            case 9:
+            case 10:
+            case 11:
+                return typeNumber;
+                break;
+            case 12:
+            case 13:
+            case 14:
+                return typeNumber;
+                break;
+            default:
+                break;
             }
         }
-        return "Error";
+        // 3 in this case because there is a total of 3 walls, so if it already check 3 walls of a type, go to the next type.
+        if (n % 3 == 2) {
+            typeNumber++;
+        }
     }
+    return -1;
+}
 
 #pragma endregion
 

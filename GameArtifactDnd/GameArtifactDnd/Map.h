@@ -59,7 +59,7 @@ public:
 
     void playerClamping(short& x, short& y);
 
-    string checkWall(short x, short y);
+    short checkWall(short x, short y);
 
 #pragma endregion
 

@@ -1,12 +1,9 @@
 #include "Player.h" 
 #include "Map.h"
-#include <iostream>
-#include <Windows.h>
 /// Libraries included to try and make a sleep timer. ///
 #include <chrono>
 #include <thread>
 ///
-#include <iomanip>
 
 using namespace std; 
 
@@ -26,7 +23,6 @@ public:
     // Test for the start screen, update: Now to test/Run the game
     void gameStart();
     void infoDisplay();
-    void Color(char typeColor);
 
 #pragma endregion
 

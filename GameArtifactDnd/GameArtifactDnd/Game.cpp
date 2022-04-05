@@ -2,14 +2,14 @@
 
  #pragma region Constructor & Destructor
 
-// Constructor
+    // CONSTRUCTOR //
 Game::Game()
 {
     mainMap = new Map();
     player = new Player();
 }
 
-// Destructor
+    // DESTRUCTOR //
 Game::~Game()
 {
     delete mainMap;
@@ -21,8 +21,6 @@ Game::~Game()
 #pragma endregion
 
  #pragma region Game Functions
-
-
 
 // Displays the top line of the game that gives the information needed by the player. This does not include future dialogues. It still needs items/inventory added on the right side
 void Game::infoDisplay()
@@ -39,10 +37,10 @@ void Game::infoDisplay()
             cout << setfill(' ') << "|";
             break;
         case 2:
-            Color(6);
+            mainMap->rooms->encounters->display.Color(6);
             cout << player[0].displayLine(0); 
             mainMap->rooms->encounters->display.plusX(player->displayLine(0).length());
-            Color(15);
+            mainMap->rooms->encounters->display.Color(15);
             break;
         case 3:
         case 6:
@@ -50,22 +48,22 @@ void Game::infoDisplay()
             cout << "|";
             break;
         case 4:
-            Color(3);
+            mainMap->rooms->encounters->display.Color(3);
             cout << player->displayLine(1);
             mainMap->rooms->encounters->display.plusX(player->displayLine(1).length());
-            Color(15);
+            mainMap->rooms->encounters->display.Color(15);
             break;
         case 5:
-            Color(3);
+            mainMap->rooms->encounters->display.Color(3);
             cout << player->displayLine(2);
             mainMap->rooms->encounters->display.plusX(player->displayLine(2).length());
-            Color(15);
+            mainMap->rooms->encounters->display.Color(15);
             break;
         case 7:
-            Color(2);
+            mainMap->rooms->encounters->display.Color(2);
             cout << player->displayLine(3);
             mainMap->rooms->encounters->display.plusX(player->displayLine(3).length());
-            Color(15);
+            mainMap->rooms->encounters->display.Color(15);
             break;
         case 9:
             cout << player->displayLine(4);
@@ -96,33 +94,33 @@ void Game::infoDisplay()
             cout << setfill('-') << "-";
             break;
         case 16:
-            Color(6);
+            mainMap->rooms->encounters->display.Color(6);
             cout << setfill(' ') << "+ Object +";
-            Color(15);
+            mainMap->rooms->encounters->display.Color(15);
             break;
         case 18:
-            Color(9);
+            mainMap->rooms->encounters->display.Color(9);
             cout << player->items[0].displayObjLine(0);
             mainMap->rooms->encounters->display.plusX(player->items[0].displayObjLine(0).length());
-            Color(15);
+            mainMap->rooms->encounters->display.Color(15);
             break;
         case 19:
-            Color(9);
+            mainMap->rooms->encounters->display.Color(9);
             cout << player->items[0].displayObjLine(1);
             mainMap->rooms->encounters->display.plusX(player->items[0].displayObjLine(1).length());
-            Color(15);
+            mainMap->rooms->encounters->display.Color(15);
             break;
         case 20:
-            Color(9);
+            mainMap->rooms->encounters->display.Color(9);
             cout << player->items[0].displayObjLine(2);
             mainMap->rooms->encounters->display.plusX(player->items[0].displayObjLine(2).length());
-            Color(15);
+            mainMap->rooms->encounters->display.Color(15);
             break;
         case 21:
-            Color(9);
+            mainMap->rooms->encounters->display.Color(9);
             cout << player->items[0].displayObjLine(3);
             mainMap->rooms->encounters->display.plusX(player->items[0].displayObjLine(3).length());
-            Color(15);
+            mainMap->rooms->encounters->display.Color(15);
             break;
         default:
             cout << setfill(' ') << " ";
@@ -139,9 +137,14 @@ void Game::infoDisplay()
         // Enemies display or encounter display
         switch (y) {
         case 0:
-        case 15:
+        case 9:
+        case 22:
             cout << "-----------------------------------";
             break;
+        case 10:
+            mainMap->rooms->encounters->display.Color(10);
+            cout << "            DESCRIPTION            ";
+            mainMap->rooms->encounters->display.Color(15);
         case 1:
         default:
             cout << setfill(' ') << " ";
@@ -173,12 +176,6 @@ void Game::gameStart()
         system("CLS");
     }
 } 
-
-void Game::Color(char typeColor)
-{
-    HANDLE color = GetStdHandle(STD_OUTPUT_HANDLE); //Prints color to the console. This functions makes it easier to use
-    SetConsoleTextAttribute(color, typeColor);
-}
 
 #pragma endregion
 
@@ -226,7 +223,7 @@ void Game::displayRewritingTest() {
         infoDisplay();
         mainMap->playerMovement();
         cin >> response;
-        mainMap->rooms->encounters->display.clearConsole();
+        mainMap->rooms->encounters->display.resetCoordinates();
     }
 }
 

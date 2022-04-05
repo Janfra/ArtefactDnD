@@ -47,6 +47,8 @@ public:
 
     string displayLine(short a);
 
+    void heal(short healAmount);
+
 #pragma endregion
 
 

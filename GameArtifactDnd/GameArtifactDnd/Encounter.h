@@ -1,6 +1,4 @@
-#include <iostream>
 #include <time.h>
-#include <iomanip>
 #include "Enemy.h"
 #include "Player.h"
 #include "Object.h"
@@ -11,7 +9,7 @@ using namespace std;
 class Encounter
 {
 public:
-#pragma region Constructor & Destructor
+ #pragma region Constructor & Destructor
 
 	// CONSTRUCTOR //
 	Encounter();
@@ -21,7 +19,7 @@ public:
 
 #pragma endregion
 
-#pragma region Setters & Getters
+ #pragma region Setters & Getters
 	// SETTERS //
 	void setDifficulty(short setDiff);
 	void setHealing(short setHeal);
@@ -35,23 +33,26 @@ public:
 
 #pragma endregion
 
-#pragma region Encounter Functions
-
+ #pragma region Encounter Functions
+	// Initiate encounter functions //
 	void enemyEncounter();
 	void healingFountain();
 	void foundItem();
-	void trap();
+	void trapEncounter();
+
+	// Encounter Functions //
 	bool questionYesOrNo(string question);
 
 #pragma endregion
 
-#pragma region Fighting Functions
+ #pragma region Fighting Functions
 
+	void displayEnemyStats(Enemy* enemyStats);
 	void attackEnemy(Enemy* enemyHP);
 
 #pragma endregion
 
-
+	// Public variables. encounterInProcess was gonna be used on game and display is used throughout the whole game.
 	bool encounterInProcess;
 	Display display;
 private:

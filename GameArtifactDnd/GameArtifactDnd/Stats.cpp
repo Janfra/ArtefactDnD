@@ -13,7 +13,7 @@ Stats::Stats() {
 
     totalHP = (10 + level + CON);
 
-    currentHP = totalHP;
+    currentHP = (totalHP + getCON());
 
     // I need to test DMG output and see if I should make it into a stat the hitting %
     PDMG = 0;
@@ -127,24 +127,32 @@ short Stats::getDODGE()
 
 #pragma endregion
 
-#pragma region Stats Functions
+ #pragma region Stats Functions
 
 string Stats::displayLine(short a)
 {
+    if (a >= 4) {
+        a = 3;
+    }
+    else if (a < 0) {
+        a = 0;
+    }
     string rv[4];
 
     // I had to write them manually but stats shouldn't be constantly changing so there should be no need to change it.
     rv[0] = "- " + name + " Stats";
-    rv[1] = "- HP: " + to_string(getTotalHP()) + " / " + to_string(getCurrentHP());
+    rv[1] = "- HP: " + to_string(getTotalHP()) + " / " + to_string(getCurrentHP()) ;
     rv[2] = "- DMG: " + to_string(getPDMG());
     rv[3] = "- DDG: " + to_string(getDODGE());
 
     return rv[a];
 }
 
+void Stats::heal(short healAmount) {
+    currentHP += healAmount;
+}
 
 #pragma endregion
-
 
  #pragma region Outdated
 
