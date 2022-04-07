@@ -1,16 +1,5 @@
 // GameArtifactDnd.cpp : This file contains the 'main' function. Program execution begins and ends there.
-
-#include <iostream>
-#include <string>
-#include <time.h>
-#include <conio.h>
 #include "Game.h"
-#include <Windows.h>
-
-
-using namespace std;
-
-//Moved class stats, player and functions statSheet and questionYesOrNo to separated files. Considering merging the functions into the player class, questionYesOrNo into a general functions class
 
 int main()
 {
@@ -23,8 +12,7 @@ int main()
     //
 
     Game mainGame;
-
-    mainGame.displayRewritingTest();
+    mainGame.gameStart();
 }
     //int x = (x_Size / 2 - (Width_SIZE / 2));
     //int y = (y_Size - (Height_SIZE + 1));

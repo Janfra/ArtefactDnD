@@ -122,7 +122,7 @@ short Stats::getPDMG()
 
 short Stats::getDODGE()
 {
-    return (DODGE + 1 + (DEX / 2) + 0.5);
+    return (1 + (getDEX() / 2) + 0.5);
 }
 
 #pragma endregion

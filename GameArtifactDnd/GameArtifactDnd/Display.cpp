@@ -81,7 +81,7 @@ void Display::clearEncounter(int y)
 // Clear the whole console
 void Display::clearConsole()
 {
-    for (int y = 0; y < yCoordinate + 5; y++) {
+    for (int y = 0; y < 40 + 5; y++) {
         for (int x = 0; x < 200; x++) {
             setCursorPosition(x, y);
             cout << "   ";
@@ -91,13 +91,17 @@ void Display::clearConsole()
 }
 
 // Clear the section in infoDisplay() dedicated to the encounter. *Doesn't include the description title and division line
-void Display::clearEncounterDisplay() {
-    for (int i = 1; i < 14; i++) {
+void Display::clearEncounterDisplay(bool clearDescription) {
+    for (int i = 1; i < y_Size; i++) {
         for (int x = ENCOUNTER_COORDINATE_DISPLAY; x < (ENCOUNTER_COORDINATE_DISPLAY + 35); x++) {
             // Don't delete the separating line for description and title
-            if (i != 9 && i != 10) {
+            if (i != 9 && i != 10 && clearDescription == true) {
             setCursorPosition(x, i);
             cout << " ";
+            }
+            else if(i < 9) {
+                setCursorPosition(x, i);
+                cout << " ";
             }
         }
     }
@@ -117,6 +121,7 @@ void Display::resetCoordinates()
     arraySize = 1;
     xCoordinatePtn = new short[arraySize];
     transferXCoord = new short[arraySize];
+    setCursorBottom();
 }
 
     // COORDINATE FUNCTIONS //
@@ -183,10 +188,135 @@ void Display::encounterDisplay(string display, int y, char colour)
     setCursorBottom();
 }
 
+// This will add a random description to the encounter, thats why I gave it an 'encounterNumber' parameter, that way I can define if its a trap, or an enemy encounter. For now is 1 to 4.
+void Display::encounterDescription(short encounterNumber) {
+    // When a new description is generated, clear the display to write the new one.
+    clearEncounterDisplay(true);
+    // local variable that sets the y coordinates to the start line of the description. Which is 11.
+    short descriptionY = 11;
+    string description;
+    short randomDescription = rand() % 3;
+    switch (encounterNumber)
+    {
+    case 1:
+        encounterAnnouncement("Enemy Encountered!");
+        setCursorPosition(ENCOUNTER_COORDINATE_DISPLAY, descriptionY);
+        if (randomDescription == 0) {
+            description = "As you enter the room you find a -ninja turtle that for some reason is trying to kill you... --No time to figure out why!!";
+            descriptionText(description, '-');
+        }
+            else if (randomDescription == 1) {
+            description = "As you enter the room you find a-flying tulipan that for some -reason is trying to kill you... --No time to figure out why!!";
+            descriptionText(description, '-');
+            }
+                else {
+                    description = "As you enter the room you find a -giant baby that for some reason istrying to kill you... --No time to figure out why!!";
+                    descriptionText(description, '-');
+                }
+        break;
+    case 2:
+        encounterAnnouncement("Healing fountain found!");
+        setCursorPosition(ENCOUNTER_COORDINATE_DISPLAY, descriptionY);
+        if (randomDescription == 0) { 
+            description = "You found a glowing fountain!! --It gives you the feeling that it -will heal you if you drink from it";
+            descriptionText(description, '-');
+        }
+            else if (randomDescription == 1) {
+                description = "You found a fountain but the watercoming out of it looks murky -and disgusting... --You feel like you shoulnd't drink from it...";
+                descriptionText(description, '-');
+            }
+                else {
+                    description = "You found a fountain. --Looks pretty normal";
+                    descriptionText(description, '-');
+                }
+        break;
+    case 3:
+        encounterAnnouncement("Item found!");
+        setCursorPosition(ENCOUNTER_COORDINATE_DISPLAY, descriptionY);
+        if (randomDescription == 0) {
+            description = "As you are walking through the -next room you realise that there -is an object stuck on the wall. --You decide to go and have a closerlook.";
+            descriptionText(description, '-');
+        }
+            else if (randomDescription == 1) {
+            description = "You were walking without paying attention when you almost fell. -Confused you thank God that it -wasn't a trap, but you still don'tknow what made you trip -for a second. -You turned around to check and... -Is an item... --Why would someone drop an item andleave? It better be bad...";
+            descriptionText(description, '-');
+            }
+                else {
+            description = "You come into the room and you seea pedastal.--You just hope you dont have to -pull anything by force, -because you definitely are going to check that item.";
+            descriptionText(description, '-');
+                }
+        break;
+    case 4:
+        encounterAnnouncement("Trap!");
+        setCursorPosition(ENCOUNTER_COORDINATE_DISPLAY, descriptionY);
+        if (randomDescription == 0) {
+            description = "Went lazy";
+            descriptionText(description, '-');
+        }
+            else if (randomDescription == 1) {
+            description = "Still lazy";
+            descriptionText(description, '-');
+            }
+                else {
+            description = "... Yeah, still";
+            descriptionText(description, '-');
+                }
+        break;
+    default:
+        break;
+    }
+    setCursorBottom();
+}
+
+void Display::descriptionNextLine(short& descriptionY) {
+    descriptionY++;
+    setCursorPosition(ENCOUNTER_COORDINATE_DISPLAY, descriptionY);
+}
+
+void Display::descriptionText(string str, char del) {
+    // declaring temp string to store the curr "word" upto del
+      string temp = "";
+      short descriptionY = 11;
+      short charactersSoFar = 1;
+   
+      for(int i = 0; i <(int)str.size(); i++){
+        // If cur char is not del, then append it to the cur "word", otherwise
+          // you have completed the word, print it, and start a new word.
+          if (str[i] != del && charactersSoFar % 34 != 0) {
+              temp += str[i];
+              charactersSoFar++;
+          }
+          else {
+              if (str[i] != del) {
+                  temp += str[i];
+                  charactersSoFar++;
+              }
+              else {
+                  charactersSoFar = 1;
+              }
+              cout << temp; descriptionNextLine(descriptionY);
+              temp = "";
+          }
+      }
+
+      // Couts the last line
+      cout << temp;
+}
+
 // Display at the announcement section which encounter is currently happening
 void Display::encounterAnnouncement(string display) {
     setCursorPosition(0, (y_Size - 2));
     cout << display;
+}
+
+    // PLAYER FUNCTIONS //
+void Display::playerHPDisplay(string update) {
+    setCursorPosition(0, 7);
+    cout << "                            ";
+    setCursorPosition(0, 7);
+    Color(2);
+    cout << update;
+    Color(15);
     setCursorBottom();
 }
 

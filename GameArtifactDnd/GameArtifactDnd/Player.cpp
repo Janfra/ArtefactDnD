@@ -75,6 +75,14 @@ short Player::getNeededEXP()
     return neededEXP[arrayNumber];
 }
 
+short Player::getPDMG() {
+    return (getSTR() + items->getDMG() + rand() % getDEX());
+}
+
+short Player::getDODGE() {
+    return (1 + (getDEX() / 2) + 0.5 + (items->getRange()));
+}
+
 #pragma endregion
 
  #pragma region Player Functions
@@ -96,7 +104,7 @@ string Player::displayLine(short a)
     rv[0] = "- " + name + " Stats";
     rv[1] = "- Level: " + to_string(getLevel());
     rv[2] = "- EXP: " + to_string(getEXP()) + " / " + to_string(getNeededEXP());
-    rv[3] = "- HP: " + to_string(getTotalHP()) + " / " + to_string(getCurrentHP());
+    rv[3] = "- HP: " + to_string(getCurrentHP()) + " / " + to_string(getTotalHP());
     rv[4] = "- STR: " + to_string(getSTR());
     rv[5] = "- DEX: " + to_string(getDEX());
     rv[6] = "- CON: " + to_string(getCON());

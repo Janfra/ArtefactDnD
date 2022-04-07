@@ -138,7 +138,6 @@ void Game::infoDisplay()
         switch (y) {
         case 0:
         case 9:
-        case 22:
             cout << "-----------------------------------";
             break;
         case 10:
@@ -158,23 +157,20 @@ void Game::infoDisplay()
 // Trying to make a start screen with a timer to display the game title + a recommendation for full screen. // UPDATE: Now is the function running the game
 void Game::gameStart()
 {
-    short x = 0;
-    short y = 0;
-
-    short numResponse1 = 0;
-    char response;
+    string response = " ";
+    bool* win = new bool(false);
     mainMap->roundMap();
-    /// <summary>
-    /// Changing this function to be updated with the new changes on the functions 
-    /// </summary>
-    // testing
-    while (numResponse1 != 5) {
+    mainMap->rooms->encounters->setPlayer(player);
+    mainMap->rooms->encounters->setWin(win);
+    while (win[0] == false) {
         infoDisplay();
-        cout << mainMap->getPathX(x) << " " << mainMap->getPathY(y) << endl;
-        cin >> response;
         mainMap->playerMovement();
-        system("CLS");
+        cin >> response;
+        mainMap->rooms->encounters->display.resetCoordinates();
     }
+    win = NULL;
+    mainMap->rooms->encounters->display.clearConsole();
+    cout << left << setw(70) << setfill(' ') << endl << endl << endl << " " << "Game Finish!" << endl << endl << endl << endl << endl << endl << endl;
 } 
 
 #pragma endregion

@@ -13,6 +13,12 @@ Object::Object() {
     typeOfAttack = "No Type";
 }
 
+Object::Object(short difficulty) {
+    name = "Random";
+    addDMG = (rand() % 10) + 1 + difficulty;
+    setRange((rand() % 5));
+}
+
 #pragma endregion
 
  #pragma region Setters & Getters

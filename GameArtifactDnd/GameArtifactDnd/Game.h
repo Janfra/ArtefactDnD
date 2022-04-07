@@ -1,11 +1,5 @@
 #include "Player.h" 
 #include "Map.h"
-/// Libraries included to try and make a sleep timer. ///
-#include <chrono>
-#include <thread>
-///
-
-using namespace std; 
 
 // Game class to put all the game inside and have the general game functions.
 class Game

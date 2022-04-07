@@ -1,9 +1,5 @@
-// Makes it possible to use the console functions. In this case is used for using cout.
-#include <iostream>
-// Include the room class
+// Include the room class, map has rooms
 #include "Room.h"
-// Save using std:: 
-using namespace std;
 
 class Map {
 public:

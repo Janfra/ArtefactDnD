@@ -4,20 +4,21 @@
 Encounter::Encounter()
 {
 	difficulty = 0;
-	healing = 1;
-	trapDmg = 1;
 	playerPtn = NULL;
 	enemyPtn = NULL;
+	winPtn = NULL;
 	encounterInProcess = false;
 }
 
 Encounter::~Encounter()
 {
-	delete playerPtn;
 	playerPtn = NULL;
 
-	delete[] enemyPtn;
+	delete enemyPtn;
 	playerPtn = NULL;
+
+	delete winPtn;
+	winPtn = NULL;
 }
 
 #pragma endregion
@@ -28,17 +29,13 @@ void Encounter::setDifficulty(short setDiff)
 {
 }
 
-void Encounter::setHealing(short setHeal)
-{
-}
-
-void Encounter::setTrapDmg(short setTrapDmg)
-{
-}
-
 void Encounter::setPlayer(Player* playerSet)
 {
 	playerPtn = playerSet;
+}
+
+void Encounter::setWin(bool* winCondition) {
+	winPtn = winCondition;
 }
 
 	// GETTERS //
@@ -47,30 +44,20 @@ short Encounter::getDifficulty()
 	return difficulty;
 }
 
-short Encounter::getHealing()
-{
-	return healing;
-}
-
-short Encounter::getTrapDmg()
-{
-	return trapDmg;
-}
-
 #pragma endregion
 
  #pragma region Encounter Functions
 // This function will be called when in a room with an enemy to start a battle.
 void Encounter::enemyEncounter()
 {
+	string next;
 	// If there is already an enemy, then don't generate a new one
 	if (enemyPtn == NULL) {
+	display.encounterDescription(1);
 	enemyPtn = new Enemy(difficulty);
 	encounterInProcess = true;
 	}
-	
-	// Announce the encounter and display the enemy stats
-	display.encounterAnnouncement("Enemy Encountered!");
+	// Display enemy stats
 	displayEnemyStats(enemyPtn);
 
 	// Initiate the encounter loop 
@@ -80,7 +67,6 @@ void Encounter::enemyEncounter()
 		attackEnemy(enemyPtn);
 		displayEnemyStats(enemyPtn);
 	}
-	
 
 	// When enemy runs out of HP, finish encounter
 	if (enemyPtn->getCurrentHP() <= 0) {
@@ -93,6 +79,10 @@ void Encounter::enemyEncounter()
 		display.Color(7);
 		playerPtn->setEXP(enemyPtn->getDropEXP());
 	}
+	else {
+	cin >> next;
+	attackPlayer(enemyPtn);
+	}
 	}
 
 	// When the encounter finish, get rid of the enemy in the heap and clear the pointer to not have a hanging pointer.
@@ -103,15 +93,19 @@ void Encounter::enemyEncounter()
 // This function will be called when in a room a healing fountain is found.
 void Encounter::healingFountain()
 {
-	display.encounterAnnouncement("Healing fountain found!");
+	display.encounterDescription(2);
 	encounterInProcess = true;
 	if (questionYesOrNo("Want to use the fountain to heal?") == true) {
-		short healAmount = (rand() % (difficulty + 1) * 4);
+		short roll = rollD20();
+		short healAmount = (rand() % (difficulty + 1) + 1 * 4);
+		cout << "You need a 10..." << endl;
+		if (roll > 10) {
 		playerPtn->heal(healAmount);
-		if (healAmount != 0) {
-		cout << "Healed for " << healAmount << "!" << endl;
+			cout << "Rolled:" << roll << endl;
+			cout << "Healed for " << healAmount << "!" << endl;
 		}
 		else {
+			cout << "Rolled: " << roll << endl;
 			cout << "Something went wrong!! There is no healing." << endl;
 		}
 	}
@@ -121,13 +115,34 @@ void Encounter::healingFountain()
 // This function will be called when an item is found.
 void Encounter::foundItem()
 {
-	display.encounterAnnouncement("Item found!");
+	display.encounterDescription(3);
+	generateItem();
+	display.clearEncounter();
 }
 
 // This function will be called when a trap room is entered.
 void Encounter::trapEncounter()
 {
-	display.encounterAnnouncement("Trap!!");
+	display.encounterDescription(4);
+	display.clearEncounter();
+	/// Declare and initialized local variables
+	short trapDodge = (rand() % 10) + 1;
+	short trapDMG = (rand() % 4) + difficulty;
+	short roll = rollD20();
+	string next;
+	///
+
+	cout << "Try to dodge!" << endl << "Throw a D20, you need at least : " << trapDodge << endl;
+	cin >> next;
+	display.clearEncounter();
+	cout << endl << "Rolled: " << roll << endl;
+	if (roll >= trapDodge) {
+		cout << "Dodged!" << endl;
+	}
+	else {
+		damagePlayer(trapDMG);
+		cout << "You failed to dodge! You take: " << trapDMG << " of damage." << endl;
+	}
 }
 
 // This function is used to ask the player a question and return a bool based on it
@@ -137,7 +152,7 @@ bool Encounter::questionYesOrNo(string question) {
 	// Declare another one to store the player answer
 	string answer;
 
-	cout << question << endl << endl;
+	cout << question << endl;
 
 	// Until the player gives a valid answer, ask the question.
 	while (rv == NULL) {
@@ -160,6 +175,19 @@ bool Encounter::questionYesOrNo(string question) {
 	return rv;
 }
 
+// Generate an item that can be taken 
+void Encounter::generateItem() {
+	Object* itemFound = new Object(difficulty);
+	itemFound->displayInfo();
+	if (questionYesOrNo("Want to pick up this item?") == true) {
+		delete playerPtn->items;
+		playerPtn->items = itemFound;
+	}
+	else {
+		delete itemFound;
+	}
+}
+
 #pragma endregion
 
  #pragma region Fighting Functions
@@ -167,7 +195,7 @@ bool Encounter::questionYesOrNo(string question) {
 // Function to display the enemy stats, its only parameter is to assign which enemy stats it is showing.
 void Encounter::displayEnemyStats(Enemy* enemyStats) {
 	// Clear the section designed to display the encounter information inside infoDisplay()
-	display.clearEncounterDisplay();
+	display.clearEncounterDisplay(false);
 	// Display the enemy information
 	display.encounterDisplay(enemyStats->displayLine(0), 2, 4);
 	display.encounterDisplay(enemyStats->displayLine(1), 4, 2);
@@ -181,17 +209,64 @@ void Encounter::attackEnemy(Enemy* enemyHP)
 	// Clear the console in case there was anything being displayed before
 	display.clearEncounter();
 	// Declare a local variable to store the amount of damage done to the enemy. This was added at first to do testing. Now I am keeping it for adding obj damage and possibly RNG.
-	short dmgTaken = (playerPtn->getSTR() + rand() % playerPtn->getDEX());
+	short dmgTaken = playerPtn->getPDMG();
+
+	// Check that the damage go over their dodge
+	if (rollD20() + playerPtn->getSTR() >= enemyHP->getDODGE()) {
 	// Set the enemy HP to the new amount.
 	enemyHP->setCurrentHP(enemyHP->getCurrentHP() - dmgTaken);
-	// If the player is not dead display the amount of damage dealt on the console. This needs to be changed so that 'dmgTaken' just have the amount of damage that will be dealt and use that.
-	if (enemyHP->getCurrentHP() > 0) {
-	display.setCursorBottom();
-	cout << endl <<"Enemy Hit for " << dmgTaken << "!!" << endl;
+		// If the player is not dead display the amount of damage dealt on the console. This needs to be changed so that 'dmgTaken' just have the amount of damage that will be dealt and use that.
+		if (enemyHP->getCurrentHP() > 0) {
+		display.setCursorBottom();
+		cout << endl << "Enemy Hit for " << dmgTaken << "!!" << endl;
+		}
+	} else {
+		display.setCursorBottom();
+		cout << "Enemy dodged!" << endl;
+	}
+
+}
+
+void Encounter::attackPlayer(Enemy* enemyAttack) {
+	short dmgTaken = (enemyAttack->getSTR() + rand() % enemyPtn->getDEX());
+	display.clearEncounter();
+	if (rollD20() + enemyPtn->getSTR() >= playerPtn->getDODGE()) {
+		damagePlayer(dmgTaken);
+		display.setCursorBottom();
+		cout << "Enemy dealt you " << dmgTaken << "!!" << endl;
+	}
+	else {
+		display.setCursorBottom();
+		cout << "Dodge!!" << endl;
+	}
+	if (playerPtn->getCurrentHP() <= 0) {
+		display.setCursorBottom();
+		cout << endl << "Died" << endl << endl;
+		encounterInProcess = false;
+	}
+}
+
+void Encounter::damagePlayer(short dmgDone) {
+	playerPtn->setCurrentHP(playerPtn->getCurrentHP() - dmgDone);
+	display.playerHPDisplay(playerPtn->displayLine(3));
+	if (playerPtn->getCurrentHP() < 0) {
+		encounterInProcess = false;
+		winPtn[0] = true;
 	}
 }
 
 #pragma endregion
+
+ #pragma region Rolling functions
+
+short Encounter::rollD20()
+{
+	short D20 = ((rand() % 20) + 1);
+	return D20;
+}
+
+#pragma endregion
+
 
  #pragma region Outdated
 

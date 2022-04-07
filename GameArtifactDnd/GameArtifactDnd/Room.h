@@ -1,6 +1,4 @@
-// Includes for randomizing with srand
-#include <iostream>
-#include <time.h>
+// Room has encounters
 #include "Encounter.h"
 // Defines set the size of the rooms
 #define Height_SIZE 4
@@ -10,7 +8,6 @@
 // Total types: 5 multiplied by top, left and right 3
 #define TOTAL_WALLS (TOTAL_TYPES * 3) 
 // Not having to use std::
-using namespace std;
 
 #pragma once
 class Room

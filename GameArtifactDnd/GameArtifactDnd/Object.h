@@ -10,6 +10,8 @@ public:
 
     Object();
 
+    Object(short difficulty);
+
 #pragma endregion
 
  #pragma region Setters & Getters

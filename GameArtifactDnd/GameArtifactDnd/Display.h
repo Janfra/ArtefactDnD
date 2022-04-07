@@ -1,8 +1,9 @@
+// Makes it possible to use the console functions. In this case is used for using cout.
 #include <iostream>
 #include <iomanip>
 #include <Windows.h>
+
     // DEFINES //
-    
 // Necessary for the setCursorPosition function //
 #define NOMINMAX
 #define WIN32_LEAN_AND_MEAN
@@ -51,7 +52,7 @@ public:
     void clearEncounter();
     void clearEncounter(int y);
     void clearConsole();
-    void clearEncounterDisplay();
+    void clearEncounterDisplay(bool clearDescription);
     // Reset the variables, done when a full new display is generated
     void resetCoordinates();
 
@@ -63,7 +64,12 @@ public:
     //  Encounter display functions //
     void encounterDisplay(string display, int y);
     void encounterDisplay(string display, int y, char colour);
+    void encounterDescription(short encounterNumber);
+    void descriptionNextLine(short& descriptionY);
+    void descriptionText(string str, char del);
     void encounterAnnouncement(string display);
+
+    void playerHPDisplay(string update);
 
     // Color changing function, credits to: Martin Sanz // 
     void Color(char typeColor);
