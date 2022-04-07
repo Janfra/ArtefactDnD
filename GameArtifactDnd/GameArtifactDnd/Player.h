@@ -22,6 +22,10 @@ public:
     short getLevel();
     short getNeededEXP();
 
+    short getPDMG();
+
+    short getDODGE();
+
     // GETTERS //
 
     void setEXP(short gainedEXP);
@@ -35,8 +39,6 @@ public:
 #pragma endregion
 
  #pragma region Attack Functions
-
-    short attackEnemy(short &enemyHP);
 
 #pragma endregion
 

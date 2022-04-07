@@ -12,17 +12,12 @@ Player::Player()
     // Had to add this variable to the player constructor for it to display the right amount of HP at level 1. 
     currentHP = (totalHP + level + CON);
 
-    items = new Object[3];
-
-    items[1].setName("Vitamins");
-    items[1].setDMG(10);
-    items[1].setConsumable(true);
-
-    items[2].setName("Stack");
+    items = new Object();
+    items[0].setRange(1);
 }
 
 Player::~Player() {
-    delete[] items;
+    delete items;
     items = NULL;
 }
 
@@ -30,10 +25,10 @@ Player::~Player() {
 
  #pragma region Setters & Getters
 // SETTERS //
-
+// Player gains exp from killing
 void Player::setEXP(short gainedEXP)
 {
-    EXP = gainedEXP;
+    EXP += gainedEXP;
 
     if (EXP >= getNeededEXP()) {
         level++;
@@ -80,6 +75,14 @@ short Player::getNeededEXP()
     return neededEXP[arrayNumber];
 }
 
+short Player::getPDMG() {
+    return (getSTR() + items->getDMG() + rand() % getDEX());
+}
+
+short Player::getDODGE() {
+    return (1 + (getDEX() / 2) + 0.5 + (items->getRange()));
+}
+
 #pragma endregion
 
  #pragma region Player Functions
@@ -89,13 +92,19 @@ short Player::getNeededEXP()
 // I only need to cout once for all lines and keep the alignment correctly.
 string Player::displayLine(short a)
 {
+    if (a >= 9) {
+        a = 9;
+    }
+    else if (a < 0) {
+        a = 0;
+    }
     string rv[10];
 
     // I had to write them manually but stats shouldn't be constantly changing so there should be no need to change it.
     rv[0] = "- " + name + " Stats";
     rv[1] = "- Level: " + to_string(getLevel());
-    rv[2] = "- EXP: " + to_string(getNeededEXP()) + " / " + to_string(getEXP());
-    rv[3] = "- HP: " + to_string(getTotalHP()) + " / " + to_string(getCurrentHP());
+    rv[2] = "- EXP: " + to_string(getEXP()) + " / " + to_string(getNeededEXP());
+    rv[3] = "- HP: " + to_string(getCurrentHP()) + " / " + to_string(getTotalHP());
     rv[4] = "- STR: " + to_string(getSTR());
     rv[5] = "- DEX: " + to_string(getDEX());
     rv[6] = "- CON: " + to_string(getCON());
@@ -109,11 +118,6 @@ string Player::displayLine(short a)
 #pragma endregion
 
  #pragma region Attack Functions
-
-short Player::attackEnemy(short &enemyHP)
-{
-    return 0;
-}
 
 #pragma endregion
 

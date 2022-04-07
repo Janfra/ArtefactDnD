@@ -43,6 +43,15 @@ public:
 
 #pragma endregion
 
+#pragma region Stats Functions
+
+    string displayLine(short a);
+
+    void heal(short healAmount);
+
+#pragma endregion
+
+
  #pragma region Outdated
 
     string statSheet();

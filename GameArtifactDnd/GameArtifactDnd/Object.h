@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <time.h>
 using namespace std;
 
 class Object {
@@ -8,6 +9,8 @@ public:
  #pragma region Constructor & Destructor
 
     Object();
+
+    Object(short difficulty);
 
 #pragma endregion
 
@@ -18,8 +21,6 @@ public:
     void setName(string newName);
     void setDMG(int setDMG);
     void setRange(int setRange);
-    void setDurability(int setDurability);
-    void setConsumable(bool setConsumable);
 
     // GETTERS // 
 
@@ -27,7 +28,6 @@ public:
     string getName();
     int getDMG();
     int getRange();
-    int getDurability();
 
 #pragma endregion
 
@@ -48,7 +48,5 @@ private:
     string typeOfAttack;
     int addDMG;
     int addRange;
-    int durability;
-    bool consumable;
 };
 

@@ -1,14 +1,5 @@
-#include "Player.h"
+#include "Player.h" 
 #include "Map.h"
-#include <iostream>
-#include <Windows.h>
-/// Libraries included to try and make a sleep timer. ///
-#include <chrono>
-#include <thread>
-///
-#include <iomanip>
-
-using namespace std; 
 
 // Game class to put all the game inside and have the general game functions.
 class Game
@@ -25,8 +16,16 @@ public:
 
     // Test for the start screen, update: Now to test/Run the game
     void gameStart();
-    bool questionYesOrNo(string question);
     void infoDisplay();
+
+#pragma endregion
+
+ #pragma region Testing
+
+    void MapTesting();
+    void MapGenerationTest();
+    void testWallsCheck();
+    void displayRewritingTest();
 
 #pragma endregion
 
@@ -39,6 +38,5 @@ public:
 
 private:
     // Private "Global Variables", bad for the stack, long life-span
-
 };
 

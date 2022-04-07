@@ -1,13 +1,9 @@
-// Minimun y_size of the map has to be 16 until I add a way to automatically force it. Otherwise the stats won't show., it has to be divisible by 2
-#define x_Size 38
-#define y_Size 28
-#include <iostream>
-#include <string>
+// Include the room class, map has rooms
 #include "Room.h"
-using namespace std;
 
 class Map {
 public:
+    // All functions explained in the cpp file.
  #pragma region Constructor & Destructor
 
     Map();
@@ -18,7 +14,11 @@ public:
  #pragma region Setters & Getters
     // SETTERS //
 
-    void setGrid(int x, int y);
+    void setGrid(int x, int y, short direction);
+
+    void setPosX(short x);
+    
+    void setPosY(short y);
 
     // GETTERS //
 
@@ -27,17 +27,48 @@ public:
 
     short getTotalRooms();
 
+    int getPathX(int arrayPosition);
+
+    int getPathY(int arrayPosition);
+
+    short getPlayerX();
+
+    short getPlayerY();
+
+    //string getRoomType(int n);
+
 #pragma endregion
 
  #pragma region Map Function
 
+    void roundMap();
+
     void fillMap(int direction);
+
+    void playerMovement();
+
+    void roomCleared(int x, int y);
+
+    void clamping(short& x, short& y);
+
+    void clamping(int& x, int& y);
+
+    void playerClamping(short& x, short& y);
+
+    short checkWall(short x, short y);
+
+#pragma endregion
+
+ #pragma region Testing
+
+
 
 #pragma endregion
 
  #pragma region Has-A Classes/Pointers
 
-    Room rooms[3];
+    // Pointer to the Room class to save space working by reference instead of by value (creating an extra copy).
+    Room * rooms;
 
 #pragma endregion
 
@@ -62,10 +93,18 @@ public:
     // int ySize;
     // int xSize;
 
+    //void setGrid(int x, int y);
+
+    //bool checkWall(short x, short y);
+
+    //bool checkWallsAround(short x, short y, int direction);
 #pragma endregion
 
 private:
-
+    // Declaring the variables
+    short posX, posY, playerX, playerY, playerLocationNumber, arrayLocation;
+    int pathX[20], pathY[20];
     string grid[x_Size][y_Size];
     short totalRooms;
+    //string* roomTypes;
 };

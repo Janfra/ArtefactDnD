@@ -10,9 +10,13 @@ Object::Object() {
     name = "Unknown";
     addDMG = 1;
     addRange = 1;
-    durability = 1;
     typeOfAttack = "No Type";
-    consumable = false;
+}
+
+Object::Object(short difficulty) {
+    name = "Random";
+    addDMG = (rand() % 10) + 1 + difficulty;
+    setRange((rand() % 5));
 }
 
 #pragma endregion
@@ -70,16 +74,6 @@ Object::Object() {
         }
     }
 
-    // May end up making consumables another class entirelly, an Is-A class for object.
-    void Object::setConsumable(bool setConsumable) {
-        consumable = setConsumable;
-    }
-
-    // After starting to do this code I realised that HP in objects was kind of weird and decided to go for durability instead, I'll later add an object breaking feature
-    void Object::setDurability(int setDurability) {
-        durability = setDurability;
-    }
-
     // GETTERS //
 
     string Object::getTypeOfAttack() {
@@ -102,22 +96,23 @@ Object::Object() {
         return addRange;
     }
 
-    int Object::getDurability() {
-        return durability;
-    }
-
 #pragma endregion
 
  #pragma region Object Functions
 
     string Object::displayObjLine(short a)
     {
-        string rv[5];
-        rv[0] = "Name: " + getName();
-        rv[1] = "Damage: " + to_string(getDMG());
-        rv[2] = "Durability: " + to_string(getDurability());
-        rv[3] = "Range: " + to_string(getRange());
-        rv[4] = "Type: " + getTypeOfAttack();
+        if (a >= 3) {
+            a = 3;
+        }
+        if (a < 0) {
+            a = 0;
+        }
+        string rv[4];
+        rv[0] = "+ Name: " + getName();
+        rv[1] = "+ Damage: " + to_string(getDMG());
+        rv[2] = "+ Range: " + to_string(getRange());
+        rv[3] = "+ Type: " + getTypeOfAttack();
 
         return rv[a];
     }
@@ -131,8 +126,7 @@ Object::Object() {
 // the function was called and stored in a variable ahead of time.
     void Object::displayInfo(void) {
         int dmg = getDMG();
-        cout << "Name: " << getName() << endl << "Damage: " << dmg << endl << "Durability: "
-            << getDurability() << endl << "Range: " << getRange() << endl << "Type: " << getTypeOfAttack() << endl << endl;
+        cout << "Name: " << getName() << endl << "Damage: " << dmg << endl << "Range: " << getRange() << endl << "Type: " << getTypeOfAttack() << endl << endl;
     }
 
 
