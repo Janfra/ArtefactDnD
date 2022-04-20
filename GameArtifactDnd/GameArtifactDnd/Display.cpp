@@ -203,15 +203,15 @@ void Display::encounterDescription(short encounterNumber) {
         setCursorPosition(ENCOUNTER_COORDINATE_DISPLAY, descriptionY);
         if (randomDescription == 0) {
             description = "As you enter the room you find a -ninja turtle that for some reason is trying to kill you... --No time to figure out why!!";
-            descriptionText(description, '-');
+            descriptionText(description, '-', descriptionY);
         }
             else if (randomDescription == 1) {
             description = "As you enter the room you find a-flying tulipan that for some -reason is trying to kill you... --No time to figure out why!!";
-            descriptionText(description, '-');
+            descriptionText(description, '-', descriptionY);
             }
                 else {
                     description = "As you enter the room you find a -giant baby that for some reason istrying to kill you... --No time to figure out why!!";
-                    descriptionText(description, '-');
+                    descriptionText(description, '-', descriptionY);
                 }
         break;
     case 2:
@@ -219,31 +219,31 @@ void Display::encounterDescription(short encounterNumber) {
         setCursorPosition(ENCOUNTER_COORDINATE_DISPLAY, descriptionY);
         if (randomDescription == 0) { 
             description = "You found a glowing fountain!! --It gives you the feeling that it -will heal you if you drink from it";
-            descriptionText(description, '-');
+            descriptionText(description, '-', descriptionY);
         }
             else if (randomDescription == 1) {
                 description = "You found a fountain but the watercoming out of it looks murky -and disgusting... --You feel like you shoulnd't drink from it...";
-                descriptionText(description, '-');
+                descriptionText(description, '-', descriptionY);
             }
                 else {
                     description = "You found a fountain. --Looks pretty normal";
-                    descriptionText(description, '-');
+                    descriptionText(description, '-', descriptionY);
                 }
         break;
     case 3:
         encounterAnnouncement("Item found!");
         setCursorPosition(ENCOUNTER_COORDINATE_DISPLAY, descriptionY);
         if (randomDescription == 0) {
-            description = "As you are walking through the -next room you realise that there -is an object stuck on the wall. --You decide to go and have a closerlook.";
-            descriptionText(description, '-');
+            description = "As you are walking through the -next room you realise that there -is an item stuck on the wall. --You decide to go and have a closerlook.";
+            descriptionText(description, '-', descriptionY);
         }
             else if (randomDescription == 1) {
-            description = "You were walking without paying attention when you almost fell. -Confused you thank God that it -wasn't a trap, but you still don'tknow what made you trip -for a second. -You turned around to check and... -Is an item... --Why would someone drop an item andleave? It better be bad...";
-            descriptionText(description, '-');
+            description = "You were walking without paying -attention when you almost fell. -Confused you thank God that it -wasn't a trap, but you still don'tknow what made you trip -for a second. -You turned around to check and... -Is an item... --Why would someone drop an item andleave? It better be bad...";
+            descriptionText(description, '-', descriptionY);
             }
                 else {
             description = "You come into the room and you seea pedastal.--You just hope you dont have to -pull anything by force, -because you definitely are going to check that item.";
-            descriptionText(description, '-');
+            descriptionText(description, '-', descriptionY);
                 }
         break;
     case 4:
@@ -251,15 +251,15 @@ void Display::encounterDescription(short encounterNumber) {
         setCursorPosition(ENCOUNTER_COORDINATE_DISPLAY, descriptionY);
         if (randomDescription == 0) {
             description = "Went lazy";
-            descriptionText(description, '-');
+            descriptionText(description, '-', descriptionY);
         }
             else if (randomDescription == 1) {
             description = "Still lazy";
-            descriptionText(description, '-');
+            descriptionText(description, '-', descriptionY);
             }
                 else {
             description = "... Yeah, still";
-            descriptionText(description, '-');
+            descriptionText(description, '-', descriptionY);
                 }
         break;
     default:
@@ -273,10 +273,9 @@ void Display::descriptionNextLine(short& descriptionY) {
     setCursorPosition(ENCOUNTER_COORDINATE_DISPLAY, descriptionY);
 }
 
-void Display::descriptionText(string str, char del) {
+void Display::descriptionText(string str, char del, short& descriptionY) {
     // declaring temp string to store the curr "word" upto del
       string temp = "";
-      short descriptionY = 11;
       short charactersSoFar = 1;
    
       for(int i = 0; i <(int)str.size(); i++){

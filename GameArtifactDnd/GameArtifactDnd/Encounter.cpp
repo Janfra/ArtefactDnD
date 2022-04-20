@@ -124,7 +124,6 @@ void Encounter::foundItem()
 void Encounter::trapEncounter()
 {
 	display.encounterDescription(4);
-	display.clearEncounter();
 	/// Declare and initialized local variables
 	short trapDodge = (rand() % 10) + 1;
 	short trapDMG = (rand() % 4) + difficulty;

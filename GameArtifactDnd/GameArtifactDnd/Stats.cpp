@@ -141,8 +141,8 @@ string Stats::displayLine(short a)
 
     // I had to write them manually but stats shouldn't be constantly changing so there should be no need to change it.
     rv[0] = "- " + name + " Stats";
-    rv[1] = "- HP: " + to_string(getTotalHP()) + " / " + to_string(getCurrentHP()) ;
-    rv[2] = "- DMG: " + to_string(getPDMG());
+    rv[1] = "- HP: " + to_string(getCurrentHP()) + " / " + to_string(getTotalHP());
+    rv[2] = "- DMG: " + to_string(getSTR());
     rv[3] = "- DDG: " + to_string(getDODGE());
 
     return rv[a];

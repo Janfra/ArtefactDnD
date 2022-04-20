@@ -31,9 +31,15 @@ void Player::setEXP(short gainedEXP)
     EXP += gainedEXP;
 
     if (EXP >= getNeededEXP()) {
+        if (currentHP -= getTotalHP() > 0) {
+            currentHP -= getTotalHP();
+        }
+        else {
+            currentHP = 0;
+        }
         level++;
         setLevel(level);
-        currentHP = getTotalHP();
+        currentHP += getTotalHP();
     }
 }
 

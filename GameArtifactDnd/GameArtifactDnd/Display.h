@@ -66,7 +66,7 @@ public:
     void encounterDisplay(string display, int y, char colour);
     void encounterDescription(short encounterNumber);
     void descriptionNextLine(short& descriptionY);
-    void descriptionText(string str, char del);
+    void descriptionText(string str, char del, short& descriptionY);
     void encounterAnnouncement(string display);
 
     void playerHPDisplay(string update);

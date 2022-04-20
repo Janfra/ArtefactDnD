@@ -58,10 +58,10 @@ void Map::setGrid(int x, int y, short direction)
     {
     case 1:
         pathX[arrayLocation] = 0;
-        pathY[arrayLocation] = -5;
+        pathY[arrayLocation] = -Height_SIZE - 1;
         break;
     case 2:
-        pathX[arrayLocation] = -5;
+        pathX[arrayLocation] = -Width_SIZE - 1;
         pathY[arrayLocation] = 0;
         break;
     case 3:
@@ -210,6 +210,8 @@ void Map::roundMap()
     fillMap(4);
     // Mark as "cleared" the player starting position using the starting values of 'playerX' and 'playerY'.
     roomCleared(playerX, playerY);
+    // Add the room taken out at the end of the last fillMap
+    totalRooms++;
 }
 
 /* Function to draw the rooms into the map grid using the Room class. It uses an int as a parameter to set the direction the rooms will be generated.
@@ -218,6 +220,10 @@ void Map::fillMap(int direction)
 {
     // This local variable is here to set the type of room that will be generated/draw from the list of type of rooms in the Room class. It is assigned the '0' value at first that is = to "spawn" room.
     int randomNumber = 0;
+
+    // This function as it is right now, it overwrites the rooms it goes over, which means after the first time being used, there is an extra room. For that I made it so that it takes the extra room
+    // generated, at the beginning of the overwrite. 
+        totalRooms -= 1;
     // Switch case using the direction parameter.
     switch (direction)
     {
@@ -332,6 +338,8 @@ void Map::roomCleared(int x, int y)
 // Function that displays the player movement on the map
 void Map::playerMovement()
 {
+    rooms->encounters->display.setCursorPosition(SET_WIDTH + (x_Size * 3) / 2, y_Size + 1);
+    cout << playerLocationNumber << " / " << totalRooms;
     switch (checkWall(playerX, playerY))
     {
     case 0:
@@ -353,7 +361,7 @@ void Map::playerMovement()
         break;
     }
     // First check if the player will be moving more than the amount of rooms generated.
-    if (playerLocationNumber + 2 < totalRooms && rooms->encounters->encounterInProcess == false) {
+    if (playerLocationNumber < totalRooms && rooms->encounters->encounterInProcess == false) {
         // Then check if the player position is exceding the map size (trying to imitate the room generation function parameters).
     if (playerY > 0 || playerX > 0 || playerY < (y_Size - 2) || playerX < (x_Size - 2)) {
             // Add to the player starting position the direction the rooms was generated to update to the next room coordinates in the map.
@@ -366,6 +374,9 @@ void Map::playerMovement()
     playerClamping(playerX, playerY);
                         // Update the room as cleared in the display.
     roomCleared(playerX, playerY);
+    }
+    else if (playerLocationNumber == totalRooms) {
+        rooms->encounters->winPtn[0] = true;
     }
 }
 
@@ -725,6 +736,10 @@ short Map::checkWall(short x, short y) {
     //    }
     //
     //    return false;
+    //}
+
+    /*   if (posX != playerX && posY != playerY) {*/
+    //totalRooms -= 2;
     //}
 
 #pragma endregion
