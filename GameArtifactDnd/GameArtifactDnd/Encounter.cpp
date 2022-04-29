@@ -66,7 +66,7 @@ void Encounter::enemyEncounter()
 	if (questionYesOrNo("Attack Enemy?") == true) {
 		attackEnemy(enemyPtn);
 		displayEnemyStats(enemyPtn);
-	}
+		}
 
 	// When enemy runs out of HP, finish encounter
 	if (enemyPtn->getCurrentHP() <= 0) {
@@ -78,11 +78,11 @@ void Encounter::enemyEncounter()
 		cout << "Dropped " << enemyPtn->getDropEXP() << " EXP!" << endl;
 		display.Color(7);
 		playerPtn->setEXP(enemyPtn->getDropEXP());
-	}
-	else {
-	cin >> next;
-	attackPlayer(enemyPtn);
-	}
+		}
+		else {
+		cin >> next;
+		attackPlayer(enemyPtn);
+		}
 	}
 
 	// When the encounter finish, get rid of the enemy in the heap and clear the pointer to not have a hanging pointer.
@@ -99,7 +99,7 @@ void Encounter::healingFountain()
 		short roll = rollD20();
 		short healAmount = (rand() % (difficulty + 1) + 1 * 4);
 		cout << "You need a 10..." << endl;
-		if (roll > 10) {
+		if (roll >= 10) {
 		playerPtn->heal(healAmount);
 			cout << "Rolled:" << roll << endl;
 			cout << "Healed for " << healAmount << "!" << endl;

@@ -8,7 +8,7 @@ int main()
     RECT ConsoleRect;
     GetWindowRect(console, &ConsoleRect);
 
-    MoveWindow(console, ConsoleRect.left, ConsoleRect.top, 1600, 600, TRUE);
+    MoveWindow(console, ConsoleRect.left, ConsoleRect.top, 1600, 700, TRUE);
     //
 
     Game mainGame;

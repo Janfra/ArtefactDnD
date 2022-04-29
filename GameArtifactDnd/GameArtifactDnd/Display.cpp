@@ -250,15 +250,15 @@ void Display::encounterDescription(short encounterNumber) {
         encounterAnnouncement("Trap!");
         setCursorPosition(ENCOUNTER_COORDINATE_DISPLAY, descriptionY);
         if (randomDescription == 0) {
-            description = "Went lazy";
+            description = "You enter the room, and you slip on spilled milk!...- Spilled milk? Was that from the giant baby?";
             descriptionText(description, '-', descriptionY);
         }
             else if (randomDescription == 1) {
-            description = "Still lazy";
+            description = "This room is filled with pollen! -Is so thick that you can barely -breath. -There is a small opening!";
             descriptionText(description, '-', descriptionY);
             }
                 else {
-            description = "... Yeah, still";
+            description = "... Is that a rat throwing stuff? -Anyway, one is coming straight at you";
             descriptionText(description, '-', descriptionY);
                 }
         break;
