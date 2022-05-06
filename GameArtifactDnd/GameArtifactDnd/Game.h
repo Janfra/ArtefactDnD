@@ -14,7 +14,7 @@ public:
 
  #pragma region Game Functions/General
 
-    // Test for the start screen, update: Now to test/Run the game
+
     void gameStart();
     void infoDisplay();
 

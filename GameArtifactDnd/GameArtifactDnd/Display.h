@@ -1,10 +1,11 @@
-// Makes it possible to use the console functions. In this case is used for using cout.
+// Makes it possible to use the console functions. In this case is used for using cout. //
 #include <iostream>
 #include <iomanip>
+// Windows is necessary for the setCursorPosition() to function properly. //
 #include <Windows.h>
 
     // DEFINES //
-// Necessary for the setCursorPosition function //
+// Necessary for the setCursorPosition() function //
 #define NOMINMAX
 #define WIN32_LEAN_AND_MEAN
 
@@ -13,7 +14,7 @@ Minimun 'y_Size' of the map has to be 22 until I add a way to automatically forc
 #define x_Size 38
 #define y_Size 26
 
-// Value for setw() in infoDisplay inside the Game Class //
+// Value for setw() in infoDisplay() function inside the Game Class //
 #define SET_WIDTH 40
 
 /* Defines how far in the 'xCoordinate' the setCursorPosition() has to go to be inside the encounter display section in infoDisplay(). 
@@ -23,6 +24,7 @@ Minimun 'y_Size' of the map has to be 22 until I add a way to automatically forc
 using namespace std;
 
 #pragma once
+
 class Display
 {
 public:
@@ -42,8 +44,6 @@ public:
 
     // GETTERS //
     short getYCoordinate();
-    // Still not done, will get a coordinate
-    void getCurrentPosition();
 
 #pragma endregion
 
@@ -53,20 +53,24 @@ public:
     void clearEncounter(int y);
     void clearConsole();
     void clearEncounterDisplay(bool clearDescription);
-    // Reset the variables, done when a full new display is generated
+    // Reset the variables, done when a full new display is generated //
     void resetCoordinates();
 
     // Coordinate Functions //
     void plusX(int add);
     void plusY();
-    short biggestLine();
+    void minusY();
+
+
 
     //  Encounter display functions //
+    void displayClamp(int& y);
     void encounterDisplay(string display, int y);
     void encounterDisplay(string display, int y, char colour);
     void encounterDescription(short encounterNumber);
     void descriptionNextLine(short& descriptionY);
     void descriptionText(string str, char del, short& descriptionY);
+    bool checkDescriptionLimit(short characters) const;
     void encounterAnnouncement(string display);
 
     void playerHPDisplay(string update);
@@ -77,10 +81,15 @@ public:
 #pragma endregion
 
 private:
+    // Stores the x coordinates for setCursorPosition() //
     short* xCoordinatePtn;
+    // Used to temporarily store the 'xCoordinatePtn' array to update it //
     short* transferXCoord;
-    short yCoordinate;
+    // Defines the size of the array for x coordinates // 
     short arraySize;
+    // Used to define the position in array for the x coordinates array //
     short arrayPosition;
+    // Stores the y coordinates for setCursorPosition() //
+    short yCoordinate;
 };
 

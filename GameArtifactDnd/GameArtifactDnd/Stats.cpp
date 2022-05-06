@@ -2,7 +2,9 @@
 
  #pragma region Constructor & Destructor
 
-Stats::Stats() {
+Stats::Stats() 
+{
+    // Initializes Variables //
     name = "Test";
     level = 0;
     STR = 3;
@@ -32,6 +34,11 @@ Stats::Stats() {
 // SETTERS // 
 void Stats::setName(string newName)
 {
+    // Check to make sure that the name doesn't exceed the size of the display.
+    if(newName.length() > 29)
+    {
+        newName = "Goblin with long name";
+    }
     name = newName;
 }
 

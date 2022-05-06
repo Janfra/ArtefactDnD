@@ -154,20 +154,46 @@ void Game::infoDisplay()
     }
 }
 
-// Trying to make a start screen with a timer to display the game title + a recommendation for full screen. // UPDATE: Now is the function running the game
+// Starts the game and runs the main game loop
 void Game::gameStart()
 {
+    // Local variable to wait for player input
     string response = " ";
+    // Local variable to define when the game loop finishes
     bool* win = new bool(false);
+
+    // Introduction display
+    mainMap->rooms->encounters->display.Color(15);
+    cout << endl << "You wake up in a weird and obscure passage, the only thing you can see is a fountain at the distance." << endl << endl
+         << "You look down at your ";
+    mainMap->rooms->encounters->display.Color(6);
+    cout << "green ";
+    mainMap->rooms->encounters->display.Color(15);
+    cout << "arms confused." << endl << endl << "Next to you lays a ";
+    mainMap->rooms->encounters->display.Color(9);
+    cout << "dagger";
+    mainMap->rooms->encounters->display.Color(15);
+    cout << " you pick it up and approach the fountain while trying to remember your name..." << endl << endl;
+
+    mainMap->rooms->encounters->display.Color(7);
+    cout << "What is your name, little goblin?" << endl;
+    cin >> response;
+    player->setName(response);
+
+    // Initiates main game loop
+    mainMap->rooms->encounters->display.clearConsole();
     mainMap->roundMap();
     mainMap->rooms->encounters->setPlayer(player);
     mainMap->rooms->encounters->setWin(win);
-    while (win[0] == false) {
+    while (win[0] == false) 
+    {
         infoDisplay();
         mainMap->playerMovement();
         cin >> response;
         mainMap->rooms->encounters->display.resetCoordinates();
     }
+
+    // Game finishes
     win = NULL;
     mainMap->rooms->encounters->display.clearConsole();
     cout << left << setw(70) << setfill(' ') << endl << endl << endl << " " << "Game Finish!" << endl << endl << endl << endl << endl << endl << endl;

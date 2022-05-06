@@ -4,11 +4,14 @@
 	// CONSTRUCTOR //
 Enemy::Enemy()
 {
+	// Generate a random seed to get a random number generator
 	srand(time(NULL));
+	// Initilize Variables //
 	dropEXP = level + (rand() % ((level + 1) * 3) + 1);
 	finalBoss = false;
 }
 
+// Overloaded constructor to randomly generate an enemy using the 'difficulty' parameter to define how high is their stats as a minimum.
 Enemy::Enemy(short difficulty)
 {
 	level += difficulty;

@@ -45,18 +45,22 @@ public:
 
 	// Encounter Functions //
 	bool questionYesOrNo(string question);
-
 	void generateItem();
+	void displayEncounterInfo();
+	void displayEncounterInfo(short a, short b);
+
+
+
 
 #pragma endregion
 
  #pragma region Fighting Functions
-
+	// Enemy Functions //
 	void displayEnemyStats(Enemy* enemyStats);
 	void attackEnemy(Enemy* enemyHP);
 
+	// Player Functions //
 	void attackPlayer(Enemy* enemyAttack);
-
 	void damagePlayer(short dmgDone);
 
 #pragma endregion
@@ -68,18 +72,22 @@ public:
 #pragma endregion
 
 
-	// Public variables. encounterInProcess was gonna be used on game and display is used throughout the whole game.
+	// Public variables. 'encounterInProcess' is used on game and display and 'winPtn' is used throughout the whole game.
 	bool encounterInProcess;
 	Display display;
 	bool* winPtn;
 private:
 #pragma region Has-A/Pointers
 
+	// Pointers to access the players and enemy information //
 	Player* playerPtn;
 	Enemy* enemyPtn;
 
 #pragma endregion
 
+	// Sets the game difficulty //
 	short difficulty;
+	// String to add a small pause before next output
+	string next;
 };
 
