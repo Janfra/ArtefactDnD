@@ -10,16 +10,16 @@
 #define WIN32_LEAN_AND_MEAN
 
 /* This defines set the size of the grid map.
-Minimun 'y_Size' of the map has to be 22 until I add a way to automatically force it. Otherwise the stats won't show. It has to be divisible by 2. */
-#define x_Size 38
-#define y_Size 26
+Minimun 'Y_SIZE' of the map has to be 22 until I add a way to automatically force it. Otherwise the stats won't show. It has to be divisible by 2. */
+#define X_SIZE 38
+#define Y_SIZE 26
 
 // Value for setw() in infoDisplay() function inside the Game Class //
 #define SET_WIDTH 40
 
 /* Defines how far in the 'xCoordinate' the setCursorPosition() has to go to be inside the encounter display section in infoDisplay(). 
-*It multiplies 'x_Size' because it includes 3 char in each string and +3 because there is 2 lines separating the map and the displays +1 to not be inside the line */
-#define ENCOUNTER_COORDINATE_DISPLAY ((x_Size * 3) + SET_WIDTH + 3)
+*It multiplies 'X_SIZE' because it includes 3 char in each string and +3 because there is 2 lines separating the map and the displays +1 to not be inside the line */
+#define ENCOUNTER_COORDINATE_DISPLAY ((X_SIZE * 3) + SET_WIDTH + 3)
 
 using namespace std;
 

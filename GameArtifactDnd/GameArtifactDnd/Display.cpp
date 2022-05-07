@@ -56,8 +56,8 @@ short Display::getYCoordinate()
 // Clear everything after the infoDisplay() 
 void Display::clearEncounter() 
 {
-    setCursorPosition(0, (y_Size + 1));
-    for (int i = (y_Size); i < (y_Size + 11); i++) 
+    setCursorPosition(0, (Y_SIZE + 1));
+    for (int i = (Y_SIZE); i < (Y_SIZE + 11); i++) 
     {
         for (int x = 0; x < 200; x++) 
         {
@@ -65,14 +65,14 @@ void Display::clearEncounter()
             cout << " ";
         }
     }
-    setCursorPosition(0, (y_Size + 1));
+    setCursorPosition(0, (Y_SIZE + 1));
 }
 
 // Clear everything after the infoDisplay() plus the 'y' parameter 
 void Display::clearEncounter(int y)
 {
-    setCursorPosition(0, (y_Size + 1 + y));
-    for (int i = (y_Size); i < (y_Size + 11); i++) 
+    setCursorPosition(0, (Y_SIZE + 1 + y));
+    for (int i = (Y_SIZE); i < (Y_SIZE + 11); i++) 
     {
         for (int x = 0; x < 200; x++) 
         {
@@ -81,7 +81,7 @@ void Display::clearEncounter(int y)
         }
     }
     // Set cursor to the line after display that was just cleared.
-    setCursorPosition(0, (y_Size));
+    setCursorPosition(0, (Y_SIZE));
 }
 
 // Clear the whole console
@@ -101,7 +101,7 @@ void Display::clearConsole()
 // Clear the section in infoDisplay() dedicated to the encounter. If the 'clearDescription' parameter is set to true, it also clears the encounter description.
 void Display::clearEncounterDisplay(bool clearDescription) 
 {
-    for (int i = 1; i < y_Size; i++) 
+    for (int i = 1; i < Y_SIZE; i++) 
     {
         for (int x = ENCOUNTER_COORDINATE_DISPLAY; x < (ENCOUNTER_COORDINATE_DISPLAY + 35); x++) 
         {
@@ -192,9 +192,9 @@ void Display::displayClamp(int& y)
     {
         y = 1;
     }
-    else if (y >= y_Size)
+    else if (y >= Y_SIZE)
     {
-        y = y_Size - 1;
+        y = Y_SIZE - 1;
     }
 }
 
@@ -368,7 +368,7 @@ bool Display::checkDescriptionLimit(short characters) const
 // Display at the announcement section the 'display' parameter given.
 void Display::encounterAnnouncement(string display) 
 {
-    setCursorPosition(0, (y_Size - 2));
+    setCursorPosition(0, (Y_SIZE - 2));
     cout << display;
 }
 

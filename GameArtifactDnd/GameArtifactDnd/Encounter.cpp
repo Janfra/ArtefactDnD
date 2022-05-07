@@ -45,8 +45,8 @@ void Encounter::setPlayer(Player* playerSet)
 }
 
 // Sets the win pointer to be able to terminate the game loop. 
-void Encounter::setWin(bool* winCondition) {
-	winPtn = winCondition;
+void Encounter::setWin(bool* winSet) {
+	winPtn = winSet;
 }
 
 	// GETTERS //
@@ -70,7 +70,7 @@ void Encounter::enemyEncounter()
 		enemyPtn = new Enemy(difficulty);
 		encounterInProcess = true;
 	}
-	// Display enemy stats
+	// Display enemy stats in information section
 	displayEnemyStats(enemyPtn);
 
 	// Initiate the encounter/fight loop 
@@ -84,7 +84,7 @@ void Encounter::enemyEncounter()
 			display.minusY();
 		}
 
-		// When enemy runs out of HP, finish encounter, augment the difficulty and display .
+		// When enemy runs out of HP, finish encounter, update enemy display name, augment the difficulty and cout the EXP dropped.
 		if (enemyPtn->getCurrentHP() <= 0) 
 		{
 			encounterInProcess = false;
@@ -96,6 +96,7 @@ void Encounter::enemyEncounter()
 			display.Color(7);
 			playerPtn->setEXP(enemyPtn->getDropEXP());
 		}
+		// Else enemy attacks the player
 		else 
 		{
 			cin >> next;
@@ -111,9 +112,10 @@ void Encounter::enemyEncounter()
 // Starts healing fountain encounter.
 void Encounter::healingFountain()
 {
+	// Display the encounter information/description and initiate encounter 
 	display.encounterDescription(2);
-	encounterInProcess = true;
 	displayEncounterInfo();
+	encounterInProcess = true;
 
 	if (questionYesOrNo("Want to use the fountain to heal?") == true) 
 	{
@@ -121,10 +123,12 @@ void Encounter::healingFountain()
 		short roll = rollD20();
 		// Local variable to set amount of healing
 		short healAmount = (rand() % (difficulty + 1) + 1 * 4);
+		// Update encounter information
 		displayEncounterInfo(10, healAmount);
 
 		cout << "You need a 10..." << endl;
 		cin >> next;
+		// In success heal player and cout their roll and amount healed
 		if (roll >= 10) 
 		{
 			playerPtn->heal(healAmount);
@@ -132,6 +136,7 @@ void Encounter::healingFountain()
 			cin >> next;
 			cout << "Healed for " << healAmount << "!" << endl;
 		}
+		// Else cout roll and failure message.
 		else 
 		{
 			cout << "Rolled: " << roll << endl;

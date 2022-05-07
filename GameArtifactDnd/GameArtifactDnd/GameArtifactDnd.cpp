@@ -14,13 +14,13 @@ int main()
     //
 
     Game mainGame;
-    mainGame.gameStart();
+    mainGame.mainGameLoop();
 }
 
 #pragma region Testing-Outdated
-//int x = (x_Size / 2 - (Width_SIZE / 2));
-    //int y = (y_Size - (Height_SIZE + 1));
-    //mainGame.mainMap->setGrid((x_Size / 2 - (Width_SIZE / 2)), (y_Size - (Height_SIZE + 1))); 
+//int x = (X_SIZE / 2 - (WIDTH_SIZE / 2));
+    //int y = (Y_SIZE - (HEIGHT_SIZE + 1));
+    //mainGame.mainMap->setGrid((X_SIZE / 2 - (WIDTH_SIZE / 2)), (Y_SIZE - (HEIGHT_SIZE + 1))); 
     //mainGame.mainMap->setGrid((x + 5), (y));
     //mainGame.mainMap->setGrid((x + 10), (y));
     //mainGame.mainMap->setGrid((x + 15), (y));

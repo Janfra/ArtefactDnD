@@ -1,2 +1,10 @@
 ﻿  Display.cpp
+  Encounter.cpp
+  Game.cpp
+  GameArtifactDnd.cpp
+  Map.cpp
+  Room.cpp
+E:\Non-game\GitHub\ArtefactDnD\GameArtifactDnd\GameArtifactDnd\Room.cpp(10,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+E:\Non-game\GitHub\ArtefactDnD\GameArtifactDnd\GameArtifactDnd\Room.cpp(26,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  Generating Code...
   GameArtifactDnd.vcxproj -> E:\Non-game\GitHub\ArtefactDnD\GameArtifactDnd\Debug\GameArtifactDnd.exe

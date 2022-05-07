@@ -15,8 +15,10 @@ public:
  #pragma region Game Functions/General
 
 
-    void gameStart();
+    void mainGameLoop();
     void infoDisplay();
+    void gameIntroduction(string response);
+    void gameSetting(bool* winSet);
 
 #pragma endregion
 

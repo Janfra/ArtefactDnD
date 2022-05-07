@@ -1,8 +1,8 @@
 // Room has encounters
 #include "Encounter.h"
 // Defines set the size of the rooms
-#define Height_SIZE 4
-#define Width_SIZE 4
+#define HEIGHT_SIZE 4
+#define WIDTH_SIZE 4
 // Define set the total amount of types for rooms.
 #define TOTAL_TYPES 5
 // Total types: 5 multiplied by top, left and right 3
@@ -15,11 +15,11 @@ class Room
 public:
 	// Functions explained in cpp file.
  #pragma region Constructor & Destructor
-
+	// CONSTRUCTOR //
 	Room();
-
 	Room(int numberType);
 
+	// DESTRUCTOR //
 	~Room();
 
 #pragma endregion
@@ -45,15 +45,16 @@ public:
 
 #pragma endregion
 
-	// Testing
+	// Stores all the possible displays of all the type of rooms.
 	string roomWalls[TOTAL_WALLS];
 	Encounter* encounters;
 protected:
-	// Define the type of room, it will change the middle icon when discovered
+	// Define the type of room
 	string type[TOTAL_TYPES];
+	// This number defines which room type the room is.
 	short roomType;
 
-	// Creates the room visually, they will be squares. It is 5x4 to leave room for the room connectors (halls?)
-	string room[Width_SIZE][Height_SIZE];
+	// Stores the room format. It will be given to the grid to draw the current room type stored in it. 
+	string room[WIDTH_SIZE][HEIGHT_SIZE];
 };
 

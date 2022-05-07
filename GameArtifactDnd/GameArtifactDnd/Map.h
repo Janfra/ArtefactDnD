@@ -13,26 +13,25 @@ public:
 
  #pragma region Setters & Getters
     // SETTERS //
-
+    // Room Drawing
     void setGrid(int x, int y, short direction);
-
     void setPosX(short x);
-    
     void setPosY(short y);
 
     // GETTERS //
 
-    // Created a getGrid function to be able to display the map grid on the displayInfo for the Game Class
+    // Grid display
     string getGrid(short x, short y);
 
+    // Room total display
     short getTotalRooms();
 
+    // Player Movement Direction
     int getPathX(int arrayPosition);
-
     int getPathY(int arrayPosition);
 
+    // Player Position/Movement
     short getPlayerX();
-
     short getPlayerY();
 
     //string getRoomType(int n);
@@ -41,27 +40,22 @@ public:
 
  #pragma region Map Function
 
+    // Rooms Drawing or Update
     void roundMap();
-
-    void fillMap(int direction);
-
+    void drawRooms(int direction);
+    void roomCleared(int x, int y);
     void playerMovement();
 
-    void roomCleared(int x, int y);
-
-    void clamping(short& x, short& y);
-
-    void clamping(int& x, int& y);
-
-    void playerClamping(short& x, short& y);
-
+    // Walls checking 
     short checkWall(short x, short y);
+
+    // Clamping
+    void clamping(short& x, short& y);
+    void clamping(int& x, int& y);
 
 #pragma endregion
 
  #pragma region Testing
-
-
 
 #pragma endregion
 
@@ -98,13 +92,18 @@ public:
     //bool checkWall(short x, short y);
 
     //bool checkWallsAround(short x, short y, int direction);
+
+        //string* roomTypes;
+    //     void playerClamping(short& x, short& y);
 #pragma endregion
 
 private:
-    // Declaring the variables
+    // Variables for room and player position as well as array locations.
     short posX, posY, playerX, playerY, playerLocationNumber, arrayLocation;
+    // Variables for the players directions to follow on the grid
     int pathX[20], pathY[20];
-    string grid[x_Size][y_Size];
+    // Stores the maps grid that gets displayed to the player. Everything that will be displayed in the map is assigned here.
+    string grid[X_SIZE][Y_SIZE];
+    // Stores the amount of rooms in the grid.
     short totalRooms;
-    //string* roomTypes;
 };
