@@ -216,7 +216,7 @@ void Game::mainGameLoop()
 
 #pragma endregion
 
-#pragma region Testing
+ #pragma region Testing
 
 void Game::MapTesting() {
     string Response1 = " ";

@@ -33,6 +33,7 @@ Enemy::~Enemy()
 
 #pragma region Setters & Getters
 
+// Returns the amount of experience dropped by the enemy
 short Enemy::getDropEXP()
 {
 	return dropEXP;

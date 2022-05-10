@@ -138,7 +138,7 @@ void Display::resetCoordinates()
 }
 
     // COORDINATE FUNCTIONS //
-// Save X coordinate to calculate how many coordinates must be overwriten 
+// Save X coordinate to calculate how many coordinates must be overwriten *THIS COULD BE REPLACED WITH A STACK INSTEAD OF DOING ALL THIS PROCESS
 void Display::plusX(int add)
 {
     // Assign a value to the current position of the array.
@@ -184,6 +184,7 @@ void Display::minusY()
 {
     yCoordinate--;
 }
+
     // ENCOUNTER DISPLAY FUNCTIONS //
 // Y coordinate clamp to not go outside the display section 
 void Display::displayClamp(int& y)

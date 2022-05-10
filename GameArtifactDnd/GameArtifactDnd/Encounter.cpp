@@ -165,7 +165,7 @@ void Encounter::trapEncounter()
 	short roll = rollD20();
 	//
 	displayEncounterInfo(trapDodge, trapDMG);
-
+	
 	cout << "Try to dodge!" << endl << "Throw a D20, you need at least : " << trapDodge << endl;
 	cin >> next;
 	cout << endl << "Rolled: " << roll << endl;
@@ -176,8 +176,8 @@ void Encounter::trapEncounter()
 	}
 	else 
 	{
-		damagePlayer(trapDMG);
 		cout << "You failed to dodge! You take: " << trapDMG << " of damage." << endl;
+		damagePlayer(trapDMG);
 	}
 }
 
