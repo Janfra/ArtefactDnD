@@ -1,28 +1,28 @@
 #include "Map.h"
 
  #pragma region Constructor & Destructor
-
+    // CONSTRUCTOR //
 Map::Map()
 {
     // Initializing the values for every global variable.
     rooms = new Room();
     totalRooms = 0;
-    posX = (x_Size / 2 - (Width_SIZE / 2));
-    posY = (y_Size - (Height_SIZE + 1));
+    posX = (X_SIZE / 2 - (WIDTH_SIZE / 2));
+    posY = (Y_SIZE - (HEIGHT_SIZE + 1));
     playerX = posX;
     playerY = posY;
     playerLocationNumber = 0;
     arrayLocation = 0;
 
-        // Generates the map display (without including the rooms)
-    for (int y = 0; y < y_Size; y++) {
-        for (int x = 0; x < x_Size; x++) {
+        // Generates the empty map display (without including the rooms)
+    for (int y = 0; y < Y_SIZE; y++) {
+        for (int x = 0; x < X_SIZE; x++) {
             // Top map border
-            if (y == (x_Size - x_Size)) {
+            if (y == (X_SIZE - X_SIZE)) {
                 grid[x][y] = "~~~";
             }
             // Bottom map border
-            else if (y == (y_Size - 1)) {
+            else if (y == (Y_SIZE - 1)) {
                 grid[x][y] = "~~~";
             }
             // The inside of the map
@@ -31,19 +31,14 @@ Map::Map()
             }
         }
     }
-    // Create the new dynamic variable with the total amount of rooms. Possibly change this.
-    // roomTypes = new string[totalRooms];
 }
 
+    // DESTRUCTOR //
 Map::~Map()
 {  
-    // Delete the space in the freestore to avoid memory leaks. 
+    // Clears space in the heap and prevents hanging pointers //
     delete rooms;
-        // Set the rooms as NULL so that rooms is not storing anything. 
     rooms = NULL;
-    
-    //delete [] roomTypes;
-    //roomTypes = NULL;
 }
 #pragma endregion
 
@@ -54,23 +49,24 @@ void Map::setGrid(int x, int y, short direction)
 {
     clamping(x, y);
     int old = x;
+    // Store direction for the player to follow.
     switch (direction)
     {
     case 1:
         pathX[arrayLocation] = 0;
-        pathY[arrayLocation] = -5;
+        pathY[arrayLocation] = -HEIGHT_SIZE - 1;
         break;
     case 2:
-        pathX[arrayLocation] = -5;
+        pathX[arrayLocation] = -WIDTH_SIZE - 1;
         pathY[arrayLocation] = 0;
         break;
     case 3:
-        pathX[arrayLocation] = Width_SIZE + 1;
+        pathX[arrayLocation] = WIDTH_SIZE + 1;
         pathY[arrayLocation] = 0;
         break;
     case 4:
         pathX[arrayLocation] = 0;
-        pathY[arrayLocation] = Height_SIZE + 1;
+        pathY[arrayLocation] = HEIGHT_SIZE + 1;
         break;
     default:
         break;
@@ -78,9 +74,12 @@ void Map::setGrid(int x, int y, short direction)
     arrayLocation++;
 
     // Nested for loop to go over all the assigned room array grid to assign it to the map grid to display it. Basically copy pasting the room format into the map.
-    for (int h = 0; h < Height_SIZE; h++) {
-        for (int w = 0; w < Width_SIZE; w++) {
-            if (y >= y_Size || y <= (y_Size - y_Size) || x >= x_Size || x <= (x_Size - x_Size)) {
+    for (int h = 0; h < HEIGHT_SIZE; h++)
+    {
+        for (int w = 0; w < WIDTH_SIZE; w++) 
+        {
+            if (y >= Y_SIZE || y <= (Y_SIZE - Y_SIZE) || x >= X_SIZE || x <= (X_SIZE - X_SIZE)) 
+            {
               cout << "you going over: " << y << " " << x;
               system("pause");
               break;
@@ -93,85 +92,96 @@ void Map::setGrid(int x, int y, short direction)
     }
 }
 
-// Set both the value for 'posX' and 'posY' while clamping them to avoid errors.
+// Set the value for 'posX' and clamp it.
 void Map::setPosX(short x)
 {
-    // Clamp the 'x' parameter in between a minimun value of 0 and a maximum value of 'x_Size' (total x value of the map).
-    if (x > x_Size) {
-        posX = x_Size - 1;
+    // Clamp the 'x' parameter in between a minimun value of 0 and a maximum value of 'X_SIZE' (total x value of the map).
+    if (x > X_SIZE) 
+    {
+        posX = X_SIZE - 1;
     }
-    else if (x <= 0) {
+    else if (x <= 0) 
+    {
         posX = 1;
     }
-    else {
+    else 
+    {
         posX = x;
     }
 }
 
+// Set the value for 'posY' and clamp it.
 void Map::setPosY(short y)
 {
-    // Clamp the 'y' parameter in between a minimun value of 0 and a maximum value of 'y_Size' (total y value of the map).
-    if (y > y_Size) {
-        posY = y_Size - 1;
+    // Clamp the 'y' parameter in between a minimun value of 0 and a maximum value of 'Y_SIZE' (total y value of the map).
+    if (y > Y_SIZE) 
+    {
+        posY = Y_SIZE - 1;
     }
-    else if (y <= 0) {
+    else if (y <= 0) 
+    {
         posY = 1;
     }
-    else {
+    else 
+    {
         posY = y;
     }
 }
 
-// getGrid function was created to be able to output the grid map on displayFunction. It accepts two parameters required to return the correct array variable.
+// Returns value in the 2D grid using the 'x' and 'y' parameters to set which to return. getGrid function was created to be able to output the grid map on display function.
 string Map::getGrid(short x, short y)
 {
-    // Check that the 'x' parameter is not under 0.
-    if (x < 0) {
-        // Make it 0 to avoid errors.
+    // Clamp 'x' parameter to not go over the grid
+    if (x < 0) 
+    {
         x = 0;
     }
-        // Else check if the 'x' parameter is going over the grid 'x_Size' (total x size of the map).
-    else if (x > x_Size) {
-            // Make it so
-        x = (x_Size - 1);
+    else if (x > X_SIZE) 
+    {
+        x = (X_SIZE - 1);
     }
-    // Check that the 'y' parameter is not under 0.
-    if (y < 0) {
-        // Make it 0 to avoid errors.
+
+    // Clamp 'y' parameter to not go over the grid
+    if (y < 0) 
+    {
         y = 0;
     }
-        // Else check if the 'y' parameter is going over the grid 'y_Size' (total y size of the map).
-    else if (y > y_Size) {
-        y = (y_Size - 1);
+    else if (y > Y_SIZE) 
+    {
+        y = (Y_SIZE - 1);
     }
-            // Return the grid using the parameters.
     return grid[x][y];
 }
 
-// Making possible to display the total amount of rooms
+// Returns total amount of rooms
 short Map::getTotalRooms()
 {
     return totalRooms;
 }
 
-// Clamping both PathX and PathY when getting their value to avoid errors.
+// Clamp 'arrayPosition' parameter given and return value in 'pathX' array
 int Map::getPathX(int arrayPosition)
 {
-    if (arrayPosition >= 19) {
+    if (arrayPosition >= 19) 
+    {
         arrayPosition = 19;
     }
-    else if (arrayPosition < 0) {
+    else if (arrayPosition < 0) 
+    {
         arrayPosition = 0;
     }
     return pathX[arrayPosition];
 }
 
+// Clamp 'arrayPosition' parameter given and return value in 'pathY' array
 int Map::getPathY(int arrayPosition)
 {
-    if (arrayPosition >= 19) {
+    if (arrayPosition >= 19) 
+    {
         arrayPosition = 19;
     }
-    else if (arrayPosition < 0) {
+    else if (arrayPosition < 0) 
+    {
         arrayPosition = 0;
     }
     return pathY[arrayPosition];
@@ -188,104 +198,115 @@ short Map::getPlayerY()
     return playerY;
 }
 
-//string Map::getRoomType(int n)
-//{
-//    return string(roomTypes[n]);
-//}
+
 
 #pragma endregion
 
  #pragma region Map Functions
 
-// Manually generated map. It marks as "cleared" the first room when generated as well.
+// Manually generated map. It marks as "cleared" the first room. Adds an extra room that is taken out by last drawRooms.
 void Map::roundMap()
 {
     // Left
-    fillMap(2);
+    drawRooms(2);
     // Up
-    fillMap(1);
+    drawRooms(1);
     // Right
-    fillMap(3);
+    drawRooms(3);
     // Down
-    fillMap(4);
-    // Mark as "cleared" the player starting position using the starting values of 'playerX' and 'playerY'.
+    drawRooms(4);
     roomCleared(playerX, playerY);
 }
 
-/* Function to draw the rooms into the map grid using the Room class. It uses an int as a parameter to set the direction the rooms will be generated.
-   I will use an int so that I can use a random number generator to decide in which direction the rooms are generated. */
-void Map::fillMap(int direction)
+/* Draws/Assings the rooms into the map grid using the Room class. 'direction' parameter sets the direction the rooms will be generated.
+   Could update to use a random number generator to fully create the map */
+void Map::drawRooms(int direction)
 {
-    // This local variable is here to set the type of room that will be generated/draw from the list of type of rooms in the Room class. It is assigned the '0' value at first that is = to "spawn" room.
+    // Local variable to randomly generate the room types. First time this function is called, generates default room.
     int randomNumber = 0;
-    // Switch case using the direction parameter.
+
+    // Overwrites the rooms it goes over, after first use there is an extra room. Take extra room off after first used.
+    if (posY != playerY || posX != playerX) 
+    {
+        totalRooms -= 1;
+    }
+
+    // Using 'direction' parameter, determine in which direction to generate the rooms.
     switch (direction)
     {
         // Case 1 = Up. *To move up it takes away (-) from 'posY'.
     case 1:
-        // Generate rooms until 'i', that is equal to 'posY', is more than 0. The grid top limit. In case it is still not at the top, add the height value of a room + 1. The +1 is to make room for halls.
-        for (int i = posY; i > 0; i -= Height_SIZE + 1) {
-            // Set 'posY' as 'i' so that the next time fillMap() is called it does it from the last place this function was called and not from the initial value. 
-            setPosY(i);
-                /* During the first iteration set the type of room as the "spawn" room(0), it also stores the type of the room in the 'roomType[0]' because the totalRooms haven't gone up. 
-                If it is not the first iteration, set is as a randomly generated number.
-                Each room has a different probability. *For clarity check setType() in the Room class. */
+        // Run for loop until hitting the grid top. + 1 to the room sizes to leave space for halls.
+        for (int y = posY; y > 0; y -= HEIGHT_SIZE + 1) 
+        {
+            // Set 'posY' as 'y' to update to the new starting position next time the function is called. 
+            setPosY(y);
+
+            // If it's not the first iteration, set to a random room type.
             rooms->setType(randomNumber);
-                    // Assign a new random value to the local variable 'randomNumber' to set the room type during the next iteration of the for loop. 
+            
+            // Create new random number for setType()
             randomNumber = (rand() % 15) + 1;
-                        // Check if it is the last iteration of the for loop. 
-            if (i <= Height_SIZE + 1) {
-                            /* Subtract one from the 'arrayLocation' global variable. This is done to avoid the extra iteration generated when saving the room path.
-                            Overwrite the last iteration done to avoid having an extra step on the path. *This variable is used in setGrid(). */
+            
+            // Check if it is the last iteration of the for loop. 
+            if (y <= HEIGHT_SIZE + 1) 
+            {
+                // Avoid creating a path for the extra room. *This variable is used in setGrid().
                 arrayLocation--;
             }
-                        /* Set the setGrid() first parameter to 'posX' as it won't change during going up. Set the second parameter to 'i' to change it to the new location during each iteration. 
-                        Lastly use the direction parameter from the fillMap() function to set the last parameter in setGrid()*/
-            setGrid(posX, i, direction);
+
+            // Draw the current room type in the current grid position, giving the direction and updated position with 'y' condition in this case.
+            setGrid(posX, y, direction);
                             // Add one to totalRooms, this is done every iteration because each iteration generates one more room.
             totalRooms++;
         }
         break;
         // Case 2 = Left. *To move left it takes away (-) from 'posX'. 
     case 2:
-        // The inside of the for loop is the same as in case 1 but exchanging 'posY' with 'posX'.
-        for (int i = posX; i > 0; i -= Width_SIZE + 1) {
-            setPosX(i);
+        // The inside of the for loop is the same as in case 1 but exchanging 'posY' with 'posX', and 'y' with 'x' to match.
+        for (int x = posX; x > 0; x -= WIDTH_SIZE + 1) 
+        {
+            setPosX(x);
             rooms->setType(randomNumber);
             randomNumber = (rand() % 15) + 1;
-            if (i <= Width_SIZE + 1) {
+            if (x <= WIDTH_SIZE + 1) 
+            {
                 arrayLocation--;
             }
-            setGrid(i, posY, direction);
+            setGrid(x, posY, direction);
             totalRooms++;
         }
         break;
         // Case 3 = Right. *To move right it adds (+) to 'posX'. 
     case 3:
-        /* The inside of the for loop is the same as in case 1 but exchanging 'posY' with 'posX'
-        and checking in the conditions not to exceed the max value, -2 to leave a small margin, of the grid instead of the minimum. */
-        for (int i = posX; i < (x_Size - 2); i += Width_SIZE + 1) {
-            setPosX(i);
+        /* The inside of the for loop is the same as in case 1 but exchanging 'posY' with 'posX', 'y' with 'x' to match and
+        now adding instead of subtracting. Condition in this case leaves a small margin. */
+        for (int x = posX; x < (X_SIZE - 2); x += WIDTH_SIZE + 1) 
+        {
+            setPosX(x);
             rooms->setType(randomNumber);
             randomNumber = (rand() % 15) + 1;
-            if (i >= (x_Size - (Width_SIZE + 2))) {
+            if (x >= (X_SIZE - (WIDTH_SIZE + 2))) 
+            {
                 arrayLocation--;
             }
-            setGrid(i, posY, direction);
+            setGrid(x, posY, direction);
             totalRooms++;
         }
         break;
         // Case 4 = Down. *To move down it adds (+) to 'posY'.
     case 4:
-        // The inside of the for loop is the same as in case 1 but checking in the conditions not to exceed the max value, -2 to leave a small margin, of the grid instead of the minimum. 
-        for (int i = posY; i < (y_Size - 2); i += Height_SIZE + 1) {
-            setPosY(i);
+        // The inside of the for loop is the same as in case 1 but now adding instead of subtracting. Condition in this case leaves a small margin.
+        for (int y = posY; y < (Y_SIZE - 2); y += HEIGHT_SIZE + 1) 
+        {
+            setPosY(y);
             rooms->setType(randomNumber);
             randomNumber = (rand() % 15) + 1;
-            if (i >= (y_Size - (Height_SIZE + 1))) {
+            if (y >= (Y_SIZE - (HEIGHT_SIZE + 1))) 
+            {
                 arrayLocation--;
             }
-            setGrid(posX, i, direction);
+            setGrid(posX, y, direction);
             totalRooms++;
         }
         break;
@@ -294,44 +315,48 @@ void Map::fillMap(int direction)
     }
 }
 
-// Function to display the rooms as "cleared" as the player goes through them.
+// Display the rooms location given with the parameters 'x' and 'y' as cleared on the grid.
 void Map::roomCleared(int x, int y)
 {
-    // Clamp the parameters to avoid going over the limit. Probably should modify this one as it would add 5 to it, so it should be 5 (Width or Height + 1) further than the usual clamp.
     clamping(x, y);
     // Store the 'x' parameter value to reset it in the nested for loop to simulate the restart of the parameter inside the second for loop. 
     int old = x;
 
-        // Nested for loop to go over all the room grid to change the inside to be in a "cleared" state instead of empty. 'h' = height/y
-    for (int h = 0; h < Height_SIZE; h++) {
-            // Second iteration of the nested for loop, 'w' = width/x. It is done this way to go over 'x' several times as it must be done every time the y value changes to go to the next row.
-        for (int w = 0; w < Width_SIZE; w++) {
-            // Second check in case it tries to assign a value outside the grid.
-            if (y >= y_Size || y <= (y_Size - y_Size) || x >= x_Size || x <= (x_Size - x_Size)) {
-                // Cout that is going over and tell which are the values exceeding the limit.
+    // Nested for loop to go over all the room grid to change the inside to be in a "cleared" state. 'h' = height/y, changes the row
+    for (int h = 0; h < HEIGHT_SIZE; h++) 
+    {
+        // 'w' = width/x. Goes through all columns in this row
+        for (int w = 0; w < WIDTH_SIZE; w++) 
+        {
+            // Check that it does not go outside the grid, if it does cout values exceeding limit and finish this for loop.
+            if (y >= Y_SIZE || y <= (Y_SIZE - Y_SIZE) || x >= X_SIZE || x <= (X_SIZE - X_SIZE)) 
+            {
                 cout << "You going over " << x << " " << y << " " << endl;
-                    // Pause for me to read it.
                 system("PAUSE");
-                        // Skip the rest of this for loop.
                 break;
             }
-                // Check that is the values in the middle and not the bordering values AKA the walls. So the min and max values of 'w' and 'h'.
-            if (h > 0 && w > 0 && w < (Width_SIZE - 1) && h < (Height_SIZE - 1)) {
+            // Check that the values changed are of the inside of the room. Avoid min and max values of 'w' and 'h'.
+            if (h > 0 && w > 0 && w < (WIDTH_SIZE - 1) && h < (HEIGHT_SIZE - 1)) 
+            {
                 grid[x][y] = " + ";
             }
-                    // Add one to x for each repetition of this for loop. It simulates using the w parameter. This could be changed so that w is = to 'x' and the condition to stop is (Width_SIZE + x)
+            // Simulate the addition on 'w' in this for loop. They are done separately as the coordinates in the grid are different from the room.
             x++;
         }
-                        // Reset 'x' to its initial value.
+        // Reset 'x' to its initial value before the loop.
         x = old;
-                            // Add one to 'y'.
         y++;
     }
 }
 
-// Function that displays the player movement on the map
+// Displays the player movement on the map, amount of rooms left and initiate an encounter depending on the rooms wall type. 
 void Map::playerMovement()
 {
+    // Display rooms left
+    rooms->encounters->display.setCursorPosition(SET_WIDTH + (X_SIZE * 3) / 2, Y_SIZE + 1);
+    cout << playerLocationNumber << " / " << totalRooms;
+
+    // Initiate encounter
     switch (checkWall(playerX, playerY))
     {
     case 0:
@@ -352,77 +377,81 @@ void Map::playerMovement()
     default:
         break;
     }
-    // First check if the player will be moving more than the amount of rooms generated.
-    if (playerLocationNumber + 2 < totalRooms && rooms->encounters->encounterInProcess == false) {
-        // Then check if the player position is exceding the map size (trying to imitate the room generation function parameters).
-    if (playerY > 0 || playerX > 0 || playerY < (y_Size - 2) || playerX < (x_Size - 2)) {
-            // Add to the player starting position the direction the rooms was generated to update to the next room coordinates in the map.
-        playerX += pathX[playerLocationNumber];
-        playerY += pathY[playerLocationNumber];
+
+    // Check that there are rooms left to move to and that player is not in an encounter
+    if (playerLocationNumber < totalRooms && rooms->encounters->encounterInProcess == false) 
+    {
+        // Clamp player movement inside the grid
+        if (playerY > 0 || playerX > 0 || playerY < (Y_SIZE - 2) || playerX < (X_SIZE - 2)) 
+        {
+            // Update player position to the next room. *setGrid() for clarity
+            playerX += pathX[playerLocationNumber];
+            playerY += pathY[playerLocationNumber];
+        }
+        // Update to the next room direction stored and current player location as cleared
+        playerLocationNumber++;
+        roomCleared(playerX, playerY);
     }
-                // Go to the next saved movement of the room. *check setGrid() for clarity on this.
-    playerLocationNumber++;
-                    // Clamp the player movement to not exceed the map limits, added as quick fix at first, left it for now for extra measurement. 
-    playerClamping(playerX, playerY);
-                        // Update the room as cleared in the display.
-    roomCleared(playerX, playerY);
+    // Else if there is no more rooms to clear, finish main game loop. 
+    else if (playerLocationNumber == totalRooms) 
+    {
+        rooms->encounters->winPtn[0] = true;
     }
 }
 
-// Clamp functions to avoid going over the map limits that would lead to errors
+// Clamp functions to avoid going over the map limits.
 void Map::clamping(short& x, short& y)
 {
-    if (x < 1) {
+    if (x < 1) 
+    {
         x = 1;
     }
-    else if (x > x_Size) {
-        x = (x_Size - 1);
+    else if (x > X_SIZE) 
+    {
+        x = (X_SIZE - 1);
     };
     if (y < 1) {
         y = 1;
     }
-    else if (y > y_Size) {
-        y = (y_Size - 1);
+    else if (y > Y_SIZE) 
+    {
+        y = (Y_SIZE - 1);
     };
 }
 
-// Updated this clamp to change its values to take in consideration that when this clamp is used it is inside a function that will add '5' to it.
+// Clamp rooms generation. Updated this clamp to change its values to take in consideration that when this clamp is used it is inside a function that will add '5' to it.
 void Map::clamping(int& x, int& y)
 {
     // 1 and +1 to avoid changing the wall borders that are situated at the '0' coordinates.
-    if (x < 1) {
+    if (x < 1) 
+    {
         x = 1;
     }
-    else if (x > (x_Size - Width_SIZE)) {
-        x = (x_Size - (Width_SIZE + 1));
+    else if (x > (X_SIZE - WIDTH_SIZE)) 
+    {
+        x = (X_SIZE - (WIDTH_SIZE + 1));
     };
-    if (y < 1) {
+    if (y < 1) 
+    {
         y = 1;
     }
-    else if (y > (y_Size - Height_SIZE)) {
-        y = (y_Size - (Height_SIZE + 1));
+    else if (y > (Y_SIZE - HEIGHT_SIZE)) 
+    {
+        y = (Y_SIZE - (HEIGHT_SIZE + 1));
     };
 }
 
-void Map::playerClamping(short& x, short& y) {
-    if (x < 1) {
-        x = 2;
-    }
-    else if (x >= (x_Size - (Width_SIZE + 1))) {
-        x = (x_Size - (Width_SIZE + 2));
-    };
-    if (y < 1) {
-        y = 3;
-    }
-    else if (y >= (y_Size - (Height_SIZE + 1))) {
-        y = (y_Size - (Height_SIZE + 1));
-    };
-}
-
-short Map::checkWall(short x, short y) {
+// Checks the wall of the current room of the player to determine which encounter to start.
+short Map::checkWall(short x, short y) 
+{
+    // Local variable with the room type number.
     short typeNumber = 0;
-    for (int n = 0; n < TOTAL_WALLS; n++) {
-        if (getGrid(x, y) == rooms->roomWalls[n]) {
+
+    // For loop going by the total amount of walls that can be checked. Checks the walls of each room type until finding a match.
+    for (int n = 0; n < TOTAL_WALLS; n++) 
+    {
+        if (getGrid(x, y) == rooms->roomWalls[n]) 
+        {
             switch (n)
             {
             case 0:
@@ -454,8 +483,9 @@ short Map::checkWall(short x, short y) {
                 break;
             }
         }
-        // 3 in this case because there is a total of 3 walls, so if it already check 3 walls of a type, go to the next type.
-        if (n % 3 == 2) {
+        // 3 in this case because there is a total of 3 walls per type, so if it already check 3 walls of a type, go to the next type.
+        if (n % 3 == 2) 
+        {
             typeNumber++;
         }
     }
@@ -492,20 +522,20 @@ short Map::checkWall(short x, short y) {
     //
     //void Map::generateMap()
     //{
-    //	for (int y = 0; y < y_Size; y++) {
+    //	for (int y = 0; y < Y_SIZE; y++) {
     //        // This for is to create emtpy space and center the map
     //            for (int space = 0; space < emptySpace; space++) {
     //                cout << "   ";
     //            }
     //            // Left map border
     //            cout << "|";
-    //            for (int x = 0; x < x_Size; x++) {
+    //            for (int x = 0; x < X_SIZE; x++) {
     //                // Top map border
-    //                if (y == (x_Size - 1)){
+    //                if (y == (X_SIZE - 1)){
     //                    cout << "~~~";
     //                    }
     //                // Bottom map border
-    //                else if (y == (y_Size - 1)) {
+    //                else if (y == (Y_SIZE - 1)) {
     //                    cout << "~~~";
     //                } else {
     //                    cout << grid[x][y];
@@ -522,10 +552,10 @@ short Map::checkWall(short x, short y) {
 //{
 //    int old = x;
 //
-//    for (int h = 0; h < Height_SIZE; h++) {
-//        for (int w = 0; w < Width_SIZE; w++) {
+//    for (int h = 0; h < HEIGHT_SIZE; h++) {
+//        for (int w = 0; w < WIDTH_SIZE; w++) {
 //            clamping(x, y);
-//            if (y >= y_Size || y <= (y_Size - y_Size) || x >= x_Size || x <= (x_Size - x_Size)) {
+//            if (y >= Y_SIZE || y <= (Y_SIZE - Y_SIZE) || x >= X_SIZE || x <= (X_SIZE - X_SIZE)) {
 //                cout << "You going over";
 //                system("PAUSE");
 //                break;
@@ -547,9 +577,9 @@ short Map::checkWall(short x, short y) {
 //{
 //    clamping(x, y);
 //    int old = x;
-//    for (int h = 0; h < Height_SIZE; h++) {
-//        for (int w = 0; w < Width_SIZE; w++) {
-//            if (y >= y_Size || y <= (y_Size - y_Size) || x >= x_Size || x <= (x_Size - x_Size)) {
+//    for (int h = 0; h < HEIGHT_SIZE; h++) {
+//        for (int w = 0; w < WIDTH_SIZE; w++) {
+//            if (y >= Y_SIZE || y <= (Y_SIZE - Y_SIZE) || x >= X_SIZE || x <= (X_SIZE - X_SIZE)) {
 //                cout << "you going over: " << y << " " << x;
 //                system("pause");
 //                break;
@@ -616,7 +646,7 @@ short Map::checkWall(short x, short y) {
     //    clamping(x, y);
     //    short* xPointer = &x;
     //    short* yPointer = &y;
-    //    short direction = Width_SIZE + 1;
+    //    short direction = WIDTH_SIZE + 1;
     //    
     //    // Doesnt include the cases check before running the WallsAround, AKA a single checkWall done before in X direction.
     //    switch (generationDirection)
@@ -726,5 +756,33 @@ short Map::checkWall(short x, short y) {
     //
     //    return false;
     //}
+
+    /*   if (posX != playerX && posY != playerY) {*/
+    //totalRooms -= 2;
+    //}
+
+//string Map::getRoomType(int n)
+//{
+//    return string(roomTypes[n]);
+//}
+
+    // Create the new dynamic variable with the total amount of rooms. Possibly change this.
+    // roomTypes = new string[totalRooms];
+
+//void Map::playerClamping(short& x, short& y)
+//{
+//    if (x < 1) {
+//        x = 2;
+//    }
+//    else if (x >= (X_SIZE - (WIDTH_SIZE + 1))) {
+//        x = (X_SIZE - (WIDTH_SIZE + 2));
+//    };
+//    if (y < 1) {
+//        y = 3;
+//    }
+//    else if (y >= (Y_SIZE - (HEIGHT_SIZE + 1))) {
+//        y = (Y_SIZE - (HEIGHT_SIZE + 1));
+//    };
+//}
 
 #pragma endregion

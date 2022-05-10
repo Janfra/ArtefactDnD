@@ -5,7 +5,8 @@
 Player::Player()
 {
     EXP = 0;
-    for (int i = 0; i < TOTAL_LEVELS; i++) {
+    for (int i = 0; i < TOTAL_LEVELS; i++) 
+    {
         neededEXP[i] = ((10 * i) + 10);
     }
     level = 1;
@@ -16,7 +17,9 @@ Player::Player()
     items[0].setRange(1);
 }
 
-Player::~Player() {
+Player::~Player() 
+{
+    // Clears space in the heap and prevents hanging pointers //
     delete items;
     items = NULL;
 }
@@ -24,50 +27,77 @@ Player::~Player() {
 #pragma endregion
 
  #pragma region Setters & Getters
-// SETTERS //
-// Player gains exp from killing
+    // SETTERS //
+// Add experience to the player using 'gainedEXP' parameter. If the amount required is met, levels up, restoring health back to max.
 void Player::setEXP(short gainedEXP)
 {
     EXP += gainedEXP;
 
-    if (EXP >= getNeededEXP()) {
+    if (EXP >= getNeededEXP()) 
+    {
+        if (currentHP -= getTotalHP() > 0) 
+        {
+            currentHP -= getTotalHP();
+        }
+        else 
+        {
+            currentHP = 0;
+        }
         level++;
         setLevel(level);
-        currentHP = getTotalHP();
+        currentHP += getTotalHP();
     }
 }
 
 /* Used for testing purposes // Update: Decided to use it inside the "level up" situation in setEXP. 
 Decided to do this to avoid going over the max lvl once you get to the max amount of required EXP to lvl up. */
+
+// Sets the player level to 'newLVL' parameter. Clamps the level if it exceeds the maximum. 
 void Player::setLevel(short newLVL)
 {
-    if (newLVL > TOTAL_LEVELS) {
+    if (newLVL > TOTAL_LEVELS) 
+    {
         level = TOTAL_LEVELS;
     }
-    else {
+    else 
+    {
         level = newLVL;
     }
 }
 
-// GETTERS //
+// Sets player name to 'newName' parameter. If the player's name exceeds the display lenght, change it. 
+void Player::setName(string newName) 
+{
+    // Check to make sure that the name doesn't exceed the size of the display.
+    if (newName.length() > 29)
+    {
+        newName = "Goblin with long name";
+    }
+    name = newName;
+}
 
+    // GETTERS //
+// Return the player's current 'EXP'.
 short Player::getEXP()
 {
     return EXP;
 }
 
+// Return the player's current level.
 short Player::getLevel()
 {
     return level;
 }
 
+// Return required 'EXP' to level up.
 short Player::getNeededEXP()
 {
-    // Created a variable to be able to store the number of the array needed.
+    // Local variable to be able to store the number of the array needed.
     int arrayNumber = 0;
 
     // The for loop runs until it gets the required number of the array and stores it inside the variable.
-    for (int i = 0; i < level; i++) {
+    for (int i = 0; i < level; i++) 
+    {
         arrayNumber = i;
     }
 
@@ -75,10 +105,12 @@ short Player::getNeededEXP()
     return neededEXP[arrayNumber];
 }
 
+// Return amount of damage dealt by the player taken into consideration items.
 short Player::getPDMG() {
     return (getSTR() + items->getDMG() + rand() % getDEX());
 }
 
+// Return player's 'DODGE'
 short Player::getDODGE() {
     return (1 + (getDEX() / 2) + 0.5 + (items->getRange()));
 }
@@ -87,16 +119,21 @@ short Player::getDODGE() {
 
  #pragma region Player Functions
 
-// the displayLine function was created in order for me to properly align the displayInfo function. If the cout had more than 1 component all other couts needed the same amount of components
-// to stay consistent and not affect the map display. In order to avoid having to constantly change couts, I decided to cut the statSheet into lines and into a single string. That way
-// I only need to cout once for all lines and keep the alignment correctly.
-string Player::displayLine(short a)
+/*  the displayLine function was created in order for me to properly align the displayInfo function. If the cout had more than 1 component all other couts needed the same amount of components
+    to stay consistent and not affect the map display. In order to avoid having to constantly change couts, I decided to cut the statSheet into lines and into a single string. That way
+    I only need to cout once for all lines and keep the alignment correctly. */
+
+
+// Returns a string depending on the 'lineNumber' parameter given. 
+string Player::displayLine(short lineNumber)
 {
-    if (a >= 9) {
-        a = 9;
+    if (lineNumber >= 9) 
+    {
+        lineNumber = 9;
     }
-    else if (a < 0) {
-        a = 0;
+    else if (lineNumber < 0) 
+    {
+        lineNumber = 0;
     }
     string rv[10];
 
@@ -112,7 +149,7 @@ string Player::displayLine(short a)
     rv[8] = "- INT: " + to_string(getINT());
     rv[9] = "- DDG: " + to_string(getDODGE());
 
-    return rv[a];
+    return rv[lineNumber];
 }
 
 #pragma endregion

@@ -5,6 +5,7 @@
     // CONSTRUCTOR //
 Game::Game()
 {
+    // Initializing Variables //
     mainMap = new Map();
     player = new Player();
 }
@@ -12,6 +13,7 @@ Game::Game()
     // DESTRUCTOR //
 Game::~Game()
 {
+    // Clears space in the heap and prevents hanging pointers //
     delete mainMap;
     mainMap = NULL;
     delete player;
@@ -26,7 +28,7 @@ Game::~Game()
 void Game::infoDisplay()
 {
     // Update: Moved all cases that shared the line to a single one. Update 2: Change it to be all pointers to their respective classes.
-    for (int y = 0; y < y_Size; y++) {
+    for (int y = 0; y < Y_SIZE; y++) {
         cout << left << setw(SET_WIDTH);
         switch (y) {
         case 0:
@@ -128,7 +130,7 @@ void Game::infoDisplay()
         }
         // Left map border
         cout << "|";
-        for (int x = 0; x < x_Size; x++) {
+        for (int x = 0; x < X_SIZE; x++) {
             cout << mainMap->getGrid(x, y);
             mainMap->rooms->encounters->display.plusX(mainMap->getGrid(x, y).length());
         }
@@ -154,20 +156,59 @@ void Game::infoDisplay()
     }
 }
 
-// Trying to make a start screen with a timer to display the game title + a recommendation for full screen. // UPDATE: Now is the function running the game
-void Game::gameStart()
+// Displays the game introduction, 'response' parameter is used to set the player's name.
+void Game::gameIntroduction(string response)
 {
-    string response = " ";
-    bool* win = new bool(false);
+    // Introduction text.
+    mainMap->rooms->encounters->display.Color(15);
+    cout << endl << "You wake up in a weird and obscure passage, the only thing you can see is a fountain at the distance." << endl << endl
+         << "You look down at your ";
+    mainMap->rooms->encounters->display.Color(6);
+    cout << "green ";
+    mainMap->rooms->encounters->display.Color(15);
+    cout << "arms confused." << endl << endl << "Next to you lays a ";
+    mainMap->rooms->encounters->display.Color(9);
+    cout << "dagger";
+    mainMap->rooms->encounters->display.Color(15);
+    cout << " you pick it up and approach the fountain while trying to remember your name..." << endl << endl;
+    
+    // Player gets asked a question that will then set the player's name.
+    mainMap->rooms->encounters->display.Color(7);
+    cout << "What is your name, little goblin?" << endl;
+    cin >> response;
+    player->setName(response);
+    mainMap->rooms->encounters->display.clearConsole();
+}
+
+// Sets map type of the game and all pointers required to be able to run the game loop.
+void Game::gameSetting(bool* winSet)
+{
     mainMap->roundMap();
     mainMap->rooms->encounters->setPlayer(player);
-    mainMap->rooms->encounters->setWin(win);
-    while (win[0] == false) {
+    mainMap->rooms->encounters->setWin(winSet);
+}
+
+// Starts the game and runs the main game loop
+void Game::mainGameLoop()
+{
+    // Local variable to wait for player input and set player's name
+    string response = " ";
+    // Local variable to define when the game loop finishes
+    bool* win = new bool(false);
+
+    gameIntroduction(response);
+    gameSetting(win);
+
+    // Initiates main game loop
+    while (win[0] == false) 
+    {
         infoDisplay();
         mainMap->playerMovement();
         cin >> response;
         mainMap->rooms->encounters->display.resetCoordinates();
     }
+
+    // Game finishes
     win = NULL;
     mainMap->rooms->encounters->display.clearConsole();
     cout << left << setw(70) << setfill(' ') << endl << endl << endl << " " << "Game Finish!" << endl << endl << endl << endl << endl << endl << endl;
@@ -175,7 +216,7 @@ void Game::gameStart()
 
 #pragma endregion
 
-#pragma region Testing
+ #pragma region Testing
 
 void Game::MapTesting() {
     string Response1 = " ";
@@ -203,7 +244,7 @@ void Game::MapGenerationTest()
     while (response != 'y') {
         infoDisplay();
         cin >> num1;
-        mainMap->fillMap(num1);
+        mainMap->drawRooms(num1);
         cout << "Type 'y' to finish." << endl;
         cin >> response;
         system("CLS");

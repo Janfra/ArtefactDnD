@@ -14,9 +14,11 @@ public:
 
  #pragma region Game Functions/General
 
-    // Test for the start screen, update: Now to test/Run the game
-    void gameStart();
+
+    void mainGameLoop();
     void infoDisplay();
+    void gameIntroduction(string response);
+    void gameSetting(bool* winSet);
 
 #pragma endregion
 

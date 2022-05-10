@@ -1,4 +1,6 @@
 // GameArtifactDnd.cpp : This file contains the 'main' function. Program execution begins and ends there.
+
+// Including the game class that has all the other classes in the game. 
 #include "Game.h"
 
 int main()
@@ -8,18 +10,21 @@ int main()
     RECT ConsoleRect;
     GetWindowRect(console, &ConsoleRect);
 
-    MoveWindow(console, ConsoleRect.left, ConsoleRect.top, 1600, 600, TRUE);
+    MoveWindow(console, ConsoleRect.left, ConsoleRect.top, 1600, 700, TRUE);
     //
 
     Game mainGame;
-    mainGame.gameStart();
+    mainGame.mainGameLoop();
 }
-    //int x = (x_Size / 2 - (Width_SIZE / 2));
-    //int y = (y_Size - (Height_SIZE + 1));
-    //mainGame.mainMap->setGrid((x_Size / 2 - (Width_SIZE / 2)), (y_Size - (Height_SIZE + 1))); 
+
+#pragma region Testing-Outdated
+//int x = (X_SIZE / 2 - (WIDTH_SIZE / 2));
+    //int y = (Y_SIZE - (HEIGHT_SIZE + 1));
+    //mainGame.mainMap->setGrid((X_SIZE / 2 - (WIDTH_SIZE / 2)), (Y_SIZE - (HEIGHT_SIZE + 1))); 
     //mainGame.mainMap->setGrid((x + 5), (y));
     //mainGame.mainMap->setGrid((x + 10), (y));
     //mainGame.mainMap->setGrid((x + 15), (y));
+#pragma endregion
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
 // Debug program: F5 or Debug > Start Debugging menu

@@ -15,7 +15,6 @@ public:
 
 #pragma region Setters & Getters
 
-    short getDifficulty(short difficulty);
     short getDropEXP();
 
 #pragma endregion
@@ -27,7 +26,9 @@ public:
 #pragma endregion
 
 private:
+    // Defines the amount of experience dropped once the enemy is defeated
     short dropEXP;
+    // Defines if this enemy is the final boss
     bool finalBoss;
 };
 

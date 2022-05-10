@@ -4,7 +4,6 @@
 using namespace std;
 
 class Object {
-    // Will further divide this in the future
 public:
  #pragma region Constructor & Destructor
 
@@ -19,8 +18,8 @@ public:
 
     void setTypeOfAttack(string dmgtype);
     void setName(string newName);
-    void setDMG(int setDMG);
-    void setRange(int setRange);
+    void setDMG(int newDMG);
+    void setRange(int newRange);
 
     // GETTERS // 
 
@@ -33,7 +32,8 @@ public:
 
  #pragma region Objects Functions
 
-    string displayObjLine(short a);
+    // Display Function
+    string displayObjLine(short lineNumber);
 
 #pragma endregion
 
@@ -44,9 +44,13 @@ public:
 #pragma endregion
 
 private:
+    // Stores the object's name 
     string name;
+    // Stores the type of attack dealt by the object
     string typeOfAttack;
+    // Stores the amount of damage that will be added when using this object
     int addDMG;
+    // Stores the amount of bonus to dodge that will be given when using this object
     int addRange;
 };
 

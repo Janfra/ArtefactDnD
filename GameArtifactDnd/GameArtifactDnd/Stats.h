@@ -45,7 +45,7 @@ public:
 
 #pragma region Stats Functions
 
-    string displayLine(short a);
+    string displayLine(short lineNumber);
 
     void heal(short healAmount);
 

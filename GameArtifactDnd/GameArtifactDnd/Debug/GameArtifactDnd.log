@@ -1,2 +1,18 @@
 ﻿  Display.cpp
+  Encounter.cpp
+  Enemy.cpp
+E:\Non-game\GitHub\ArtefactDnD\GameArtifactDnd\GameArtifactDnd\Enemy.cpp(8,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+E:\Non-game\GitHub\ArtefactDnD\GameArtifactDnd\GameArtifactDnd\Enemy.cpp(18,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  Game.cpp
+  GameArtifactDnd.cpp
+  Map.cpp
+  Player.cpp
+E:\Non-game\GitHub\ArtefactDnD\GameArtifactDnd\GameArtifactDnd\Player.cpp(115,38): warning C4244: 'return': conversion from 'double' to 'short', possible loss of data
+  Room.cpp
+E:\Non-game\GitHub\ArtefactDnD\GameArtifactDnd\GameArtifactDnd\Room.cpp(10,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+E:\Non-game\GitHub\ArtefactDnD\GameArtifactDnd\GameArtifactDnd\Room.cpp(26,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  Stats.cpp
+E:\Non-game\GitHub\ArtefactDnD\GameArtifactDnd\GameArtifactDnd\Stats.cpp(25,27): warning C4244: '=': conversion from 'double' to 'short', possible loss of data
+E:\Non-game\GitHub\ArtefactDnD\GameArtifactDnd\GameArtifactDnd\Stats.cpp(144,32): warning C4244: 'return': conversion from 'double' to 'short', possible loss of data
+  Generating Code...
   GameArtifactDnd.vcxproj -> E:\Non-game\GitHub\ArtefactDnD\GameArtifactDnd\Debug\GameArtifactDnd.exe
