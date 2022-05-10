@@ -2,6 +2,8 @@
 #include "Stats.h"
 #include "Object.h"
 #include <iostream>
+
+// Max possible level. 
 #define TOTAL_LEVELS 10
 
 class Player :
@@ -30,11 +32,13 @@ public:
 
     void setEXP(short gainedEXP);
     void setLevel(short newLVL);
+    void setName(string setName);
+
 #pragma endregion
 
  #pragma region Player-Functions
 
-    string displayLine(short a);
+    string displayLine(short lineNumber);
 
 #pragma endregion
 
@@ -56,9 +60,12 @@ public:
 #pragma endregion
 
 protected:
-    //Added a couple of player specific stats
+    // Experience of the player. Needed to level up.
     short EXP;
+    
     // Made neededEXP an array to set the amounts of EXP required for each level to a total of 10 levels because we start off as 1, so TOTAL_LEVELS - 1 which works well with for loops.
+
+    // Required 'EXP' to level up per level.
     short neededEXP[TOTAL_LEVELS];
 };
 

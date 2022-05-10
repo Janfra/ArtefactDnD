@@ -223,16 +223,21 @@ string Room::getRoom(int x, int y)
 // Sets the roomWalls array to the strings given to the walls of each room type to check for encounters.
 void Room::roomWallsCheck(string *giveWall)
 {
-	for (int i = 0; i < TOTAL_TYPES; i++) {
+	for (int i = 0; i < TOTAL_TYPES; i++) 
+	{
 		wallsStoring(i);
-		for (int w = 0; w < 3; w++) {
-			if (w == 0) {
+		for (int w = 0; w < 3; w++) 
+		{
+			if (w == 0) 
+			{
 				giveWall[((i * 3) + (w + 1)) - 1] = room[0][0];
 			}
-			else if (w == 1){
+			else if (w == 1)
+			{
 				giveWall[((i * 3) + (w + 1)) - 1] = room[(WIDTH_SIZE - 1)][0];
 			}
-			else {
+			else 
+			{
 				giveWall[((i * 3) + (w + 1)) - 1] = room[1][0];
 			}
 		}
@@ -240,11 +245,13 @@ void Room::roomWallsCheck(string *giveWall)
 }
 
 // Sets the room type using 'roomType' parameter. Similar to setType(), however this version has no probability to it. 
-void Room::wallsStoring(int roomType) {
+void Room::wallsStoring(int roomType) 
+{
 	switch (roomType)
 	{
 	case 1:
-		for (int y = 0; y < HEIGHT_SIZE; y++) {
+		for (int y = 0; y < HEIGHT_SIZE; y++) 
+		{
 			for (int x = 0; x < WIDTH_SIZE; x++) {
 				if (x == (WIDTH_SIZE - WIDTH_SIZE)) {
 					room[x][y] = "  -";
@@ -262,33 +269,44 @@ void Room::wallsStoring(int roomType) {
 		}
 		break;
 	case 2:
-		for (int y = 0; y < HEIGHT_SIZE; y++) {
-			for (int x = 0; x < WIDTH_SIZE; x++) {
-				if (x == (WIDTH_SIZE - WIDTH_SIZE)) {
+		for (int y = 0; y < HEIGHT_SIZE; y++) 
+		{
+			for (int x = 0; x < WIDTH_SIZE; x++) 
+			{
+				if (x == (WIDTH_SIZE - WIDTH_SIZE)) 
+				{
 					room[x][y] = "  *";
 				}
-				else if (x == (WIDTH_SIZE - 1)) {
+				else if (x == (WIDTH_SIZE - 1)) 
+				{
 					room[x][y] = "*  ";
 				}
-				else if (y == (HEIGHT_SIZE - 1) || y == (HEIGHT_SIZE - HEIGHT_SIZE)) {
+				else if (y == (HEIGHT_SIZE - 1) || y == (HEIGHT_SIZE - HEIGHT_SIZE)) 
+				{
 					room[x][y] = "***";
 				}
-				else {
+				else 
+				{
 					room[x][y] = "   ";
 				}
 			}
 		}
 		break;
 	case 3:
-		for (int y = 0; y < HEIGHT_SIZE; y++) {
-			for (int x = 0; x < WIDTH_SIZE; x++) {
-				if (x == (WIDTH_SIZE - WIDTH_SIZE)) {
+		for (int y = 0; y < HEIGHT_SIZE; y++) 
+		{
+			for (int x = 0; x < WIDTH_SIZE; x++) 
+			{
+				if (x == (WIDTH_SIZE - WIDTH_SIZE)) 
+				{
 					room[x][y] = "  '";
 				}
-				else if (x == (WIDTH_SIZE - 1)) {
+				else if (x == (WIDTH_SIZE - 1)) 
+				{
 					room[x][y] = "'  ";
 				}
-				else if (y == (HEIGHT_SIZE - 1) || y == (HEIGHT_SIZE - HEIGHT_SIZE)) {
+				else if (y == (HEIGHT_SIZE - 1) || y == (HEIGHT_SIZE - HEIGHT_SIZE)) 
+				{
 					room[x][y] = "'''";
 				}
 				else {
@@ -298,36 +316,48 @@ void Room::wallsStoring(int roomType) {
 		}
 		break;
 	case 4:
-		for (int y = 0; y < HEIGHT_SIZE; y++) {
-			for (int x = 0; x < WIDTH_SIZE; x++) {
-				if (x == (WIDTH_SIZE - WIDTH_SIZE)) {
+		for (int y = 0; y < HEIGHT_SIZE; y++) 
+		{
+			for (int x = 0; x < WIDTH_SIZE; x++) 
+			{
+				if (x == (WIDTH_SIZE - WIDTH_SIZE)) 
+				{
 					room[x][y] = "  ~";
 				}
-				else if (x == (WIDTH_SIZE - 1)) {
+				else if (x == (WIDTH_SIZE - 1)) 
+				{
 					room[x][y] = "~  ";
 				}
-				else if (y == (HEIGHT_SIZE - 1) || y == (HEIGHT_SIZE - HEIGHT_SIZE)) {
+				else if (y == (HEIGHT_SIZE - 1) || y == (HEIGHT_SIZE - HEIGHT_SIZE)) 
+				{
 					room[x][y] = "~~~";
 				}
-				else {
+				else 
+				{
 					room[x][y] = "   ";
 				}
 			}
 		}
 		break;
 	default:
-		for (int y = 0; y < HEIGHT_SIZE; y++) {
-			for (int x = 0; x < WIDTH_SIZE; x++) {
-				if (x == (WIDTH_SIZE - WIDTH_SIZE)) {
+		for (int y = 0; y < HEIGHT_SIZE; y++) 
+		{
+			for (int x = 0; x < WIDTH_SIZE; x++) 
+			{
+				if (x == (WIDTH_SIZE - WIDTH_SIZE)) 
+				{
 					room[x][y] = "  #";
 				}
-				else if (x == (WIDTH_SIZE - 1)) {
+				else if (x == (WIDTH_SIZE - 1)) 
+				{
 					room[x][y] = "#  ";
 				}
-				else if (y == (HEIGHT_SIZE - 1) || y == (HEIGHT_SIZE - HEIGHT_SIZE)) {
+				else if (y == (HEIGHT_SIZE - 1) || y == (HEIGHT_SIZE - HEIGHT_SIZE)) 
+				{
 					room[x][y] = "###";
 				}
-				else {
+				else 
+				{
 					room[x][y] = "   ";
 				}
 			}

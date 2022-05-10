@@ -62,7 +62,6 @@ short Encounter::getDifficulty()
 // Starts the enemy encounter, initiating a fight. 
 void Encounter::enemyEncounter()
 {
-	string next;
 	// If there is already an enemy, then don't generate a new one
 	if (enemyPtn == NULL) 
 	{
